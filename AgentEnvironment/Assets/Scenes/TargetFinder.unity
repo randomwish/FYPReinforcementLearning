@@ -308,10 +308,15 @@ PrefabInstance:
       propertyPath: m_BehaviorName
       value: AgentBrain
       objectReference: {fileID: 0}
+    - target: {fileID: 1256689424037062196, guid: d1c41453918c6b34ea60f4c63ea56954,
+        type: 3}
+      propertyPath: m_Name
+      value: Floor
+      objectReference: {fileID: 0}
     - target: {fileID: 2485875214476012904, guid: d1c41453918c6b34ea60f4c63ea56954,
         type: 3}
       propertyPath: m_Name
-      value: Environment
+      value: TargetFinder
       objectReference: {fileID: 0}
     - target: {fileID: 5284643118703130307, guid: d1c41453918c6b34ea60f4c63ea56954,
         type: 3}
@@ -375,24 +380,3 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d1c41453918c6b34ea60f4c63ea56954, type: 3}
---- !u!1 &4981312341509412766 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 2485875214476012904, guid: d1c41453918c6b34ea60f4c63ea56954,
-    type: 3}
-  m_PrefabInstance: {fileID: 4981312341509412765}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &4981312341509412768
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4981312341509412766}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 01a168b06374ee64ba0aa2ca905c359b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  targets: {fileID: 0}
-  numTargets: 0
-  range: 0
