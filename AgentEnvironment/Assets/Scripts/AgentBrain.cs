@@ -4,7 +4,7 @@ using UnityEngine;
 using Unity.MLAgents;
 using Unity.MLAgents.Sensors;
 
-public class FinderBrain : Agent
+public class AgentBrain : Agent
 {
     public GameObject TargetArea;
     TargetFinderArea m_TargetArea;
@@ -21,10 +21,14 @@ public class FinderBrain : Agent
         //Add Environment Settings 
     }
 
+    void Update() {
+        Debug.Log("Position of agent is " + transform.localPosition);    
+
+    }
     public override void OnEpisodeBegin()
     {
         m_AgentRb.velocity = Vector3.zero;
-        transform.position = new Vector3(Random.Range(-m_TargetArea.range,m_TargetArea.range),0.5f,
+        transform.localPosition = new Vector3(Random.Range(-m_TargetArea.range,m_TargetArea.range),0.5f,
                                         Random.Range(-m_TargetArea.range,m_TargetArea.range));
 
 
@@ -34,38 +38,17 @@ public class FinderBrain : Agent
     {
         MoveAgent(vectorAction);
     }
+
     public void MoveAgent(float[] act)
     {
-        var dirToGo = Vector3.zero;
-        var rotateDir = Vector3.zero;
+        Vector3 dirToGo = Vector3.zero;
+        Vector3 rotateDir = Vector3.zero;
 
         //Action Space of 2, namely, forward/backward motion and rotation
-        var forwardAxis = (int)act[0];
-        var rotateAxis = (int)act[1];
-        
-        switch(forwardAxis)
-        {
-            case 1:
-                dirToGo = transform.forward;
-                break;
-            
-            case 2:
-                dirToGo = -transform.forward;
-                break;
-        }
-
-        switch(rotateAxis)
-        {
-            case 1:
-                rotateDir = -transform.up;
-                break;
-            case 2:
-                rotateDir = transform.up;
-                break;
-
-        }
-        m_AgentRb.AddForce(dirToGo * moveSpeed,ForceMode.VelocityChange);
-        transform.Rotate(rotateDir, Time.deltaTime * turnSpeed);
+        Vector3 controlSignal = Vector3.zero;
+        controlSignal.x = act[0];
+        controlSignal.z = act[1];
+        m_AgentRb.AddForce(controlSignal * moveSpeed);
     }
     public override void CollectObservations(VectorSensor sensor)
     {
@@ -76,27 +59,18 @@ public class FinderBrain : Agent
 
     public override void Heuristic(float[] actionsOut)
     {
-        if(Input.GetKey(KeyCode.W))
-        {
-            actionsOut[0] = 1f;
-        }
-        if(Input.GetKey(KeyCode.S))
-        {
-            actionsOut[0] = 2f;
-        }
-        if(Input.GetKey(KeyCode.D))
-        {
-            actionsOut[1] = 2f;
-        }
-        if(Input.GetKey(KeyCode.S))
-        {
-            actionsOut[1] = 1f;
-        }
+
+        actionsOut[0] = Input.GetAxis("Horizontal");
+        actionsOut[1] = Input.GetAxis("Vertical");
     }
 
     void OnCollisionEnter(Collision other) 
     {
-
+        if(other.gameObject.CompareTag("target"))
+        {
+            other.gameObject.GetComponent<ObjectLogic>().OnFound();
+            AddReward(1f);
+        }
     }
 
 }

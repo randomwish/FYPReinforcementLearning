@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 4990983881029295743}
   - component: {fileID: 5193626224349597837}
   - component: {fileID: 8021878066600182890}
+  - component: {fileID: 4904769082799580352}
   m_Layer: 0
   m_Name: Floor
   m_TagString: Untagged
@@ -94,6 +95,21 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &4904769082799580352
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1256689424037062196}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 24e5114680d49a24e84061113183cbea, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  targets: {fileID: 2953165924475200885, guid: 9ed49d09d14c1d14da93916791aa2a88, type: 3}
+  numTargets: 5
+  range: 50
 --- !u!1 &2485875214476012904
 GameObject:
   m_ObjectHideFlags: 0
@@ -420,8 +436,9 @@ GameObject:
   - component: {fileID: 2507523290983298009}
   - component: {fileID: 161503518749154951}
   - component: {fileID: 3078445480500401660}
-  - component: {fileID: 7922455816733836774}
-  - component: {fileID: 1163617632623535683}
+  - component: {fileID: 3274157353909226371}
+  - component: {fileID: 1027133813806532060}
+  - component: {fileID: 1761172575939040159}
   m_Layer: 0
   m_Name: Finder
   m_TagString: agent
@@ -516,15 +533,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_BrainParameters:
-    VectorObservationSize: 1
+    VectorObservationSize: 2
     NumStackedVectorObservations: 1
-    VectorActionSize: 01000000
+    VectorActionSize: 0300000003000000
     VectorActionDescriptions: []
     VectorActionSpaceType: 0
   m_Model: {fileID: 0}
   m_InferenceDevice: 0
-  m_BehaviorType: 0
-  m_BehaviorName: FinderBrain
+  m_BehaviorType: 1
+  m_BehaviorName: AgentBrain
   TeamId: 0
   m_UseChildSensors: 1
 --- !u!114 &3078445480500401660
@@ -553,7 +570,26 @@ MonoBehaviour:
   rayMissColor: {r: 1, g: 1, b: 1, a: 1}
   m_StartVerticalOffset: 0
   m_EndVerticalOffset: 0
---- !u!54 &7922455816733836774
+--- !u!114 &3274157353909226371
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6687578486450268319}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 719eaec9f34dfc143a5cdab49e210aa1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  agentParameters:
+    maxStep: 0
+  hasUpgradedFromAgentParameters: 1
+  MaxStep: 5000
+  TargetArea: {fileID: 1256689424037062196}
+  turnSpeed: 300
+  moveSpeed: 20
+--- !u!54 &1027133813806532060
 Rigidbody:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -569,7 +605,7 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &1163617632623535683
+--- !u!114 &1761172575939040159
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -578,14 +614,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 6687578486450268319}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1fad2de40aa249a4b9c17e9fcc0d74d4, type: 3}
+  m_Script: {fileID: 11500000, guid: 3a5c9d521e5ef4759a8246a07d52221e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  agentParameters:
-    maxStep: 0
-  hasUpgradedFromAgentParameters: 1
-  MaxStep: 0
-  TargetArea: {fileID: 0}
+  DecisionPeriod: 5
+  TakeActionsBetweenDecisions: 1
 --- !u!1 &6890063726455252975
 GameObject:
   m_ObjectHideFlags: 0

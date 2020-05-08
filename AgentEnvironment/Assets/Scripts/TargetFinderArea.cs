@@ -16,14 +16,28 @@ public class TargetFinderArea : MonoBehaviour
                                                                     ,1.0f
                                                                     ,Random.Range(-range,range))
                                             ,Quaternion.Euler(new Vector3(0f, Random.Range(0f, 360f), 90f)));
+            Debug.Log("Object instantiated at" + t.transform.position);
             t.GetComponent<ObjectLogic>().myArea = this;                 
       }
  
  
   }
 
-  void ResetEnvironment()
-  {
-    CreateTarget(numTargets,targets);   
-  }
+  public void ResetTargetArea(GameObject[] agents)
+    {
+        foreach(GameObject agent in agents)
+        {
+            if (agent.transform.parent == gameObject.transform)
+            {
+                agent.transform.position = new Vector3(Random.Range(-range, range), 2f,
+                    Random.Range(-range, range))
+                    + transform.position;
+                agent.transform.rotation = Quaternion.Euler(new Vector3(0f, Random.Range(0, 360)));
+            }
+        }
+
+        CreateTarget(numTargets, targets);
+    }
+
+
 }
