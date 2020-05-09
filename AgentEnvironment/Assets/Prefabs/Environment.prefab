@@ -540,7 +540,7 @@ MonoBehaviour:
     VectorActionSpaceType: 0
   m_Model: {fileID: 0}
   m_InferenceDevice: 0
-  m_BehaviorType: 1
+  m_BehaviorType: 0
   m_BehaviorName: AgentBrain
   TeamId: 0
   m_UseChildSensors: 1
@@ -587,8 +587,14 @@ MonoBehaviour:
   hasUpgradedFromAgentParameters: 1
   MaxStep: 5000
   TargetArea: {fileID: 1256689424037062196}
+  targets: {fileID: 2953165924475200885, guid: 9ed49d09d14c1d14da93916791aa2a88, type: 3}
+  numTargets: 5
+  range: 0
+  count: 0
   turnSpeed: 300
   moveSpeed: 20
+  targetFinderSettings: {fileID: 0}
+  targetFinderArea: {fileID: 0}
 --- !u!54 &1027133813806532060
 Rigidbody:
   m_ObjectHideFlags: 0
