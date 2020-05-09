@@ -12,7 +12,6 @@ GameObject:
   - component: {fileID: 4990983881029295743}
   - component: {fileID: 5193626224349597837}
   - component: {fileID: 8021878066600182890}
-  - component: {fileID: 4904769082799580352}
   m_Layer: 0
   m_Name: Floor
   m_TagString: Untagged
@@ -95,21 +94,6 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
---- !u!114 &4904769082799580352
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1256689424037062196}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 24e5114680d49a24e84061113183cbea, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  targets: {fileID: 2953165924475200885, guid: 9ed49d09d14c1d14da93916791aa2a88, type: 3}
-  numTargets: 5
-  range: 50
 --- !u!1 &2485875214476012904
 GameObject:
   m_ObjectHideFlags: 0
@@ -119,6 +103,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5284643118703130307}
+  - component: {fileID: 9095105059199660916}
   m_Layer: 0
   m_Name: Environment
   m_TagString: Untagged
@@ -134,7 +119,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2485875214476012904}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.39999998, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 542237676873834838}
@@ -143,6 +128,21 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &9095105059199660916
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2485875214476012904}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 24e5114680d49a24e84061113183cbea, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  targets: {fileID: 2953165924475200885, guid: 9ed49d09d14c1d14da93916791aa2a88, type: 3}
+  numTargets: 5
+  range: 50
 --- !u!1 &3440266181080401288
 GameObject:
   m_ObjectHideFlags: 0

@@ -26,13 +26,10 @@ public class AgentBrain : Agent
     {
         m_AgentRb = GetComponent<Rigidbody>();
         m_TargetArea = TargetArea.GetComponent<TargetFinderArea>();
-        //Add Environment Settings 
+       // m_TargetFinderSettings = FindObjectOfType<TargetFinderSettings>();
     }
 
-    void Update() {
-        Debug.Log("Position of agent is " + transform.localPosition);    
 
-    }
     public override void OnEpisodeBegin()
     {
         m_AgentRb.velocity = Vector3.zero;
@@ -74,7 +71,7 @@ public class AgentBrain : Agent
         Vector3 controlSignal = Vector3.zero;
         controlSignal.x = act[0];
         controlSignal.z = act[1];
-        m_AgentRb.AddForce(controlSignal * moveSpeed);
+        m_AgentRb.AddForce(controlSignal * moveSpeed,ForceMode.VelocityChange);
     }
     public override void CollectObservations(VectorSensor sensor)
     {
