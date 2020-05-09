@@ -36,17 +36,16 @@ public class AgentBrain : Agent
     public override void OnEpisodeBegin()
     {
         m_AgentRb.velocity = Vector3.zero;
-        //TargetFinderArea[] resetCall = FindObjectsOfType<TargetFinderArea>(); ;
-        //targetFinderArea.ResetTargetArea(resetCall);
-        //targetFinderArea.CreateTarget(numTargets, targets);
-        
+
         transform.localPosition = new Vector3(Random.Range(-m_TargetArea.range,m_TargetArea.range),0.5f,
                                         Random.Range(-m_TargetArea.range,m_TargetArea.range));
         gameObject.transform.position = new Vector3(Random.Range(-range, range), 0.5f,
                                                     Random.Range(-range, range))
                                                     + transform.position;
         gameObject.transform.rotation = Quaternion.Euler(new Vector3(0f, Random.Range(0, 360)));
+        
         m_TargetArea.CreateTarget(numTargets, targets);
+        
 
     }
 
@@ -59,7 +58,7 @@ public class AgentBrain : Agent
         { 
             //can housekeep to not hardcode this but later
             count = 0;
-            m_TargetArea.ClearObjects(GameObject.FindGameObjectsWithTag("target"));
+            
             EndEpisode();
         }
              
