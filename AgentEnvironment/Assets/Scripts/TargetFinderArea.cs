@@ -12,9 +12,9 @@ public class TargetFinderArea : MonoBehaviour
   {
       for(int i = 0; i < num; i++)
       {
-          GameObject t = Instantiate(target,new Vector3(Random.Range(-range, range)
-                                                                    ,gameObject.transform.position.y
-                                                                    ,Random.Range(-range,range))
+          GameObject t = Instantiate(target,new Vector3(Random.Range(-range, range) + gameObject.transform.position.x
+                                                                    , gameObject.transform.position.y
+                                                                    ,Random.Range(-range,range) + gameObject.transform.position.z)
                                             ,Quaternion.Euler(new Vector3(0f, Random.Range(0f, 360f), 90f)));
             Debug.Log("Object instantiated at" + t.transform.position);
             t.GetComponent<ObjectLogic>().myArea = this;                 
