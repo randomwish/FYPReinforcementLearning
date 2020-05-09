@@ -32,8 +32,8 @@ public class TargetFinderArea : MonoBehaviour
 
         foreach (var obj in objects)
         {
-            if (obj.transform.position.x < gameObject.transform.position.x - 50 && obj.transform.position.x < gameObject.transform.position.x + 50 
-                && obj.transform.position.z < gameObject.transform.position.z - 50 && obj.transform.position.z < gameObject.transform.position.z + 50)
+            if (obj.transform.position.x > gameObject.transform.position.x - 50 && obj.transform.position.x < gameObject.transform.position.x + 50 
+                && obj.transform.position.z > gameObject.transform.position.z - 50 && obj.transform.position.z < gameObject.transform.position.z + 50)
                 Destroy(obj);
             // does not include y; cannot stack training areas vertically
         }
