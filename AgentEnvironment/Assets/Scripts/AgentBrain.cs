@@ -8,13 +8,20 @@ public class AgentBrain : Agent
 {
     public GameObject TargetArea;
     TargetFinderArea m_TargetArea;
-    TargetFinderSettings m_TargetFinderSettings;
+    public GameObject targets;
+    public int numTargets;
+    public float range;
 
     Rigidbody m_AgentRb;
+
+    public int count = 0;
     
     public float turnSpeed = 300;
     public float moveSpeed = 2;
-    
+
+    public TargetFinderSettings targetFinderSettings;
+    public TargetFinderArea targetFinderArea;
+
     public override void Initialize()
     {
         m_AgentRb = GetComponent<Rigidbody>();
@@ -26,16 +33,29 @@ public class AgentBrain : Agent
     public override void OnEpisodeBegin()
     {
         m_AgentRb.velocity = Vector3.zero;
-        transform.position = new Vector3(Random.Range(-m_TargetArea.range,m_TargetArea.range),1f,
-                                        Random.Range(-m_TargetArea.range,m_TargetArea.range)) + TargetArea.transform.position;
-        transform.rotation = Quaternion.Euler(new Vector3(0f, Random.Range(0, 360)));
-
+        //TargetFinderArea[] resetCall = FindObjectsOfType<TargetFinderArea>(); ;
+        //targetFinderArea.ResetTargetArea(resetCall);
+        //targetFinderArea.CreateTarget(numTargets, targets);
+        
+        transform.localPosition = new Vector3(Random.Range(-m_TargetArea.range,m_TargetArea.range),0.5f,
+                                        Random.Range(-m_TargetArea.range,m_TargetArea.range));
+        Debug.Log("Agent placed at random postition");
+        //targetFinderSettings.Awake();
 
     }
 
     public override void OnActionReceived(float[] vectorAction)
     {
         MoveAgent(vectorAction);
+        AddReward(-0.01f);
+
+        if (count >= numTargets)
+        { 
+            //can housekeep to not hardcode this but later
+            count = 0;
+            EndEpisode();
+        }
+             
     }
 
     public void MoveAgent(float[] act)
@@ -69,7 +89,7 @@ public class AgentBrain : Agent
         {
             other.gameObject.GetComponent<ObjectLogic>().OnFound();
             AddReward(1f);
-            m_TargetFinderSettings.totalScore++;
+            count++;
         }
     }
 

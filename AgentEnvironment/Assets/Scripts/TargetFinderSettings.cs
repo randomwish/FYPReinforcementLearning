@@ -17,6 +17,7 @@ public class TargetFinderSettings : MonoBehaviour
     {
         Academy.Instance.OnEnvironmentReset += EnvironmentReset;
         m_Recorder = Academy.Instance.StatsRecorder;
+        Debug.Log("Settings awoken");
     }
 
     void EnvironmentReset()
