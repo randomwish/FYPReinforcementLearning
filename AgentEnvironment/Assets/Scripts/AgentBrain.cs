@@ -26,7 +26,7 @@ public class AgentBrain : Agent
     {
         m_AgentRb = GetComponent<Rigidbody>();
         m_TargetArea = TargetArea.GetComponent<TargetFinderArea>();
-        m_TargetFinderSettings = FindObjectOfType<TargetFinderSettings>();
+       // m_TargetFinderSettings = FindObjectOfType<TargetFinderSettings>();
     }
 
 
@@ -40,6 +40,7 @@ public class AgentBrain : Agent
         transform.localPosition = new Vector3(Random.Range(-m_TargetArea.range,m_TargetArea.range),0.5f,
                                         Random.Range(-m_TargetArea.range,m_TargetArea.range));
         Debug.Log("Agent placed at random postition");
+        m_TargetArea.CreateTarget(numTargets, targets);
         //targetFinderSettings.Awake();
 
     }

@@ -4,7 +4,7 @@ using UnityEngine;
 using Unity.MLAgents;
 
 public class TargetFinderSettings : MonoBehaviour
-{
+{ /*
     [HideInInspector]
     public GameObject[] agents;
     [HideInInspector]
@@ -51,5 +51,5 @@ public class TargetFinderSettings : MonoBehaviour
         {
             m_Recorder.Add("TotalScore", totalScore);
         }
-    }
+    }*/
 }
