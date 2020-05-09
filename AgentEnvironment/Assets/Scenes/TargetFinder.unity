@@ -136,12 +136,22 @@ PrefabInstance:
     - target: {fileID: 1027133813806532060, guid: d1c41453918c6b34ea60f4c63ea56954,
         type: 3}
       propertyPath: m_Constraints
-      value: 84
+      value: 112
       objectReference: {fileID: 0}
     - target: {fileID: 2485875214476012904, guid: d1c41453918c6b34ea60f4c63ea56954,
         type: 3}
       propertyPath: m_Name
       value: Environment
+      objectReference: {fileID: 0}
+    - target: {fileID: 3274157353909226371, guid: d1c41453918c6b34ea60f4c63ea56954,
+        type: 3}
+      propertyPath: MaxStep
+      value: 5000
+      objectReference: {fileID: 0}
+    - target: {fileID: 3274157353909226371, guid: d1c41453918c6b34ea60f4c63ea56954,
+        type: 3}
+      propertyPath: moveSpeed
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 3970582888749395191, guid: d1c41453918c6b34ea60f4c63ea56954,
         type: 3}

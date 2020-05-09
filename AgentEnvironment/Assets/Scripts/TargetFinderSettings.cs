@@ -31,6 +31,7 @@ public class TargetFinderSettings : MonoBehaviour
         {
             fa.ResetTargetArea(agents);
         }
+        Debug.Log("Environment Resetted");
         totalScore = 0;
     }
 
