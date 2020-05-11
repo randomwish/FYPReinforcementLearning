@@ -49,13 +49,12 @@ public class AgentBrain : Agent
     public override void OnActionReceived(float[] vectorAction)
     {
         MoveAgent(vectorAction);
-        AddReward(-0.01f);
+        AddReward(-0.02f);
 
         if (count >= m_TargetArea.numTargets)
         { 
             //can housekeep to not hardcode this but later
             count = 0;
-            
             EndEpisode();
         }
              
