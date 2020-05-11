@@ -46,9 +46,8 @@ public class TargetFinderArea : MonoBehaviour
         {
             if (agent.transform.parent == gameObject.transform)
             {
-                agent.transform.localPosition = new Vector3(Random.Range(-range, range), 2f,
-                    Random.Range(-range, range))
-                    + transform.localPosition;
+                agent.transform.localPosition = new Vector3(Random.Range(-range, range), 0.5f,
+                    Random.Range(-range, range));
                 agent.transform.rotation = Quaternion.Euler(new Vector3(0f, Random.Range(0, 360)));
             }
         }
