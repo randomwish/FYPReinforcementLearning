@@ -86,16 +86,21 @@ public class AgentBrain : Agent
 
     void OnCollisionEnter(Collision other) 
     {
-        if(other.gameObject.CompareTag("target"))
+        if(other.transform.CompareTag("target"))
         {
-            other.gameObject.GetComponent<ObjectLogic>().OnFound();
-            AddReward(1f);
-            count++;
+            DestroyTarget(other.gameObject);
         }
-        if (other.gameObject.CompareTag("wall")) {
+        else if (other.transform.CompareTag("wall"))
+        {
             AddReward(-100f);
             EndEpisode();
         }
+    }
+
+    void DestroyTarget(GameObject targetObject)
+    {
+        m_TargetArea.RemoveSpecificTarget(targetObject);
+        AddReward(1f);
     }
 
 }

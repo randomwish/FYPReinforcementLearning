@@ -60,7 +60,7 @@ public class TargetFinderArea : MonoBehaviour
  
     }
 
-    public void SpawnAgent()
+    public void RespawnAgent()
     {
         Rigidbody rigidbody = agent.GetComponent<Rigidbody>();
         rigidbody.velocity = Vector3.zero;
@@ -72,7 +72,7 @@ public class TargetFinderArea : MonoBehaviour
     public void ResetArea()
     {
         RemoveAllTargets();
-        SpawnAgent();
+        RespawnAgent();
         SpawnTarget(numTargets,target);
     }
     private void Start()
