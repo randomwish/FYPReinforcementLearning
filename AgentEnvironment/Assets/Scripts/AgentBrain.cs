@@ -41,7 +41,7 @@ public class AgentBrain : Agent
     }
     public override void OnEpisodeBegin()
     {
-        m_TargetArea.ResetEnvironment();
+        m_TargetArea.ResetArea();
         m_AgentRb.velocity = Vector3.zero;
 
     }
@@ -61,9 +61,7 @@ public class AgentBrain : Agent
     }
 
     public void MoveAgent(float[] act)
-    {
-        Vector3 dirToGo = Vector3.zero;
-        Vector3 rotateDir = Vector3.zero;
+    { 
 
         //Action Space of 2, namely, forward/backward motion and rotation
         Vector3 controlSignal = Vector3.zero;

@@ -4,63 +4,79 @@ using UnityEngine;
 
 public class TargetFinderArea : MonoBehaviour
 {
-    public GameObject targets;
+    public GameObject target;
     public int numTargets;
     public float range;
 
-    GameObject[] agents;
+    public GameObject agent;
+    private List<GameObject> agentsList;
+    private List<GameObject> targetsList;
 
 
+    public void RemoveSpecificTarget(GameObject targetObject)
+    {
+        targetsList.Remove(targetObject);
+        Destroy(targetObject);
+    }    
     
-    public void CreateTarget(int num, GameObject target)
+    public void RemoveAllTargets()
+    {
+        if(targetsList != null)
+        {
+            for(int i = 0; i < targetsList.Count; i++){
+                if(targetsList[i] != null){
+                    Destroy(targetsList[i]);
+                }
+            }
+        }
+
+        targetsList = new List<GameObject>();
+    }
+
+    public static Vector3 GenerateNewPosition(Vector3 center, float range)
+    {
+        Vector3 newPosition = center;
+        newPosition.x += UnityEngine.Random.Range(-range,range);
+        newPosition.z += UnityEngine.Random.Range(-range,range);
+        return newPosition;
+    }
+
+    public void SpawnTarget(int num, GameObject target)
     {
 
         for (int i = 0; i < num; i++)
         {
-            GameObject t = Instantiate(target,new Vector3(Random.Range(-range, range)
-                                                                    , gameObject.transform.position.y
-                                                                    ,Random.Range(-range,range))
-                                            ,Quaternion.Euler(new Vector3(0f, Random.Range(0f, 360f), 90f)));
-            Debug.Log("Object instantiated at" + t.transform.localPosition);
+            GameObject t = Instantiate<GameObject>(target.gameObject);
+            t.transform.position = GenerateNewPosition(transform.position,range);
+            t.transform.rotation = Quaternion.Euler(0f, UnityEngine.Random.Range(0f,360f),0f);
+            
+            t.transform.SetParent(transform);
+
+            targetsList.Add(t);
+
+            
         }
  
  
     }
 
-    public void ClearObjects(GameObject[] objects)
+    public void SpawnAgent()
     {
-
-        foreach (var obj in objects)
-        {
-            //if (obj.transform.position.x > gameObject.transform.position.x - 50 && obj.transform.position.x < gameObject.transform.position.x + 50 
-              //  && obj.transform.position.z > gameObject.transform.position.z - 50 && obj.transform.position.z < gameObject.transform.position.z + 50)
-                Destroy(obj);
-            // does not include y; cannot stack training areas vertically
-        }
+        Rigidbody rigidbody = agent.GetComponent<Rigidbody>();
+        rigidbody.velocity = Vector3.zero;
+        rigidbody.angularVelocity = Vector3.zero;
+        agent.transform.position = GenerateNewPosition(transform.position,range);
+        agent.transform.rotation = Quaternion.Euler(0f,UnityEngine.Random.Range(0f,180f),0f); 
     }
 
-    public void ResetTargetArea(GameObject[] agents)
+    public void ResetArea()
     {
-        ClearObjects(GameObject.FindGameObjectsWithTag("target"));
-        foreach(GameObject agent in agents)
-        {
-            if (agent.transform.parent == gameObject.transform)
-            {
-                agent.transform.localPosition = new Vector3(Random.Range(-range, range), 0.5f,
-                    Random.Range(-range, range));
-                agent.transform.rotation = Quaternion.Euler(new Vector3(0f, Random.Range(0, 360)));
-            }
-        }
-
-        CreateTarget(numTargets, targets);
+        RemoveAllTargets();
+        SpawnAgent();
+        SpawnTarget(numTargets,target);
     }
-    
-    public void ResetEnvironment()
+    private void Start()
     {
-
-        agents = GameObject.FindGameObjectsWithTag("agent");
-        ResetTargetArea(agents);
-        
+        ResetArea();
     }
-
 }
