@@ -141,7 +141,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   target: {fileID: 2953165924475200885, guid: 9ed49d09d14c1d14da93916791aa2a88, type: 3}
-  numTargets: 10
+  numTargets: 25
   range: 50
   agent: {fileID: 6687578486450268319}
 --- !u!1 &3440266181080401288
@@ -534,12 +534,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_BrainParameters:
-    VectorObservationSize: 16
+    VectorObservationSize: 2
     NumStackedVectorObservations: 1
-    VectorActionSize: 06000000
+    VectorActionSize: 02000000
     VectorActionDescriptions: []
-    VectorActionSpaceType: 0
-  m_Model: {fileID: 5022602860645237092, guid: 7ddb64b3b4394bf41bd62046da8308f9, type: 3}
+    VectorActionSpaceType: 1
+  m_Model: {fileID: 5022602860645237092, guid: da16f0e48e758d1479ef6b604a7c370a, type: 3}
   m_InferenceDevice: 0
   m_BehaviorType: 0
   m_BehaviorName: AgentBrain
@@ -560,11 +560,10 @@ MonoBehaviour:
   m_SensorName: RayPerceptionSensor
   m_DetectableTags:
   - target
-  - wall
   m_RaysPerDirection: 7
   m_MaxRayDegrees: 135
   m_SphereCastRadius: 0.5
-  m_RayLength: 50
+  m_RayLength: 100
   m_RayLayerMask:
     serializedVersion: 2
     m_Bits: 4294967291
@@ -588,13 +587,13 @@ MonoBehaviour:
   agentParameters:
     maxStep: 0
   hasUpgradedFromAgentParameters: 1
-  MaxStep: 5000
+  MaxStep: 10000
   targets: {fileID: 2953165924475200885, guid: 9ed49d09d14c1d14da93916791aa2a88, type: 3}
   TargetArea: {fileID: 2485875214476012904}
   range: 0
   count: 0
   turnSpeed: 300
-  moveSpeed: 50
+  moveSpeed: 35
 --- !u!54 &1027133813806532060
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -603,7 +602,7 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6687578486450268319}
   serializedVersion: 2
-  m_Mass: 1
+  m_Mass: 10
   m_Drag: 0
   m_AngularDrag: 0.05
   m_UseGravity: 1

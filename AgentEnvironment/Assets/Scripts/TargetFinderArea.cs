@@ -37,7 +37,7 @@ public class TargetFinderArea : MonoBehaviour
     {
         Vector3 newPosition = center;
         newPosition.x += UnityEngine.Random.Range(-range,range);
-        newPosition.y += 0.5f;
+        newPosition.y = 1f;
         newPosition.z += UnityEngine.Random.Range(-range,range);
         return newPosition;
     }

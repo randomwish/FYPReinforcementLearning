@@ -34,9 +34,9 @@ public class AgentBrain : Agent
     }
 
     void Update() {
-        Debug.Log("Current Time Step: "+ Time.time);
+        /*Debug.Log("Current Time Step: "+ Time.time);
         Debug.Log("Position of agent is " + transform.localPosition);    
-        Debug.Log("Current Score is " + count);
+        Debug.Log("Current Score is " + count);*/
 
     }
     public override void OnEpisodeBegin()
@@ -49,11 +49,10 @@ public class AgentBrain : Agent
     public override void OnActionReceived(float[] vectorAction)
     {
         MoveAgent(vectorAction);
-        AddReward(-0.02f);
+        AddReward(-0.001f);
 
         if (count >= m_TargetArea.numTargets)
         { 
-            //can housekeep to not hardcode this but later
             count = 0;
             EndEpisode();
         }
@@ -62,7 +61,6 @@ public class AgentBrain : Agent
 
     public void MoveAgent(float[] act)
     { 
-
         //Action Space of 2, namely, forward/backward motion and rotation
         Vector3 controlSignal = Vector3.zero;
         controlSignal.x = act[0];
@@ -79,9 +77,9 @@ public class AgentBrain : Agent
 
     public override void Heuristic(float[] actionsOut)
     {
-
         actionsOut[0] = Input.GetAxis("Horizontal");
         actionsOut[1] = Input.GetAxis("Vertical");
+        //Debug.Log("Keys pressed");
     }
 
     void OnCollisionEnter(Collision other) 
@@ -92,8 +90,8 @@ public class AgentBrain : Agent
         }
         else if (other.transform.CompareTag("wall"))
         {
-            AddReward(-100f);
-            EndEpisode();
+            //AddReward(-10f);
+            //EndEpisode();
         }
     }
 
