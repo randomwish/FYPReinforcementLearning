@@ -94,6 +94,10 @@ public class AgentBrain : Agent
             AddReward(1f);
             count++;
         }
+        if (other.gameObject.CompareTag("wall")) {
+            AddReward(-100f);
+            EndEpisode();
+        }
     }
 
 }
