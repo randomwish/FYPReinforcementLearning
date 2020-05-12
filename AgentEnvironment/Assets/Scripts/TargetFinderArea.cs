@@ -37,6 +37,7 @@ public class TargetFinderArea : MonoBehaviour
     {
         Vector3 newPosition = center;
         newPosition.x += UnityEngine.Random.Range(-range,range);
+        newPosition.y += 0.5f;
         newPosition.z += UnityEngine.Random.Range(-range,range);
         return newPosition;
     }
@@ -48,7 +49,7 @@ public class TargetFinderArea : MonoBehaviour
         {
             GameObject t = Instantiate<GameObject>(target.gameObject);
             t.transform.position = GenerateNewPosition(transform.position,range);
-            t.transform.rotation = Quaternion.Euler(0f, UnityEngine.Random.Range(0f,360f),0f);
+            t.transform.rotation = Quaternion.Euler(0f,0f,0f);
             
             t.transform.SetParent(transform);
 
