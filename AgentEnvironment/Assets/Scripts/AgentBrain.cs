@@ -49,7 +49,17 @@ public class AgentBrain : Agent
     public override void OnActionReceived(float[] vectorAction)
     {
         MoveAgent(vectorAction);
-        AddReward(-0.001f);
+        //AddReward(-0.001f);
+
+        foreach (GameObject element in m_TargetArea.TargetsList)
+        {
+            float targDist = Vector3.Distance(this.transform.localPosition, element.transform.localPosition);
+            if (targDist < 2f)
+            {
+                count++;
+                DestroyTarget(element.gameObject);
+                }
+        }
 
         if (count >= m_TargetArea.numTargets)
         { 
@@ -83,16 +93,11 @@ public class AgentBrain : Agent
     }
 
     void OnCollisionEnter(Collision other) 
-    {
+    {/*
         if(other.transform.CompareTag("target"))
         {
             DestroyTarget(other.gameObject);
-        }
-        else if (other.transform.CompareTag("wall"))
-        {
-            //AddReward(-10f);
-            //EndEpisode();
-        }
+        } */
     }
 
     void DestroyTarget(GameObject targetObject)

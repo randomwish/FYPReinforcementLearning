@@ -12,6 +12,8 @@ public class TargetFinderArea : MonoBehaviour
     private List<GameObject> agentsList;
     private List<GameObject> targetsList;
 
+    public List<GameObject> TargetsList { get { return targetsList;  } }
+
 
     public void RemoveSpecificTarget(GameObject targetObject)
     {
