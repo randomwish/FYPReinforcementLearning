@@ -18,7 +18,7 @@ public class AgentBrain : Agent
     public float range;
     [HideInInspector]
     int numTargets;
-    public int count = 0;
+    //public int count = 0;
     public float turnSpeed = 300;
     public float moveSpeed = 2;
 
@@ -43,27 +43,26 @@ public class AgentBrain : Agent
     {
         m_TargetArea.ResetArea();
         m_AgentRb.velocity = Vector3.zero;
-
     }
 
     public override void OnActionReceived(float[] vectorAction)
     {
         MoveAgent(vectorAction);
-        //AddReward(-0.001f);
+        AddReward(-0.0001f);
 
         foreach (GameObject element in m_TargetArea.TargetsList)
         {
             float targDist = Vector3.Distance(this.transform.localPosition, element.transform.localPosition);
             if (targDist < 2f)
             {
-                count++;
+                m_TargetArea.Score++;
                 DestroyTarget(element.gameObject);
                 }
         }
 
-        if (count >= m_TargetArea.numTargets)
-        { 
-            count = 0;
+        if (m_TargetArea.Score == m_TargetArea.numTargets)
+        {
+            m_TargetArea.Score = 0;
             EndEpisode();
         }
              

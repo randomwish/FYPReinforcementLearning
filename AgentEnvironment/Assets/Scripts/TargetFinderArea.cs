@@ -12,12 +12,16 @@ public class TargetFinderArea : MonoBehaviour
     public GameObject agent;
     public GameObject agent2;
     public GameObject agent3;
+
+    int score = 0;
     // can change for mutliple agents later; testing first
     private List<GameObject> agentsList;
     private List<GameObject> targetsList;
 
     public List<GameObject> TargetsList { get { return targetsList;  } }
     public List<GameObject> AgentsList { get { return agentsList;  } }
+
+    public int Score { get { return score; } set { score = Score; } }
 
 
     public void RemoveSpecificTarget(GameObject targetObject)
