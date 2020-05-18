@@ -231,7 +231,7 @@ MonoBehaviour:
   m_SensorName: RayPerceptionSensor
   m_DetectableTags:
   - target
-  m_RaysPerDirection: 7
+  m_RaysPerDirection: 14
   m_MaxRayDegrees: 135
   m_SphereCastRadius: 0.5
   m_RayLength: 100
@@ -765,7 +765,7 @@ MonoBehaviour:
   m_SensorName: RayPerceptionSensor
   m_DetectableTags:
   - target
-  m_RaysPerDirection: 7
+  m_RaysPerDirection: 14
   m_MaxRayDegrees: 135
   m_SphereCastRadius: 0.5
   m_RayLength: 100
@@ -965,7 +965,7 @@ MonoBehaviour:
   m_SensorName: RayPerceptionSensor
   m_DetectableTags:
   - target
-  m_RaysPerDirection: 7
+  m_RaysPerDirection: 14
   m_MaxRayDegrees: 135
   m_SphereCastRadius: 0.5
   m_RayLength: 100
