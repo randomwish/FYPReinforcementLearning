@@ -210,7 +210,7 @@ MonoBehaviour:
     VectorActionSize: 02000000
     VectorActionDescriptions: []
     VectorActionSpaceType: 1
-  m_Model: {fileID: 5022602860645237092, guid: 5646f5fa9030b5742abe07e2dc3a2637, type: 3}
+  m_Model: {fileID: 5022602860645237092, guid: da16f0e48e758d1479ef6b604a7c370a, type: 3}
   m_InferenceDevice: 0
   m_BehaviorType: 0
   m_BehaviorName: AgentBrain
@@ -232,7 +232,7 @@ MonoBehaviour:
   m_DetectableTags:
   - target
   m_RaysPerDirection: 14
-  m_MaxRayDegrees: 135
+  m_MaxRayDegrees: 180
   m_SphereCastRadius: 0.5
   m_RayLength: 100
   m_RayLayerMask:
@@ -263,7 +263,7 @@ MonoBehaviour:
   TargetArea: {fileID: 2485875214476012904}
   range: 0
   turnSpeed: 300
-  moveSpeed: 35
+  moveSpeed: 10
 --- !u!54 &1864088107811682362
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -343,7 +343,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   target: {fileID: 2953165924475200885, guid: 9ed49d09d14c1d14da93916791aa2a88, type: 3}
-  numTargets: 25
+  numTargets: 15
   numAgents: 3
   range: 50
   agent: {fileID: 6687578486450268319}
@@ -744,7 +744,7 @@ MonoBehaviour:
     VectorActionSize: 02000000
     VectorActionDescriptions: []
     VectorActionSpaceType: 1
-  m_Model: {fileID: 5022602860645237092, guid: 5646f5fa9030b5742abe07e2dc3a2637, type: 3}
+  m_Model: {fileID: 5022602860645237092, guid: da16f0e48e758d1479ef6b604a7c370a, type: 3}
   m_InferenceDevice: 0
   m_BehaviorType: 0
   m_BehaviorName: AgentBrain
@@ -766,7 +766,7 @@ MonoBehaviour:
   m_DetectableTags:
   - target
   m_RaysPerDirection: 14
-  m_MaxRayDegrees: 135
+  m_MaxRayDegrees: 180
   m_SphereCastRadius: 0.5
   m_RayLength: 100
   m_RayLayerMask:
@@ -797,7 +797,7 @@ MonoBehaviour:
   TargetArea: {fileID: 2485875214476012904}
   range: 0
   turnSpeed: 300
-  moveSpeed: 35
+  moveSpeed: 15
 --- !u!54 &1027133813806532060
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -944,7 +944,7 @@ MonoBehaviour:
     VectorActionSize: 02000000
     VectorActionDescriptions: []
     VectorActionSpaceType: 1
-  m_Model: {fileID: 5022602860645237092, guid: 5646f5fa9030b5742abe07e2dc3a2637, type: 3}
+  m_Model: {fileID: 5022602860645237092, guid: da16f0e48e758d1479ef6b604a7c370a, type: 3}
   m_InferenceDevice: 0
   m_BehaviorType: 0
   m_BehaviorName: AgentBrain
@@ -966,7 +966,7 @@ MonoBehaviour:
   m_DetectableTags:
   - target
   m_RaysPerDirection: 14
-  m_MaxRayDegrees: 135
+  m_MaxRayDegrees: 180
   m_SphereCastRadius: 0.5
   m_RayLength: 100
   m_RayLayerMask:
@@ -997,7 +997,7 @@ MonoBehaviour:
   TargetArea: {fileID: 2485875214476012904}
   range: 0
   turnSpeed: 300
-  moveSpeed: 35
+  moveSpeed: 10
 --- !u!54 &9070137792524850942
 Rigidbody:
   m_ObjectHideFlags: 0

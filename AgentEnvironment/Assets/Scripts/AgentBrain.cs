@@ -53,7 +53,7 @@ public class AgentBrain : Agent
         foreach (GameObject element in m_TargetArea.TargetsList)
         {
             float targDist = Vector3.Distance(this.transform.localPosition, element.transform.localPosition);
-            if (targDist < 2f)
+            if (targDist < 5f)
             {
                 m_TargetArea.Score++;
                 DestroyTarget(element.gameObject);
