@@ -69,12 +69,19 @@ public class AgentBrain : Agent
     }
 
     public void MoveAgent(float[] act)
-    { 
+    {
         //Action Space of 2, namely, forward/backward motion and rotation
-        Vector3 controlSignal = Vector3.zero;
+        /* Vector3 controlSignal = Vector3.zero;
         controlSignal.x = act[0];
         controlSignal.z = act[1];
-        m_AgentRb.AddForce(controlSignal * moveSpeed);
+        m_AgentRb.AddForce(controlSignal * moveSpeed); */
+
+        float hAxis = act[0];
+        float vAxis = act[1];
+
+        Vector3 movemvent = new Vector3(hAxis, 0, vAxis) * moveSpeed * Time.deltaTime;
+
+        m_AgentRb.MovePosition(transform.position + movemvent);
     }
 
     public override void CollectObservations(VectorSensor sensor)
@@ -86,9 +93,11 @@ public class AgentBrain : Agent
 
     public override void Heuristic(float[] actionsOut)
     {
+        /*actionsOut[0] = Input.GetAxis("Horizontal");
+        actionsOut[1] = Input.GetAxis("Vertical"); */
+        //Debug.Log("Keys pressed");
         actionsOut[0] = Input.GetAxis("Horizontal");
         actionsOut[1] = Input.GetAxis("Vertical");
-        //Debug.Log("Keys pressed");
     }
 
     void OnCollisionEnter(Collision other) 
