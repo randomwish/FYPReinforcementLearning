@@ -13,7 +13,7 @@ public class TargetFinderArea : MonoBehaviour
     public GameObject agent2;
     public GameObject agent3;
 
-    int score = 0;
+    public int score = 0;
     // can change for mutliple agents later; testing first
     private List<GameObject> agentsList;
     private List<GameObject> targetsList;
@@ -21,8 +21,31 @@ public class TargetFinderArea : MonoBehaviour
     public List<GameObject> TargetsList { get { return targetsList;  } }
     public List<GameObject> AgentsList { get { return agentsList;  } }
 
-    public int Score { get { return score; } set { score = Score; } }
 
+    public void Update()
+    {
+        Debug.Log("Score is " + score);
+        if(score >= numTargets)
+        {
+            EndAllEpisodes();
+            ResetArea();
+        }
+    }
+
+    public void EndAllEpisodes()
+    {
+        score = 0;
+        List<GameObject> spawnList = new List<GameObject>();
+        spawnList.Add(agent);
+        spawnList.Add(agent2);
+        spawnList.Add(agent3);
+
+        foreach (GameObject element in spawnList)
+        {
+            AgentBrain agent = element.GetComponent<AgentBrain>();
+            agent.EndEpisode();
+        }
+    }
 
     public void RemoveSpecificTarget(GameObject targetObject)
     {
@@ -72,7 +95,7 @@ public class TargetFinderArea : MonoBehaviour
  
     }
 
-    public void RespawnAgent(int num, GameObject agents)
+    public void RespawnAgent()
     {/*
         for (int i = 0; i < num; i++)
         {
@@ -89,17 +112,21 @@ public class TargetFinderArea : MonoBehaviour
 
         foreach (GameObject element in spawnList) {
             Rigidbody rigidbody = element.GetComponent<Rigidbody>();
+
+
             rigidbody.velocity = Vector3.zero;
             rigidbody.angularVelocity = Vector3.zero;
             element.transform.position = GenerateNewPosition(transform.position, range);
             element.transform.rotation = Quaternion.Euler(0f, UnityEngine.Random.Range(0f, 180f), 0f);
+
         }
     }
+
 
     public void ResetArea()
     {
         RemoveAllTargets();
-        RespawnAgent(numAgents, agent);
+        RespawnAgent();
         SpawnTarget(numTargets,target);
     }
     private void Start()

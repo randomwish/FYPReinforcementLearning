@@ -18,7 +18,7 @@ public class AgentBrain : Agent
     public float range;
     [HideInInspector]
     int numTargets;
-    //public int count = 0;
+
     public float turnSpeed = 300;
     public float moveSpeed = 2;
 
@@ -34,9 +34,8 @@ public class AgentBrain : Agent
     }
 
     void Update() {
-        /*Debug.Log("Current Time Step: "+ Time.time);
-        Debug.Log("Position of agent is " + transform.localPosition);    
-        Debug.Log("Current Score is " + count);*/
+         
+//        Debug.Log("Current Score is " + count);
 
     }
     public override void OnEpisodeBegin()
@@ -49,32 +48,11 @@ public class AgentBrain : Agent
     {
         MoveAgent(vectorAction);
         AddReward(-0.0001f);
-
-        foreach (GameObject element in m_TargetArea.TargetsList)
-        {
-            float targDist = Vector3.Distance(this.transform.localPosition, element.transform.localPosition);
-            if (targDist < 5f)
-            {
-                m_TargetArea.Score++;
-                DestroyTarget(element.gameObject);
-                }
-        }
-
-        if (m_TargetArea.Score == m_TargetArea.numTargets)
-        {
-            m_TargetArea.Score = 0;
-            EndEpisode();
-        }
-             
+        
     }
 
     public void MoveAgent(float[] act)
     {
-        //Action Space of 2, namely, forward/backward motion and rotation
-        /* Vector3 controlSignal = Vector3.zero;
-        controlSignal.x = act[0];
-        controlSignal.z = act[1];
-        m_AgentRb.AddForce(controlSignal * moveSpeed); */
 
         float hAxis = act[0];
         float vAxis = act[1];
@@ -101,17 +79,15 @@ public class AgentBrain : Agent
     }
 
     void OnCollisionEnter(Collision other) 
-    {/*
+    {
         if(other.transform.CompareTag("target"))
         {
-            DestroyTarget(other.gameObject);
-        } */
+            Destroy(other.gameObject);
+            m_TargetArea.score += 1;
+           
+        } 
     }
 
-    void DestroyTarget(GameObject targetObject)
-    {
-        m_TargetArea.RemoveSpecificTarget(targetObject);
-        AddReward(1f);
-    }
+    
 
 }
