@@ -47,7 +47,7 @@ public class AgentBrain : Agent
     public override void OnActionReceived(float[] vectorAction)
     {
         MoveAgent(vectorAction);
-        AddReward(-0.0001f);
+        AddReward(-0.001f);
         
     }
 
@@ -84,7 +84,7 @@ public class AgentBrain : Agent
         {
             Destroy(other.gameObject);
             m_TargetArea.score += 1;
-           
+            AddReward(1f);
         } 
     }
 
