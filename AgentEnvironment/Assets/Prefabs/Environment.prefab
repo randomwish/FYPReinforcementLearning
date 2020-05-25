@@ -346,6 +346,7 @@ MonoBehaviour:
   numTargets: 5
   numAgents: 3
   range: 50
+  rotationStep: 90
   agent: {fileID: 6687578486450268319}
   agent2: {fileID: 2445836330834558458}
   agent3: {fileID: 6841733574317393890}

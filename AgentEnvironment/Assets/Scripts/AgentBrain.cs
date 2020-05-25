@@ -82,7 +82,7 @@ public class AgentBrain : Agent
     {
         if(other.transform.CompareTag("target"))
         {
-            Destroy(other.gameObject);
+            //Destroy(other.gameObject);
             m_TargetArea.score += 1;
             AddReward(1f);
         } 

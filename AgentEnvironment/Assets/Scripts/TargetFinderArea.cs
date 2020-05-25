@@ -8,6 +8,7 @@ public class TargetFinderArea : MonoBehaviour
     public int numTargets;
     public int numAgents;
     public float range;
+    public int rotationStep;
 
     public GameObject agent;
     public GameObject agent2;
@@ -83,7 +84,12 @@ public class TargetFinderArea : MonoBehaviour
         {
             GameObject t = Instantiate<GameObject>(target.gameObject);
             t.transform.position = GenerateNewPosition(transform.position,range - 10);
-            t.transform.rotation = Quaternion.Euler(0f,0f,0f);
+
+            int step = 360 / rotationStep;
+            float rotate = rotationStep;
+            rotate *= UnityEngine.Random.Range(0, step);
+
+            t.transform.rotation = Quaternion.Euler(0f, rotate, 0f);
             
             t.transform.SetParent(transform);
 
