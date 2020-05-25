@@ -82,7 +82,7 @@ public class TargetFinderArea : MonoBehaviour
         for (int i = 0; i < num; i++)
         {
             GameObject t = Instantiate<GameObject>(target.gameObject);
-            t.transform.position = GenerateNewPosition(transform.position,range);
+            t.transform.position = GenerateNewPosition(transform.position,range - 10);
             t.transform.rotation = Quaternion.Euler(0f,0f,0f);
             
             t.transform.SetParent(transform);
