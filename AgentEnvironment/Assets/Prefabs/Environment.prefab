@@ -231,6 +231,8 @@ MonoBehaviour:
   m_SensorName: RayPerceptionSensor
   m_DetectableTags:
   - target
+  - searchedTarget
+  - obstacle
   m_RaysPerDirection: 14
   m_MaxRayDegrees: 180
   m_SphereCastRadius: 0.5
@@ -343,10 +345,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   target: {fileID: 2953165924475200885, guid: 9ed49d09d14c1d14da93916791aa2a88, type: 3}
+  obstacle: {fileID: 2953165924475200885, guid: 593b6c286a790304180b7aefb502b7db,
+    type: 3}
   numTargets: 5
   numAgents: 3
   range: 50
   rotationStep: 90
+  numObstacles: 1
   agent: {fileID: 6687578486450268319}
   agent2: {fileID: 2445836330834558458}
   agent3: {fileID: 6841733574317393890}
@@ -767,6 +772,8 @@ MonoBehaviour:
   m_SensorName: RayPerceptionSensor
   m_DetectableTags:
   - target
+  - searchedTarget
+  - obstacle
   m_RaysPerDirection: 14
   m_MaxRayDegrees: 180
   m_SphereCastRadius: 0.5
@@ -967,6 +974,8 @@ MonoBehaviour:
   m_SensorName: RayPerceptionSensor
   m_DetectableTags:
   - target
+  - searchedTarget
+  - obstacle
   m_RaysPerDirection: 14
   m_MaxRayDegrees: 180
   m_SphereCastRadius: 0.5

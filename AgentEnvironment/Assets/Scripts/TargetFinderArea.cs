@@ -5,10 +5,12 @@ using UnityEngine;
 public class TargetFinderArea : MonoBehaviour
 {
     public GameObject target;
+    public GameObject obstacle;
     public int numTargets;
     public int numAgents;
     public float range;
     public int rotationStep;
+    public int numObstacles;
 
     public GameObject agent;
     public GameObject agent2;
@@ -18,6 +20,7 @@ public class TargetFinderArea : MonoBehaviour
     // can change for mutliple agents later; testing first
     private List<GameObject> agentsList;
     private List<GameObject> targetsList;
+    private List<GameObject> obstacleList;
 
     public List<GameObject> TargetsList { get { return targetsList;  } }
     public List<GameObject> AgentsList { get { return agentsList;  } }
@@ -37,6 +40,7 @@ public class TargetFinderArea : MonoBehaviour
     {
         score = 0;
         List<GameObject> spawnList = new List<GameObject>();
+        List<GameObject> sobstacleList = new List<GameObject>();
         spawnList.Add(agent);
         spawnList.Add(agent2);
         spawnList.Add(agent3);
@@ -68,6 +72,22 @@ public class TargetFinderArea : MonoBehaviour
         targetsList = new List<GameObject>();
     }
 
+    public void RemoveAllObstacles()
+    {
+        if (obstacleList != null)
+        {
+            for (int i = 0; i < obstacleList.Count; i++)
+            {
+                if (obstacleList[i] != null)
+                {
+                    Destroy(obstacleList[i]);
+                }
+            }
+        }
+
+        obstacleList = new List<GameObject>();
+    }
+
     public static Vector3 GenerateNewPosition(Vector3 center, float range)
     {
         Vector3 newPosition = center;
@@ -96,9 +116,29 @@ public class TargetFinderArea : MonoBehaviour
             targetsList.Add(t);
 
             
+        } 
+    }
+
+    public void SpawnObstacle(int num, GameObject target)
+    {
+
+        for (int i = 0; i < num; i++)
+        {
+            GameObject t = Instantiate<GameObject>(target.gameObject);
+            t.transform.position = GenerateNewPosition(transform.position, range - 10);
+
+            int step = 360 / rotationStep;
+            float rotate = rotationStep;
+            rotate *= UnityEngine.Random.Range(0, step);
+
+            t.transform.rotation = Quaternion.Euler(0f, rotate, 0f);
+
+            t.transform.SetParent(transform);
+
+            obstacleList.Add(t);
+
+
         }
- 
- 
     }
 
     public void RespawnAgent()
@@ -132,8 +172,10 @@ public class TargetFinderArea : MonoBehaviour
     public void ResetArea()
     {
         RemoveAllTargets();
+        RemoveAllObstacles();
         RespawnAgent();
         SpawnTarget(numTargets,target);
+        SpawnObstacle(numObstacles, obstacle);
     }
     private void Start()
     {
