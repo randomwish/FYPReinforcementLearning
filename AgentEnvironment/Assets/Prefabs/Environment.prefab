@@ -210,7 +210,7 @@ MonoBehaviour:
     VectorActionSize: 02000000
     VectorActionDescriptions: []
     VectorActionSpaceType: 1
-  m_Model: {fileID: 5022602860645237092, guid: 6fe2653a0acfcfe488d803440568086b, type: 3}
+  m_Model: {fileID: 5022602860645237092, guid: e043eef45ef91094b8614d3c88b3cb78, type: 3}
   m_InferenceDevice: 0
   m_BehaviorType: 0
   m_BehaviorName: AgentBrain
@@ -233,6 +233,7 @@ MonoBehaviour:
   - target
   - searchedTarget
   - obstacle
+  - agent
   m_RaysPerDirection: 14
   m_MaxRayDegrees: 180
   m_SphereCastRadius: 0.5
@@ -347,11 +348,11 @@ MonoBehaviour:
   target: {fileID: 2953165924475200885, guid: 9ed49d09d14c1d14da93916791aa2a88, type: 3}
   obstacle: {fileID: 2953165924475200885, guid: 593b6c286a790304180b7aefb502b7db,
     type: 3}
-  numTargets: 5
+  numTargets: 10
   numAgents: 3
   range: 50
   rotationStep: 90
-  numObstacles: 1
+  numObstacles: 10
   agent: {fileID: 6687578486450268319}
   agent2: {fileID: 2445836330834558458}
   agent3: {fileID: 6841733574317393890}
@@ -751,7 +752,7 @@ MonoBehaviour:
     VectorActionSize: 02000000
     VectorActionDescriptions: []
     VectorActionSpaceType: 1
-  m_Model: {fileID: 5022602860645237092, guid: 6fe2653a0acfcfe488d803440568086b, type: 3}
+  m_Model: {fileID: 5022602860645237092, guid: e043eef45ef91094b8614d3c88b3cb78, type: 3}
   m_InferenceDevice: 0
   m_BehaviorType: 0
   m_BehaviorName: AgentBrain
@@ -774,6 +775,7 @@ MonoBehaviour:
   - target
   - searchedTarget
   - obstacle
+  - agent
   m_RaysPerDirection: 14
   m_MaxRayDegrees: 180
   m_SphereCastRadius: 0.5
@@ -953,7 +955,7 @@ MonoBehaviour:
     VectorActionSize: 02000000
     VectorActionDescriptions: []
     VectorActionSpaceType: 1
-  m_Model: {fileID: 5022602860645237092, guid: 6fe2653a0acfcfe488d803440568086b, type: 3}
+  m_Model: {fileID: 5022602860645237092, guid: e043eef45ef91094b8614d3c88b3cb78, type: 3}
   m_InferenceDevice: 0
   m_BehaviorType: 0
   m_BehaviorName: AgentBrain
@@ -976,6 +978,7 @@ MonoBehaviour:
   - target
   - searchedTarget
   - obstacle
+  - agent
   m_RaysPerDirection: 14
   m_MaxRayDegrees: 180
   m_SphereCastRadius: 0.5
