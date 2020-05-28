@@ -86,12 +86,6 @@ public class AgentBrain : Agent
             m_TargetArea.score += 1;
             AddReward(1f);
         } 
-        else if (other.transform.CompareTag("Obstacle"))
-        {
-            AddReward(-0.1f);
-        }
     }
-
-    
 
 }
