@@ -12,7 +12,7 @@ public class TargetFinderArea : MonoBehaviour
     public int rotationStep;
     public int numObstacles;
     private int Step = 10;
-    private int Total = 9; //this is hard coded :( 
+    private int Total; //this is hard coded :( 
 
     public GameObject agent;
     public GameObject agent2;
@@ -72,17 +72,6 @@ public class TargetFinderArea : MonoBehaviour
                 objLocations[i, j] = 1;
             }
         }
-
-        /*
-        //buffer
-        for (int i=0; i < 1; i++)
-        {
-            for (int j=0; j < 1; j++)
-            {
-                objLocations[i, j] = -1;
-
-            }
-        } */
     }
 
     public void RemoveSpecificTarget(GameObject targetObject)
@@ -116,7 +105,6 @@ public class TargetFinderArea : MonoBehaviour
                 }
             }
         }
-
         obstacleList = new List<GameObject>();
     }
 
@@ -128,29 +116,6 @@ public class TargetFinderArea : MonoBehaviour
         newPosition.z += UnityEngine.Random.Range(-range,range);    
         return newPosition;
     }
-    /*
-    public Vector3 GenerateNewPosition(Vector3 center, float range, int step)
-    {
-        Vector3 newPosition = center;
-        int newNumX = UnityEngine.Random.Range(0, numTargets + numObstacles - totalObjs - 1);
-        int newNumZ = UnityEngine.Random.Range(0, numTargets + numObstacles - totalObjs - 1);
-        
-        float newX = objLocations[0, newNumX];
-        float newZ = objLocations[1, newNumZ];
-
-        objLocations[0, newNumX] = objLocations[0, numTargets + numObstacles - totalObjs - 1];
-        objLocations[1, newNumZ] = objLocations[1, numTargets + numObstacles - totalObjs - 1];
-        objLocations[0, numTargets + numObstacles - totalObjs - 1] = -1;
-        objLocations[1, numTargets + numObstacles - totalObjs - 1] = -1;
-
-        totalObjs++;
-
-        newPosition.x += newX;
-        newPosition.y = 1f;
-        newPosition.z += newZ;
-
-        return newPosition;
-    } */
 
     public Vector3 GenerateNewPosition (Vector3 center)
     {
@@ -261,6 +226,7 @@ public class TargetFinderArea : MonoBehaviour
 
     public void ResetArea()
     {
+        Total = (int)range / Step * 2 - 1;
         generateLocations();
         RemoveAllTargets();
         RemoveAllObstacles();
