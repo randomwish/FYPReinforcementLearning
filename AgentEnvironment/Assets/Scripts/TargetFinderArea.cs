@@ -60,7 +60,6 @@ public class TargetFinderArea : MonoBehaviour
 
     private void generateLocations()
     {
-        // fml this is hard coded
         int total = Total;
 
         objLocations = new float[total,total];
