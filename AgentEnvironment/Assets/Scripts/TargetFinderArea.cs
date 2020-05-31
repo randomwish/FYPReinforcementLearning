@@ -183,7 +183,7 @@ public class TargetFinderArea : MonoBehaviour
 
             float rotate = generateRotation(rotationStep);
             t.transform.rotation = Quaternion.Euler(0f, rotate, 0f);
-            t.transform.position += generateRotationOffset(rotate, 5);
+            t.transform.position += generateRotationOffset(rotate, 5); //assuming longest side of object is 5
             
             t.transform.SetParent(transform);
 
@@ -201,7 +201,7 @@ public class TargetFinderArea : MonoBehaviour
 
             float rotate = generateRotation(rotationStep);
             t.transform.rotation = Quaternion.Euler(0f, rotate, 0f);
-            t.transform.position += generateRotationOffset(rotate, 5);
+            t.transform.position += generateRotationOffset(rotate, 5); //assuming longest side of object is 5
 
             t.transform.SetParent(transform);
 
