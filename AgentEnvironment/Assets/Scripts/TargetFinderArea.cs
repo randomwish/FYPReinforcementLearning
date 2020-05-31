@@ -129,6 +129,26 @@ public class TargetFinderArea : MonoBehaviour
         return newPosition;
     }
 
+    public int generateRotation(int step)
+    {
+        int rotate = 360 / step;
+        step *= UnityEngine.Random.Range(0, rotate);
+
+        return step;
+    }
+
+    public Vector3 generateRotationOffset(float rotate, float length)
+    {
+        Vector3 offset = new Vector3();
+
+        float angle = rotate * Mathf.PI / 180f;
+
+        offset.x = Mathf.Sin(angle) * length;
+        offset.z = Mathf.Cos(angle) * length;
+
+        return offset;
+    }
+
     public int[] checkPosition()
     {
         int total = Total; 
@@ -161,11 +181,9 @@ public class TargetFinderArea : MonoBehaviour
             GameObject t = Instantiate<GameObject>(target.gameObject);
             t.transform.position = GenerateNewPosition(transform.position);
 
-            int step = 360 / rotationStep;
-            float rotate = rotationStep;
-            rotate *= UnityEngine.Random.Range(0, step);
-
+            float rotate = generateRotation(rotationStep);
             t.transform.rotation = Quaternion.Euler(0f, rotate, 0f);
+            t.transform.position += generateRotationOffset(rotate, 5);
             
             t.transform.SetParent(transform);
 
@@ -181,11 +199,9 @@ public class TargetFinderArea : MonoBehaviour
             GameObject t = Instantiate<GameObject>(target.gameObject);
             t.transform.position = GenerateNewPosition(transform.position);
 
-            int step = 360 / rotationStep;
-            float rotate = rotationStep;
-            rotate *= UnityEngine.Random.Range(0, step);
-
+            float rotate = generateRotation(rotationStep);
             t.transform.rotation = Quaternion.Euler(0f, rotate, 0f);
+            t.transform.position += generateRotationOffset(rotate, 5);
 
             t.transform.SetParent(transform);
 
