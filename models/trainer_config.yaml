@@ -18,6 +18,7 @@ default:
     summary_freq: 10000
     use_recurrent: false
     vis_encode_type: simple
+    use_curiosity: true
     reward_signals:
         extrinsic:
             strength: 1.0
