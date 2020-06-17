@@ -42,6 +42,7 @@ public class AgentBrain : Agent
     {
         m_TargetArea.ResetArea();
         m_AgentRb.velocity = Vector3.zero;
+        MinimumDistance = 999f;
     }
 
     public override void OnActionReceived(float[] vectorAction)
@@ -61,12 +62,39 @@ public class AgentBrain : Agent
 
         m_AgentRb.MovePosition(transform.position + movemvent);
     }
+    float MinimumDistance = 999f; //GLOBAL variable for ReturnClosest Target
+    public float ReturnClosestTarget(Vector3[] TargetLocations, Vector3 AgentLocation)
+    {
+        // ReturnClosestTarget returns a float for the distance between the agent and the target which is closest to it.
+        // If there are no agents detected, a value of 0 is returned.
+        // PARAMETERS: Vector3[] TargetLocations, represents the locations of the various targets (Vector3 datatype)
+        //             Vector3 AgentLocation, represents the location of the agent (Vector3 datatype)
+
+        // RETURNS: float MinimumDistane, represents MINIMUM distance between target and agent
+
+        
+        foreach(Vector3 location in TargetLocations)
+        {
+            float distance = Vector3.Distance(AgentLocation, location);
+            if(location.x  == 0 && location.y == 0) //NO targes present at the index
+            {
+                continue; 
+            }
+            if(distance < MinimumDistance)
+            {
+                MinimumDistance = distance;
+            }
+        }
+
+        return MinimumDistance;
+    }
 
     public override void CollectObservations(VectorSensor sensor)
     {
        var localVelocity = transform.InverseTransformDirection(m_AgentRb.velocity);
        sensor.AddObservation(localVelocity.x);
-       sensor.AddObservation(localVelocity.z); 
+       sensor.AddObservation(localVelocity.z);
+       sensor.AddObservation(ReturnClosestTarget(m_TargetArea.RetrieveLocations(),m_AgentRb.transform.localPosition));
     }
 
     public override void Heuristic(float[] actionsOut)

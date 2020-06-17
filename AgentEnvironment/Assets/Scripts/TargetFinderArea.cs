@@ -238,7 +238,27 @@ public class TargetFinderArea : MonoBehaviour
         }
     }
 
+    public Vector3[] RetrieveLocations()
+    {
+        Vector3[] locations = new Vector3[numTargets];
+        foreach (GameObject Target in targetsList)
+        {
+            for(int idx = 0; idx < numTargets; idx++)
+            {
+                if (Target.gameObject.tag == "target")
+                {
+                    locations[numTargets] = Target.gameObject.transform.localPosition;
+                }
+                else
+                {
+                    locations[numTargets] = Vector3.zero;
+                }
+            }
+     
 
+        }
+        return locations;
+    }
     public void ResetArea()
     {
         Total = (int)range / Step * 2 - 1;
