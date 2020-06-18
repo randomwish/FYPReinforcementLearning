@@ -247,11 +247,11 @@ public class TargetFinderArea : MonoBehaviour
             {
                 if (Target.gameObject.tag == "target")
                 {
-                    locations[numTargets] = Target.gameObject.transform.localPosition;
+                    locations[idx] = Target.gameObject.transform.localPosition;
                 }
                 else
                 {
-                    locations[numTargets] = Vector3.zero;
+                    locations[idx] = Vector3.zero;
                 }
             }
      

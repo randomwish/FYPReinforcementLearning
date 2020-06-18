@@ -34,8 +34,10 @@ public class AgentBrain : Agent
     }
 
     void Update() {
-         
-//        Debug.Log("Current Score is " + count);
+
+        //        Debug.Log("Current Score is " + count);
+        ReturnClosestTarget(m_TargetArea.RetrieveLocations(), m_AgentRb.transform.localPosition);
+
 
     }
     public override void OnEpisodeBegin()
@@ -91,10 +93,9 @@ public class AgentBrain : Agent
 
     public override void CollectObservations(VectorSensor sensor)
     {
-       var localVelocity = transform.InverseTransformDirection(m_AgentRb.velocity);
-       sensor.AddObservation(localVelocity.x);
-       sensor.AddObservation(localVelocity.z);
-       sensor.AddObservation(ReturnClosestTarget(m_TargetArea.RetrieveLocations(),m_AgentRb.transform.localPosition));
+        var localVelocity = transform.InverseTransformDirection(m_AgentRb.velocity);
+        sensor.AddObservation(localVelocity); //BUG: CANNOT have 4 Vector Obs Space  (Error of "More obs made then vector obs size")
+        sensor.AddObservation(MinimumDistance);
     }
 
     public override void Heuristic(float[] actionsOut)
