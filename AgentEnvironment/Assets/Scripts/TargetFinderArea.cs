@@ -243,7 +243,7 @@ public class TargetFinderArea : MonoBehaviour
         Vector3[] locations = new Vector3[numTargets];
         foreach (GameObject Target in targetsList)
         {
-            for(int idx = 0; idx < numTargets; idx++)
+            for(int idx = 0; idx < targetsList.Count; idx++)
             {
                 if (Target.gameObject.tag == "target")
                 {
