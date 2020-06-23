@@ -2,6 +2,7 @@
   "dependencies": {
     "com.unity.barracuda": "0.7.0-preview",
     "com.unity.collab-proxy": "1.2.16",
+    "com.unity.formats.fbx": "3.2.0-preview.2",
     "com.unity.ide.rider": "1.1.4",
     "com.unity.ide.vscode": "1.1.4",
     "com.unity.ml-agents": "file:../com.unity.ml-agents",
