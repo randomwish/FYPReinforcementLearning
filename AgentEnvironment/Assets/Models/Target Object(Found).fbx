@@ -10,9 +10,9 @@ FBXHeaderExtension:  {
 		Month: 6
 		Day: 24
 		Hour: 22
-		Minute: 21
-		Second: 26
-		Millisecond: 641
+		Minute: 28
+		Second: 46
+		Millisecond: 213
 	}
 	Creator: "FBX SDK/FBX Plugins version 2020.0"
 	SceneInfo: "SceneInfo::GlobalInfo", "UserData" {
@@ -28,8 +28,8 @@ FBXHeaderExtension:  {
 			Comment: ""
 		}
 		Properties70:  {
-			P: "DocumentUrl", "KString", "Url", "", "C:\Users\YENZHE~1\AppData\Local\Temp\tmp1d73c47e.tmp"
-			P: "SrcDocumentUrl", "KString", "Url", "", "C:\Users\YENZHE~1\AppData\Local\Temp\tmp1d73c47e.tmp"
+			P: "DocumentUrl", "KString", "Url", "", "C:\Users\YENZHE~1\AppData\Local\Temp\tmp1aa0692b.tmp"
+			P: "SrcDocumentUrl", "KString", "Url", "", "C:\Users\YENZHE~1\AppData\Local\Temp\tmp1aa0692b.tmp"
 			P: "Original", "Compound", "", ""
 			P: "Original|ApplicationVendor", "KString", "", "", ""
 			P: "Original|ApplicationName", "KString", "", "", "Unity FBX Exporter"
@@ -75,7 +75,7 @@ GlobalSettings:  {
 
 Documents:  {
 	Count: 1
-	Document: 2162096777248, "Scene", "Scene" {
+	Document: 2161913714352, "Scene", "Scene" {
 		Properties70:  {
 			P: "SourceObject", "object", "", ""
 			P: "ActiveAnimStackName", "KString", "", "", ""
@@ -220,7 +220,7 @@ Definitions:  {
 ;------------------------------------------------------------------
 
 Objects:  {
-	Geometry: 2161299644352, "Geometry::Scene", "Mesh" {
+	Geometry: 2153718187040, "Geometry::Scene", "Mesh" {
 		Vertices: *24 {
 			a: -50,-50,50,50,-50,50,-50,50,50,50,50,50,-50,50,-50,50,50,-50,-50,-50,-50,50,-50,-50
 		} 
@@ -329,7 +329,7 @@ Objects:  {
 			}
 		}
 	}
-	Model: 2153122707296, "Model::Target_Object", "Mesh" {
+	Model: 2153122729296, "Model::Target_Object", "Mesh" {
 		Version: 232
 		Properties70:  {
 			P: "InheritType", "enum", "", "",1
@@ -340,16 +340,16 @@ Objects:  {
 		Shading: W
 		Culling: "CullingOff"
 	}
-	Material: 2153051756960, "Material::TargetObject", "" {
+	Material: 2162100544112, "Material::TargetObject", "" {
 		Version: 102
 		ShadingModel: "lambert"
 		MultiLayer: 0
 		Properties70:  {
 			P: "AmbientColor", "Color", "", "A",0,0,0
-			P: "DiffuseColor", "Color", "", "A",0,0.981132090091705,0.0616416931152344
+			P: "DiffuseColor", "Color", "", "A",1,0.971205592155457,0
 			P: "Emissive", "Vector3D", "Vector", "",0,0,0
 			P: "Ambient", "Vector3D", "Vector", "",0,0,0
-			P: "Diffuse", "Vector3D", "Vector", "",0,0.981132090091705,0.0616416931152344
+			P: "Diffuse", "Vector3D", "Vector", "",1,0.971205592155457,0
 			P: "Opacity", "double", "Number", "",1
 		}
 	}
@@ -361,13 +361,13 @@ Objects:  {
 Connections:  {
 	
 	;Model::Target_Object, Model::RootNode
-	C: "OO",2153122707296,0
+	C: "OO",2153122729296,0
 	
 	;Material::TargetObject, Model::Target_Object
-	C: "OO",2153051756960,2153122707296
+	C: "OO",2162100544112,2153122729296
 	
 	;Geometry::Scene, Model::Target_Object
-	C: "OO",2161299644352,2153122707296
+	C: "OO",2153718187040,2153122729296
 }
 ;Takes section
 ;----------------------------------------------------
