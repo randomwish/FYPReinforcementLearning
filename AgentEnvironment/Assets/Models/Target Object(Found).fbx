@@ -9,17 +9,10 @@ FBXHeaderExtension:  {
 		Year: 2020
 		Month: 6
 		Day: 24
-<<<<<<< HEAD
-		Hour: 21
-		Minute: 22
-		Second: 0
-		Millisecond: 556
-=======
 		Hour: 22
-		Minute: 30
-		Second: 12
-		Millisecond: 706
->>>>>>> 696fd5be785fe0cb04ee5f8f2a256084ccce61b6
+		Minute: 28
+		Second: 46
+		Millisecond: 213
 	}
 	Creator: "FBX SDK/FBX Plugins version 2020.0"
 	SceneInfo: "SceneInfo::GlobalInfo", "UserData" {
@@ -35,13 +28,8 @@ FBXHeaderExtension:  {
 			Comment: ""
 		}
 		Properties70:  {
-<<<<<<< HEAD
-			P: "DocumentUrl", "KString", "Url", "", "C:\Users\joshu\AppData\Local\Temp\tmp186c2220.tmp"
-			P: "SrcDocumentUrl", "KString", "Url", "", "C:\Users\joshu\AppData\Local\Temp\tmp186c2220.tmp"
-=======
-			P: "DocumentUrl", "KString", "Url", "", "C:\Users\YENZHE~1\AppData\Local\Temp\tmp469db1fa.tmp"
-			P: "SrcDocumentUrl", "KString", "Url", "", "C:\Users\YENZHE~1\AppData\Local\Temp\tmp469db1fa.tmp"
->>>>>>> 696fd5be785fe0cb04ee5f8f2a256084ccce61b6
+			P: "DocumentUrl", "KString", "Url", "", "C:\Users\YENZHE~1\AppData\Local\Temp\tmp1aa0692b.tmp"
+			P: "SrcDocumentUrl", "KString", "Url", "", "C:\Users\YENZHE~1\AppData\Local\Temp\tmp1aa0692b.tmp"
 			P: "Original", "Compound", "", ""
 			P: "Original|ApplicationVendor", "KString", "", "", ""
 			P: "Original|ApplicationName", "KString", "", "", "Unity FBX Exporter"
@@ -87,11 +75,7 @@ GlobalSettings:  {
 
 Documents:  {
 	Count: 1
-<<<<<<< HEAD
-	Document: 2711520687584, "Scene", "Scene" {
-=======
-	Document: 2162096783648, "Scene", "Scene" {
->>>>>>> 696fd5be785fe0cb04ee5f8f2a256084ccce61b6
+	Document: 2161913714352, "Scene", "Scene" {
 		Properties70:  {
 			P: "SourceObject", "object", "", ""
 			P: "ActiveAnimStackName", "KString", "", "", ""
@@ -236,11 +220,7 @@ Definitions:  {
 ;------------------------------------------------------------------
 
 Objects:  {
-<<<<<<< HEAD
-	Geometry: 2711422018464, "Geometry::Scene", "Mesh" {
-=======
 	Geometry: 2153718187040, "Geometry::Scene", "Mesh" {
->>>>>>> 696fd5be785fe0cb04ee5f8f2a256084ccce61b6
 		Vertices: *24 {
 			a: -50,-50,50,50,-50,50,-50,50,50,50,50,50,-50,50,-50,50,50,-50,-50,-50,-50,50,-50,-50
 		} 
@@ -349,45 +329,27 @@ Objects:  {
 			}
 		}
 	}
-<<<<<<< HEAD
-	Model: 2710787386656, "Model::Obstacle", "Mesh" {
-=======
-	Model: 2153122723296, "Model::Obstacle", "Mesh" {
->>>>>>> 696fd5be785fe0cb04ee5f8f2a256084ccce61b6
+	Model: 2153122729296, "Model::Target_Object", "Mesh" {
 		Version: 232
 		Properties70:  {
 			P: "InheritType", "enum", "", "",1
 			P: "ScalingMax", "Vector3D", "Vector", "",0,0,0
 			P: "DefaultAttributeIndex", "int", "Integer", "",0
-<<<<<<< HEAD
-=======
 			P: "Lcl Scaling", "Lcl Scaling", "", "A",5,1,2.5
->>>>>>> 696fd5be785fe0cb04ee5f8f2a256084ccce61b6
 		}
 		Shading: W
 		Culling: "CullingOff"
 	}
-<<<<<<< HEAD
-	Material: 2710750483296, "Material::TargetObject", "" {
-=======
-	Material: 2153126716480, "Material::TargetObject", "" {
->>>>>>> 696fd5be785fe0cb04ee5f8f2a256084ccce61b6
+	Material: 2162100544112, "Material::TargetObject", "" {
 		Version: 102
 		ShadingModel: "lambert"
 		MultiLayer: 0
 		Properties70:  {
 			P: "AmbientColor", "Color", "", "A",0,0,0
-<<<<<<< HEAD
-			P: "DiffuseColor", "Color", "", "A",1,0,0
+			P: "DiffuseColor", "Color", "", "A",1,0.971205592155457,0
 			P: "Emissive", "Vector3D", "Vector", "",0,0,0
 			P: "Ambient", "Vector3D", "Vector", "",0,0,0
-			P: "Diffuse", "Vector3D", "Vector", "",1,0,0
-=======
-			P: "DiffuseColor", "Color", "", "A",0,1,0.0233767032623291
-			P: "Emissive", "Vector3D", "Vector", "",0,0,0
-			P: "Ambient", "Vector3D", "Vector", "",0,0,0
-			P: "Diffuse", "Vector3D", "Vector", "",0,1,0.0233767032623291
->>>>>>> 696fd5be785fe0cb04ee5f8f2a256084ccce61b6
+			P: "Diffuse", "Vector3D", "Vector", "",1,0.971205592155457,0
 			P: "Opacity", "double", "Number", "",1
 		}
 	}
@@ -398,24 +360,14 @@ Objects:  {
 
 Connections:  {
 	
-	;Model::Obstacle, Model::RootNode
-<<<<<<< HEAD
-	C: "OO",2710787386656,0
+	;Model::Target_Object, Model::RootNode
+	C: "OO",2153122729296,0
 	
-	;Material::TargetObject, Model::Obstacle
-	C: "OO",2710750483296,2710787386656
+	;Material::TargetObject, Model::Target_Object
+	C: "OO",2162100544112,2153122729296
 	
-	;Geometry::Scene, Model::Obstacle
-	C: "OO",2711422018464,2710787386656
-=======
-	C: "OO",2153122723296,0
-	
-	;Material::TargetObject, Model::Obstacle
-	C: "OO",2153126716480,2153122723296
-	
-	;Geometry::Scene, Model::Obstacle
-	C: "OO",2153718187040,2153122723296
->>>>>>> 696fd5be785fe0cb04ee5f8f2a256084ccce61b6
+	;Geometry::Scene, Model::Target_Object
+	C: "OO",2153718187040,2153122729296
 }
 ;Takes section
 ;----------------------------------------------------
