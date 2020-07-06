@@ -68,7 +68,8 @@ public class AgentBrain : Agent
         var localVelocity = transform.InverseTransformDirection(m_AgentRb.velocity);
         sensor.AddObservation(localVelocity.x);
         sensor.AddObservation(localVelocity.z);
-        m_TargetArea.RetrieveLocations();
+        m_TargetArea.RetrieveTargetLocations();
+        m_TargetArea.RetrieveAgentLocations();
         
     }
 
