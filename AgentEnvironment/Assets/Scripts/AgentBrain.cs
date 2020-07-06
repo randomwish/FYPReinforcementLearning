@@ -56,17 +56,20 @@ public class AgentBrain : Agent
 
         float hAxis = act[0];
         float vAxis = act[1];
+        
+        Vector3 movement = new Vector3(hAxis, 0, vAxis) * moveSpeed * Time.deltaTime;
 
-        Vector3 movemvent = new Vector3(hAxis, 0, vAxis) * moveSpeed * Time.deltaTime;
+        m_AgentRb.MovePosition(transform.position + movement); 
 
-        m_AgentRb.MovePosition(transform.position + movemvent);
     }
 
     public override void CollectObservations(VectorSensor sensor)
     {
-       var localVelocity = transform.InverseTransformDirection(m_AgentRb.velocity);
-       sensor.AddObservation(localVelocity.x);
-       sensor.AddObservation(localVelocity.z); 
+        var localVelocity = transform.InverseTransformDirection(m_AgentRb.velocity);
+        sensor.AddObservation(localVelocity.x);
+        sensor.AddObservation(localVelocity.z);
+        m_TargetArea.RetrieveLocations();
+        
     }
 
     public override void Heuristic(float[] actionsOut)

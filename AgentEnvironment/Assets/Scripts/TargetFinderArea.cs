@@ -259,6 +259,7 @@ public class TargetFinderArea : MonoBehaviour
         }
         return locations;
     }
+
     public void ResetArea()
     {
         Total = (int)range / Step * 2 - 1;
