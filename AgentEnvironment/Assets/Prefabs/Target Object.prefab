@@ -107,6 +107,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ea1c1535da1e4414086cde447ae6c16d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  TargetArea: {fileID: 2485875214476012904, guid: d1c41453918c6b34ea60f4c63ea56954,
+    type: 3}
+  searchZone: {fileID: 7525947565964633016, guid: c82fb18181ea81549b9cab84a183de7c,
+    type: 3}
 --- !u!54 &9216525937885856183
 Rigidbody:
   m_ObjectHideFlags: 0

@@ -272,6 +272,7 @@ public class TargetFinderArea : MonoBehaviour
     }
     private void Start()
     {
+        //Destroy(target);
         ResetArea();
     }
 }

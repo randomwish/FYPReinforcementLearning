@@ -18,6 +18,8 @@ public class AgentBrain : Agent
     public float range;
     [HideInInspector]
     int numTargets;
+    Material m_Material;
+    int stepCounter = 0;
 
     public float turnSpeed = 300;
     public float moveSpeed = 2;
@@ -30,6 +32,7 @@ public class AgentBrain : Agent
         m_TargetArea = TargetArea.GetComponent<TargetFinderArea>();
         range = m_TargetArea.range;
         numTargets = m_TargetArea.numTargets;
+        m_Material = GetComponent<Renderer>().material;
         //Add Environment Settings 
     }
 
@@ -68,13 +71,11 @@ public class AgentBrain : Agent
         var localVelocity = transform.InverseTransformDirection(m_AgentRb.velocity);
         sensor.AddObservation(localVelocity.x);
         sensor.AddObservation(localVelocity.z);
-        m_TargetArea.RetrieveLocations();
         
     }
 
     public override void Heuristic(float[] actionsOut)
     {
-        
         actionsOut[0] = Input.GetAxis("Horizontal");
         actionsOut[1] = Input.GetAxis("Vertical");
     }
@@ -84,8 +85,31 @@ public class AgentBrain : Agent
         if(other.transform.CompareTag("target"))
         {
             //Destroy(other.gameObject);
-            m_TargetArea.score += 1;
-            AddReward(1f);
+            
+            AddReward(-1f);
+        } 
+        
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if(other.transform.CompareTag("zone"))
+        {
+            int oldScore = m_TargetArea.score;
+            other.transform.position += Vector3.down * 5;
+            AddReward(0.5f);
+            //Destroy(other.gameObject);
+
+            //honestly, super hacky way to get this done. possibly update in the future
+
+            if (oldScore <= m_TargetArea.score)
+            {
+                AddReward(2f);
+                Debug.Log("Target fully searched");
+            }
+                
+                
+            
         } 
     }
 
