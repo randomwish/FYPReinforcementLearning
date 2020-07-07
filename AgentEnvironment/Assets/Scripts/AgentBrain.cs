@@ -68,17 +68,17 @@ public class AgentBrain : Agent
         var localVelocity = transform.InverseTransformDirection(m_AgentRb.velocity);
         sensor.AddObservation(localVelocity.x);
         sensor.AddObservation(localVelocity.z);
+
+        var currentAgentLocation = m_AgentRb.transform.localPosition; 
         var targetLocations = m_TargetArea.RetrieveTargetLocations();
         foreach(Vector3 location in targetLocations)
         {
-            sensor.AddObservation(location.x);
-            sensor.AddObservation(location.z);
+            sensor.AddObservation(Vector3.Distance(currentAgentLocation, location));
         }
         var agentLocations = m_TargetArea.RetrieveAgentLocations();
         foreach(Vector3 AgentLocation in agentLocations)
         {
-            sensor.AddObservation(AgentLocation.x);
-            sensor.AddObservation(AgentLocation.z);
+            sensor.AddObservation(Vector3.Distance(currentAgentLocation, AgentLocation));
         }
         
     }
