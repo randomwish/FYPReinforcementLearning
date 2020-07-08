@@ -8,6 +8,8 @@ TagManager:
   - agent
   - target
   - searchedTarget
+  - obstacle
+  - zone
   layers:
   - Default
   - TransparentFX

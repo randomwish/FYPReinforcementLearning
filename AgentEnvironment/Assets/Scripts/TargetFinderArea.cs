@@ -26,10 +26,10 @@ public class TargetFinderArea : MonoBehaviour
     private float[,] objLocations;
 
     public List<GameObject> TargetsList { get { return targetsList;  } }
-    public List<GameObject> AgentsList { get { return agentsList; } set { agentsList = AgentsList; } }
+    public List<GameObject> AgentsList { get { return agentsList;  } }
 
     
-           
+
 
     public void Update()
     {
@@ -45,6 +45,8 @@ public class TargetFinderArea : MonoBehaviour
     {
         score = 0;
         List<GameObject> spawnList = new List<GameObject>();
+        List<GameObject> obstacleList = new List<GameObject>();
+        List<Vector3> objLocations = new List<Vector3>();
         spawnList.Add(agent);
         spawnList.Add(agent2);
         spawnList.Add(agent3);
@@ -217,7 +219,7 @@ public class TargetFinderArea : MonoBehaviour
 
             agentsList.Add(newAgent);
         } */
-        agentsList = new List<GameObject>();
+
         List <GameObject> spawnList = new List<GameObject>();
         spawnList.Add(agent);
         spawnList.Add(agent2);
@@ -225,7 +227,6 @@ public class TargetFinderArea : MonoBehaviour
 
 
         foreach (GameObject element in spawnList) {
-            agentsList.Add(element);
             Rigidbody rigidbody = element.GetComponent<Rigidbody>();
 
 
@@ -237,7 +238,7 @@ public class TargetFinderArea : MonoBehaviour
         }
     }
 
-    public Vector3[] RetrieveTargetLocations()
+    public Vector3[] RetrieveLocations()
     {
         Vector3[] locations = new Vector3[numTargets];
         foreach (GameObject Target in targetsList)
@@ -258,18 +259,6 @@ public class TargetFinderArea : MonoBehaviour
         }
         return locations;
     }
-    public Vector3[] RetrieveAgentLocations()
-    {
-        Vector3[] locations = new Vector3[numAgents];
-        foreach (GameObject Agent in AgentsList)
-        {
-            for (int idx = 0; idx < AgentsList.Count; idx++)
-            {
-                locations[idx] = Agent.gameObject.transform.localPosition;
-            }
-        }
-        return locations;
-    }
 
     public void ResetArea()
     {
@@ -283,7 +272,9 @@ public class TargetFinderArea : MonoBehaviour
     }
     private void Start()
     {
-
+        //Destroy(target);
+        //not sure why the thing causes bugs when deleted, likely due to the same frame bug i think. anyways, putting it below the playfeild
+        //for now. hacky solution but works
         ResetArea();
     }
 }
