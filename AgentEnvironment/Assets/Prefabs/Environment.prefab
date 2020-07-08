@@ -211,7 +211,7 @@ MonoBehaviour:
     VectorActionSize: 02000000
     VectorActionDescriptions: []
     VectorActionSpaceType: 1
-  m_Model: {fileID: 5022602860645237092, guid: 3bc64783c647a524cbf692482ae59e04, type: 3}
+  m_Model: {fileID: 5022602860645237092, guid: e38fc3f187c6e86469bf18f0fd1481ae, type: 3}
   m_InferenceDevice: 0
   m_BehaviorType: 0
   m_BehaviorName: AgentBrain
@@ -941,7 +941,7 @@ MonoBehaviour:
     VectorActionSize: 02000000
     VectorActionDescriptions: []
     VectorActionSpaceType: 1
-  m_Model: {fileID: 5022602860645237092, guid: 3bc64783c647a524cbf692482ae59e04, type: 3}
+  m_Model: {fileID: 5022602860645237092, guid: e38fc3f187c6e86469bf18f0fd1481ae, type: 3}
   m_InferenceDevice: 0
   m_BehaviorType: 0
   m_BehaviorName: AgentBrain
@@ -1144,7 +1144,7 @@ MonoBehaviour:
     VectorActionSize: 02000000
     VectorActionDescriptions: []
     VectorActionSpaceType: 1
-  m_Model: {fileID: 5022602860645237092, guid: 3bc64783c647a524cbf692482ae59e04, type: 3}
+  m_Model: {fileID: 5022602860645237092, guid: e38fc3f187c6e86469bf18f0fd1481ae, type: 3}
   m_InferenceDevice: 0
   m_BehaviorType: 0
   m_BehaviorName: AgentBrain
