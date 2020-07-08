@@ -213,7 +213,7 @@ MonoBehaviour:
     VectorActionSpaceType: 1
   m_Model: {fileID: 5022602860645237092, guid: 3bc64783c647a524cbf692482ae59e04, type: 3}
   m_InferenceDevice: 0
-  m_BehaviorType: 1
+  m_BehaviorType: 0
   m_BehaviorName: AgentBrain
   TeamId: 0
   m_UseChildSensors: 1
@@ -943,7 +943,7 @@ MonoBehaviour:
     VectorActionSpaceType: 1
   m_Model: {fileID: 5022602860645237092, guid: 3bc64783c647a524cbf692482ae59e04, type: 3}
   m_InferenceDevice: 0
-  m_BehaviorType: 1
+  m_BehaviorType: 0
   m_BehaviorName: AgentBrain
   TeamId: 0
   m_UseChildSensors: 1
@@ -1146,7 +1146,7 @@ MonoBehaviour:
     VectorActionSpaceType: 1
   m_Model: {fileID: 5022602860645237092, guid: 3bc64783c647a524cbf692482ae59e04, type: 3}
   m_InferenceDevice: 0
-  m_BehaviorType: 1
+  m_BehaviorType: 0
   m_BehaviorName: AgentBrain
   TeamId: 0
   m_UseChildSensors: 1
