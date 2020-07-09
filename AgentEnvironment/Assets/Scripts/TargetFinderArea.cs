@@ -26,7 +26,7 @@ public class TargetFinderArea : MonoBehaviour
     private float[,] objLocations;
 
     public List<GameObject> TargetsList { get { return targetsList;  } }
-    public List<GameObject> AgentsList { get { return agentsList;  } }
+    public List<GameObject> AgentsList { get { return agentsList; } set { agentsList = AgentsList; } }
 
     
 
@@ -221,6 +221,7 @@ public class TargetFinderArea : MonoBehaviour
         } */
 
         List <GameObject> spawnList = new List<GameObject>();
+        agentsList = new List<GameObject>();
         spawnList.Add(agent);
         spawnList.Add(agent2);
         spawnList.Add(agent3);
@@ -228,7 +229,7 @@ public class TargetFinderArea : MonoBehaviour
 
         foreach (GameObject element in spawnList) {
             Rigidbody rigidbody = element.GetComponent<Rigidbody>();
-
+            agentsList.Add(element);
 
             rigidbody.velocity = Vector3.zero;
             rigidbody.angularVelocity = Vector3.zero;
