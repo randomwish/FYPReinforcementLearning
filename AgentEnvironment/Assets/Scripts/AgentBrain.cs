@@ -69,18 +69,30 @@ public class AgentBrain : Agent
         sensor.AddObservation(localVelocity.x);
         sensor.AddObservation(localVelocity.z);
 
-        var currentAgentLocation = m_AgentRb.transform.localPosition; 
+        var currentAgentLocation = m_AgentRb.transform.localPosition;
+        sensor.AddObservation(currentAgentLocation);
         var targetLocations = m_TargetArea.RetrieveTargetLocations();
         foreach(Vector3 location in targetLocations)
         {
-            sensor.AddObservation(Vector3.Distance(currentAgentLocation, location));
+            //sensor.AddObservation(Vector3.Distance(currentAgentLocation, location));
+            sensor.AddObservation(location);
         }
         var agentLocations = m_TargetArea.RetrieveAgentLocations();
-        foreach(Vector3 AgentLocation in agentLocations)
+        /*
+        foreach (Vector3 AgentLocation in agentLocations)
         {
             sensor.AddObservation(Vector3.Distance(currentAgentLocation, AgentLocation));
-        }
+        }*/
         
+    }
+
+    public Vector3 RetrieveSingleAgentLocation()
+    {
+        Vector3 location = new Vector3();
+
+        location = gameObject.transform.localPosition;
+
+        return location;
     }
 
     public override void Heuristic(float[] actionsOut)
