@@ -238,7 +238,7 @@ public class TargetFinderArea : MonoBehaviour
         }
     }
 
-    public Vector3[] RetrieveLocations()
+    public Vector3[] RetrieveTargetLocations()
     {
         Vector3[] locations = new Vector3[numTargets];
         foreach (GameObject Target in targetsList)
@@ -256,6 +256,19 @@ public class TargetFinderArea : MonoBehaviour
             }
      
 
+        }
+        return locations;
+    }
+
+    public Vector3[] RetrieveAgentLocations()
+    {
+        Vector3[] locations = new Vector3[numAgents];
+        foreach (GameObject Agent in AgentsList)
+        {
+            for (int idx = 0; idx < AgentsList.Count; idx++)
+            {
+                locations[idx] = Agent.gameObject.transform.localPosition;
+            }
         }
         return locations;
     }
