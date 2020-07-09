@@ -261,6 +261,28 @@ public class TargetFinderArea : MonoBehaviour
         return locations;
     }
 
+    public GameObject[] RetrieveTargetObjects()
+    {
+        GameObject[] objects = new GameObject[numTargets];
+        foreach (GameObject Target in objects)
+        {
+            for (int idx = 0; idx < targetsList.Count; idx++)
+            {
+                if (Target.gameObject.tag == "target")
+                {
+                    objects[idx] = Target;
+                }
+                else
+                {
+                    objects[idx] = null; 
+                }
+            }
+
+
+        }
+        return objects;
+    }
+
     public Vector3[] RetrieveAgentLocations()
     {
         Vector3[] locations = new Vector3[numAgents];
