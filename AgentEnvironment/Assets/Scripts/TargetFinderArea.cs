@@ -220,13 +220,13 @@ public class TargetFinderArea : MonoBehaviour
             agentsList.Add(newAgent);
         } */
 
-        List <GameObject> spawnList = new List<GameObject>();
-        spawnList.Add(agent);
-        spawnList.Add(agent2);
-        spawnList.Add(agent3);
+        agentsList = new List<GameObject>();
+        agentsList.Add(agent);
+        agentsList.Add(agent2);
+        agentsList.Add(agent3);
 
 
-        foreach (GameObject element in spawnList) {
+        foreach (GameObject element in AgentsList) {
             Rigidbody rigidbody = element.GetComponent<Rigidbody>();
 
 
