@@ -65,7 +65,7 @@ public class AgentBrain : Agent
 
     public float[] retrieveTargetDistances(Vector3[] locations)
     {
-        float[] nearestDistances = new float[3];
+        float[] nearestDistances = new float[1];
         float[] distances = new float[locations.Length];
         int index = 0; //bad for loop
         foreach(Vector3 location in locations)
@@ -82,7 +82,7 @@ public class AgentBrain : Agent
         }
 
         Array.Sort(distances);
-        nearestDistances = distances.Take(3).ToArray();
+        nearestDistances = distances.Take(1).ToArray();
 
         return nearestDistances;
     }    
@@ -90,13 +90,13 @@ public class AgentBrain : Agent
     public Vector3[] retrieveNearestTargets(Vector3[] locations, float[] distances)
     {
 
-        Vector3[] nearestLocations = new Vector3[3];
+        Vector3[] nearestLocations = new Vector3[1];
 
         int index = 0; //bad for loop
         foreach (Vector3 location in locations)
         {
 
-            for (int i = 0; i < 3; i++)
+            for (int i = 0; i < 1; i++)
             {
                 if (distances[i] ==  Vector3.Distance(transform.localPosition, location))
                 {
@@ -113,9 +113,9 @@ public class AgentBrain : Agent
 
     public override void CollectObservations(VectorSensor sensor)
     {
-        var localVelocity = transform.InverseTransformDirection(m_AgentRb.velocity);
+        /* var localVelocity = transform.InverseTransformDirection(m_AgentRb.velocity);
         sensor.AddObservation(localVelocity.x);
-        sensor.AddObservation(localVelocity.z);
+        sensor.AddObservation(localVelocity.z); */
 
         var currentAgentLocation = m_AgentRb.transform.localPosition;
 
