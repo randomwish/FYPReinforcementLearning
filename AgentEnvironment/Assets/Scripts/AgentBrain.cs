@@ -98,14 +98,14 @@ public class AgentBrain : Agent
 
             for (int i = 0; i < 1; i++)
             {
-                if (distances[i] ==  Vector3.Distance(transform.localPosition, location))
+                if (distances[i] <=  Vector3.Distance(transform.localPosition, location) + 2.5f
+                    && distances[i] >= Vector3.Distance(transform.localPosition,location) - 2.5f)
                 {
                     //brute forced
                     nearestLocations[i] = locations[index];
                 }
             }
             
-            index++;
         }
 
         return nearestLocations;
