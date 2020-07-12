@@ -15,8 +15,8 @@ public class TargetFinderArea : MonoBehaviour
     private int Total; //this is hard coded :( 
 
     public GameObject agent;
-    public GameObject agent2;
-    public GameObject agent3;
+    //public GameObject agent2;
+    //public GameObject agent3;
 
     public int score = 0;
     // can change for mutliple agents later; testing first
@@ -48,8 +48,8 @@ public class TargetFinderArea : MonoBehaviour
         List<GameObject> obstacleList = new List<GameObject>();
         List<Vector3> objLocations = new List<Vector3>();
         spawnList.Add(agent);
-        spawnList.Add(agent2);
-        spawnList.Add(agent3);
+        //spawnList.Add(agent2);
+        //spawnList.Add(agent3);
 
         foreach (GameObject element in spawnList)
         {
@@ -223,8 +223,8 @@ public class TargetFinderArea : MonoBehaviour
         List <GameObject> spawnList = new List<GameObject>();
         agentsList = new List<GameObject>();
         spawnList.Add(agent);
-        spawnList.Add(agent2);
-        spawnList.Add(agent3);
+        //spawnList.Add(agent2);
+        //spawnList.Add(agent3);
 
 
         foreach (GameObject element in spawnList) {
