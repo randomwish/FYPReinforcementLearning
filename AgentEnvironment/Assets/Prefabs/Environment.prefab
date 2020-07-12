@@ -211,7 +211,7 @@ MonoBehaviour:
     VectorActionSize: 02000000
     VectorActionDescriptions: []
     VectorActionSpaceType: 1
-  m_Model: {fileID: 5022602860645237092, guid: bd8235b28cc89c44e9c824fc0cb978ee, type: 3}
+  m_Model: {fileID: 5022602860645237092, guid: 2b52d69326d65b3468984078419609b2, type: 3}
   m_InferenceDevice: 0
   m_BehaviorType: 0
   m_BehaviorName: AgentBrain
