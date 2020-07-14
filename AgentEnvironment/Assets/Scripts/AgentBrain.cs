@@ -110,7 +110,10 @@ public class AgentBrain : Agent
 
         return nearestLocations;
     }
-
+    float normalizer(float value, float minimum, float maximum)
+    {
+        return (float)((value - minimum) / (maximum - minimum));
+    }
     public override void CollectObservations(VectorSensor sensor)
     {
         /* var localVelocity = transform.InverseTransformDirection(m_AgentRb.velocity);
@@ -123,14 +126,18 @@ public class AgentBrain : Agent
         var distancesAgent = retrieveTargetDistances(targetLocations);
         var nearestTargetLocations = retrieveNearestTargets(targetLocations, distancesAgent);
 
+        float hypotenuse = Mathf.Sqrt(2f * (2 * Mathf.Pow(m_TargetArea.range, 2f)));
+
         foreach (float distance in distancesAgent)
         {
-            sensor.AddObservation(distance);
+            //sensor.AddObservation(distance);
+            sensor.AddObservation(normalizer(distance, 0f, hypotenuse));
         }
 
         foreach (Vector3 loc in nearestTargetLocations)
         {
-            sensor.AddObservation(Vector3.Angle(currentAgentLocation, loc));
+            //sensor.AddObservation(Vector3.Angle(currentAgentLocation, loc));
+            sensor.AddObservation(normalizer(Vector3.Angle(currentAgentLocation, loc), 0f, 180f));
             Debug.Log(Vector3.Angle(currentAgentLocation, loc));
         }
 
