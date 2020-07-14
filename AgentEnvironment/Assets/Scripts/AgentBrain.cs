@@ -31,6 +31,8 @@ public class AgentBrain : Agent
         range = m_TargetArea.range;
         numTargets = m_TargetArea.numTargets;
         //Add Environment Settings 
+
+        respawn();
     }
 
     void Update() {
@@ -68,19 +70,7 @@ public class AgentBrain : Agent
         var localVelocity = transform.InverseTransformDirection(m_AgentRb.velocity);
         sensor.AddObservation(localVelocity.x);
         sensor.AddObservation(localVelocity.z);
-
-        var currentAgentLocation = m_AgentRb.transform.localPosition; 
-        var targetLocations = m_TargetArea.RetrieveTargetLocations();
-        foreach(Vector3 location in targetLocations)
-        {
-            sensor.AddObservation(Vector3.Distance(currentAgentLocation, location));
-        }
-        var agentLocations = m_TargetArea.RetrieveAgentLocations();
-        foreach(Vector3 AgentLocation in agentLocations)
-        {
-            sensor.AddObservation(Vector3.Distance(currentAgentLocation, AgentLocation));
-        }
-        
+       
     }
 
     public override void Heuristic(float[] actionsOut)
@@ -97,7 +87,20 @@ public class AgentBrain : Agent
             //Destroy(other.gameObject);
             m_TargetArea.score += 1;
             AddReward(1f);
+            if (m_TargetArea.score >= m_TargetArea.numTargets)
+                respawn();
         } 
+    }
+
+    void respawn() 
+    {
+        m_AgentRb.velocity = Vector3.zero;
+        m_AgentRb.angularVelocity = Vector3.zero;
+        gameObject.transform.position = m_TargetArea.GenerateNewPosition();
+        gameObject.transform.rotation = Quaternion.Euler(0f, UnityEngine.Random.Range(0f, 180f), 0f);
+
+        m_TargetArea.score = 0;
+        EndEpisode();
     }
 
 }

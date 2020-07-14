@@ -15,8 +15,6 @@ public class TargetFinderArea : MonoBehaviour
     private int Total; //this is hard coded :( 
 
     public GameObject agent;
-    public GameObject agent2;
-    public GameObject agent3;
 
     public int score = 0;
     // can change for mutliple agents later; testing first
@@ -44,16 +42,7 @@ public class TargetFinderArea : MonoBehaviour
     public void EndAllEpisodes()
     {
         score = 0;
-        List<GameObject> spawnList = new List<GameObject>();
-        spawnList.Add(agent);
-        spawnList.Add(agent2);
-        spawnList.Add(agent3);
-
-        foreach (GameObject element in spawnList)
-        {
-            AgentBrain agent = element.GetComponent<AgentBrain>();
-            agent.EndEpisode();
-        }
+        //RemoveAllAgents();
     }
 
     private void generateLocations()
@@ -105,6 +94,19 @@ public class TargetFinderArea : MonoBehaviour
         obstacleList = new List<GameObject>();
     }
 
+    public void RemoveAllAgents()
+    {
+        if (agentsList != null)
+        {
+            foreach (GameObject element in agentsList)
+            {
+            AgentBrain agent = element.GetComponent<AgentBrain>();
+            agent.EndEpisode();
+            }
+        }
+        agentsList = new List<GameObject>();
+    }
+
     public static Vector3 GenerateNewPosition(Vector3 center, float range)
     {
         Vector3 newPosition = center;
@@ -125,6 +127,12 @@ public class TargetFinderArea : MonoBehaviour
         newPosition.y = 1f;
         newPosition.z += newRandZ * Step;
         return newPosition;
+    }
+
+    public Vector3 GenerateNewPosition()
+    {
+        return GenerateNewPosition(transform.position, range);
+
     }
 
     public int generateRotation(int step)
@@ -204,19 +212,36 @@ public class TargetFinderArea : MonoBehaviour
             t.transform.SetParent(transform);
 
             obstacleList.Add(t);
-
-
         }
     }
 
-    public void RespawnAgent()
+    public void SpawnAgent(int num, GameObject agent)
+    {
+
+        for (int i = 0; i < num; i++)
+        {
+            GameObject t = Instantiate<GameObject>(agent.gameObject);
+            t.transform.position = GenerateNewPosition(transform.position);
+
+            t.transform.SetParent(transform);
+            
+            t.transform.position = GenerateNewPosition(transform.position, range);
+            t.transform.rotation = Quaternion.Euler(0f, UnityEngine.Random.Range(0f, 180f), 0f);
+            
+            agentsList.Add(t);
+        }
+
+    }
+
+
+    /*public void RespawnAgent()
     {/*
         for (int i = 0; i < num; i++)
         {
             GameObject newAgent = Instantiate<GameObject>(agents.gameObject);
 
             agentsList.Add(newAgent);
-        } */
+        } 
         agentsList = new List<GameObject>();
         List <GameObject> spawnList = new List<GameObject>();
         spawnList.Add(agent);
@@ -235,7 +260,7 @@ public class TargetFinderArea : MonoBehaviour
             element.transform.rotation = Quaternion.Euler(0f, UnityEngine.Random.Range(0f, 180f), 0f);
 
         }
-    }
+    }*/
 
     public Vector3[] RetrieveTargetLocations()
     {
@@ -277,9 +302,10 @@ public class TargetFinderArea : MonoBehaviour
         generateLocations();
         RemoveAllTargets();
         RemoveAllObstacles();
-        RespawnAgent();
+        //RemoveAllAgents();
         SpawnTarget(numTargets,target);
         SpawnObstacle(numObstacles, obstacle);
+        //SpawnAgent(numAgents, agent);
     }
     private void Start()
     {
