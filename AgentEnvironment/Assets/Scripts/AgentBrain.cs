@@ -116,9 +116,9 @@ public class AgentBrain : Agent
     }
     public override void CollectObservations(VectorSensor sensor)
     {
-        /* var localVelocity = transform.InverseTransformDirection(m_AgentRb.velocity);
+         var localVelocity = transform.InverseTransformDirection(m_AgentRb.velocity);
         sensor.AddObservation(localVelocity.x);
-        sensor.AddObservation(localVelocity.z); */
+        sensor.AddObservation(localVelocity.z); 
 
         var currentAgentLocation = m_AgentRb.transform.localPosition;
 
