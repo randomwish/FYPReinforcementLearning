@@ -14,7 +14,7 @@ public class AgentBrain : Agent
     TargetFinderArea m_TargetArea;
     public GameObject targets;
     public GameObject TargetArea;
-      
+
     //Variables for values
     [HideInInspector]
     public float range;
@@ -24,7 +24,7 @@ public class AgentBrain : Agent
     public float turnSpeed = 300;
     public float moveSpeed = 2;
 
- 
+
 
     public override void Initialize()
     {
@@ -32,11 +32,13 @@ public class AgentBrain : Agent
         m_TargetArea = TargetArea.GetComponent<TargetFinderArea>();
         range = m_TargetArea.range;
         numTargets = m_TargetArea.numTargets;
-        //Add Environment Settings 
+        //Add Environment Settings
+
+        respawn();
     }
 
     void Update() {
-        
+
     }
 
     public override void OnEpisodeBegin()
@@ -56,10 +58,10 @@ public class AgentBrain : Agent
 
         float hAxis = act[0];
         float vAxis = act[1];
-        
+
         Vector3 movement = new Vector3(hAxis, 0, vAxis) * moveSpeed * Time.deltaTime;
 
-        m_AgentRb.MovePosition(transform.position + movement); 
+        m_AgentRb.MovePosition(transform.position + movement);
 
     }
 
@@ -85,8 +87,8 @@ public class AgentBrain : Agent
         nearestDistances = distances.Take(1).ToArray();
 
         return nearestDistances;
-    }    
-    
+    }
+
     public Vector3[] retrieveNearestTargets(Vector3[] locations, float[] distances)
     {
 
@@ -105,7 +107,7 @@ public class AgentBrain : Agent
                     nearestLocations[i] = locations[index];
                 }
             }
-            
+
         }
 
         return nearestLocations;
@@ -118,7 +120,7 @@ public class AgentBrain : Agent
     {
          var localVelocity = transform.InverseTransformDirection(m_AgentRb.velocity);
         sensor.AddObservation(localVelocity.x);
-        sensor.AddObservation(localVelocity.z); 
+        sensor.AddObservation(localVelocity.z);
 
         var currentAgentLocation = m_AgentRb.transform.localPosition;
 
@@ -141,30 +143,43 @@ public class AgentBrain : Agent
             Debug.Log(Vector3.Angle(currentAgentLocation, loc));
         }
 
-        var agentLocations = m_TargetArea.RetrieveAgentLocations(); 
+        var agentLocations = m_TargetArea.RetrieveAgentLocations();
         /*
         foreach(Vector3 AgentLocation in agentLocations)
         {
             sensor.AddObservation(Vector3.Distance(currentAgentLocation, AgentLocation));
         }*/
-        
+
     }
 
     public override void Heuristic(float[] actionsOut)
     {
-        
+
         actionsOut[0] = Input.GetAxis("Horizontal");
         actionsOut[1] = Input.GetAxis("Vertical");
     }
 
-    void OnCollisionEnter(Collision other) 
+    void OnCollisionEnter(Collision other)
     {
         if(other.transform.CompareTag("target"))
         {
             //Destroy(other.gameObject);
             m_TargetArea.score += 1;
             AddReward(1f);
-        } 
+            if (m_TargetArea.score >= m_TargetArea.numTargets)
+                respawn();
+        }
+    }
+
+    void respawn()
+    {
+        m_AgentRb.velocity = Vector3.zero;
+        m_AgentRb.angularVelocity = Vector3.zero;
+        gameObject.transform.position = m_TargetArea.GenerateNewPosition();
+        gameObject.transform.rotation = Quaternion.Euler(0f, UnityEngine.Random.Range(0f, 180f), 0f);
+
+        m_TargetArea.score = 0;
+        EndEpisode();
     }
 
 }
