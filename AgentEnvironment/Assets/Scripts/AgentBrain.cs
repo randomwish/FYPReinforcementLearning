@@ -21,6 +21,8 @@ public class AgentBrain : Agent
     [HideInInspector]
     int numTargets;
 
+    int internalScore; //To keep track of agent's own score
+
     public float turnSpeed = 300;
     public float moveSpeed = 2;
 
@@ -33,6 +35,8 @@ public class AgentBrain : Agent
         range = m_TargetArea.range;
         numTargets = m_TargetArea.numTargets;
         //Add Environment Settings 
+
+        internalScore = 0;
     }
 
     void Update() {
@@ -164,6 +168,12 @@ public class AgentBrain : Agent
             //Destroy(other.gameObject);
             m_TargetArea.score += 1;
             AddReward(1f);
+            internalScore++;
+
+            if(internalScore >= 3)
+            {
+                AddReward(-5f);
+            }
         } 
     }
 
