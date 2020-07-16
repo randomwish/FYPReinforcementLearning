@@ -17,7 +17,6 @@ public class TargetFinderArea : MonoBehaviour
     public GameObject agent;
 
     public int score = 0;
-    // can change for mutliple agents later; testing first
     private List<GameObject> agentsList;
     private List<GameObject> targetsList;
     private List<GameObject> obstacleList;
@@ -34,14 +33,14 @@ public class TargetFinderArea : MonoBehaviour
         //Debug.Log("Score is " + score);
         if(score >= numTargets)
         {
-            EndAllEpisodes();
+            //EndAllEpisodes();
             ResetArea();
         }
     }
 
     public void EndAllEpisodes()
     {
-        score = 0;
+        //score = 0;
         //RemoveAllAgents();
     }
 
@@ -132,7 +131,13 @@ public class TargetFinderArea : MonoBehaviour
     public Vector3 GenerateNewPosition()
     {
         return GenerateNewPosition(transform.position, range);
+    }
 
+    public Vector3 GeneratePositionOffset(Vector3 offset)
+    {
+        Vector3 newPosition = gameObject.transform.position;
+        newPosition += offset;
+        return newPosition;
     }
 
     public int generateRotation(int step)
@@ -233,35 +238,6 @@ public class TargetFinderArea : MonoBehaviour
 
     }
 
-
-    /*public void RespawnAgent()
-    {/*
-        for (int i = 0; i < num; i++)
-        {
-            GameObject newAgent = Instantiate<GameObject>(agents.gameObject);
-
-            agentsList.Add(newAgent);
-        } 
-        agentsList = new List<GameObject>();
-        List <GameObject> spawnList = new List<GameObject>();
-        spawnList.Add(agent);
-        spawnList.Add(agent2);
-        spawnList.Add(agent3);
-
-
-        foreach (GameObject element in spawnList) {
-            agentsList.Add(element);
-            Rigidbody rigidbody = element.GetComponent<Rigidbody>();
-
-
-            rigidbody.velocity = Vector3.zero;
-            rigidbody.angularVelocity = Vector3.zero;
-            element.transform.position = GenerateNewPosition(transform.position, range);
-            element.transform.rotation = Quaternion.Euler(0f, UnityEngine.Random.Range(0f, 180f), 0f);
-
-        }
-    }*/
-
     public Vector3[] RetrieveTargetLocations()
     {
         Vector3[] locations = new Vector3[numTargets];
@@ -294,6 +270,33 @@ public class TargetFinderArea : MonoBehaviour
             }
         }
         return locations;
+    }
+
+    public int getZone(Vector3 currentLoc)
+    {
+        int zone = 0;
+
+        /*
+         * -------------------
+         * |        |        |
+         * |   0    |    1   |
+         * |        |        |
+         * |--------|--------|
+         * |        |        |
+         * |   2    |   3    |
+         * |        |        |
+         * -------------------
+         */
+        if (currentLoc.x < 0 && currentLoc.z > 0)
+            zone = 0;
+        else if (currentLoc.x > 0 && currentLoc.z > 0)
+            zone = 1;
+        else if (currentLoc.x < 0 && currentLoc.z < 0)
+            zone = 2;
+        else if (currentLoc.x > 0 && currentLoc.z < 0)
+            zone = 3;
+
+        return zone;
     }
 
     public void ResetArea()

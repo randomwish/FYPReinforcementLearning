@@ -12,6 +12,9 @@ public class AgentBrain : Agent
     TargetFinderArea m_TargetArea;
     public GameObject targets;
     public GameObject TargetArea;
+    public int startZone;
+
+    private bool randomSpawn = false;
       
     //Variables for values
     [HideInInspector]
@@ -36,8 +39,10 @@ public class AgentBrain : Agent
     }
 
     void Update() {
-         
-//        Debug.Log("Current Score is " + count);
+
+        //        Debug.Log("Current Score is " + count);
+        if (m_TargetArea.score <= m_TargetArea.numTargets)
+            respawn();
 
     }
     public override void OnEpisodeBegin()
@@ -50,7 +55,10 @@ public class AgentBrain : Agent
     {
         MoveAgent(vectorAction);
         AddReward(-0.001f);
-        
+        if (m_TargetArea.getZone(gameObject.transform.localPosition) != startZone)
+            AddReward(-0.002f);
+        if (m_TargetArea.score >= m_TargetArea.numTargets)
+            respawn();
     }
 
     public void MoveAgent(float[] act)
@@ -70,7 +78,11 @@ public class AgentBrain : Agent
         var localVelocity = transform.InverseTransformDirection(m_AgentRb.velocity);
         sensor.AddObservation(localVelocity.x);
         sensor.AddObservation(localVelocity.z);
-       
+
+        //not sure if this will work, possible to do a bool for if correct zone instead
+        sensor.AddOneHotObservation(startZone, 4);
+        sensor.AddOneHotObservation(m_TargetArea.getZone(transform.localPosition), 4);
+
     }
 
     public override void Heuristic(float[] actionsOut)
@@ -87,17 +99,35 @@ public class AgentBrain : Agent
             //Destroy(other.gameObject);
             m_TargetArea.score += 1;
             AddReward(1f);
-            if (m_TargetArea.score >= m_TargetArea.numTargets)
-                respawn();
         } 
     }
 
     void respawn() 
-    {
+    {       
         m_AgentRb.velocity = Vector3.zero;
         m_AgentRb.angularVelocity = Vector3.zero;
-        gameObject.transform.position = m_TargetArea.GenerateNewPosition();
-        gameObject.transform.rotation = Quaternion.Euler(0f, UnityEngine.Random.Range(0f, 180f), 0f);
+
+        if (randomSpawn)
+        {
+            gameObject.transform.position = m_TargetArea.GenerateNewPosition();
+            gameObject.transform.rotation = Quaternion.Euler(0f, UnityEngine.Random.Range(0f, 180f), 0f);
+        }
+        else
+        { 
+            Vector3 newPows = new Vector3();
+
+            if (startZone < 2)
+                newPows.z = 25;
+            else
+                newPows.z = -25;
+            if (startZone % 2 == 1)
+                newPows.x = 25;
+            else
+                newPows.x = -25;
+
+            gameObject.transform.position = m_TargetArea.GeneratePositionOffset(newPows);
+
+        }
 
         m_TargetArea.score = 0;
         EndEpisode();
