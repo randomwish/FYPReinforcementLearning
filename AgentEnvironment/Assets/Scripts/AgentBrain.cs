@@ -124,7 +124,7 @@ public class AgentBrain : Agent
             gameObject.transform.rotation = Quaternion.Euler(0f, UnityEngine.Random.Range(0f, 180f), 0f);
         }
         else
-        {
+        { 
             Vector3 newPows = new Vector3();
 
             if (startZone < 2)
@@ -136,12 +136,8 @@ public class AgentBrain : Agent
             else
                 newPows.x = -25;
 
-            gameObject.transform.position = m_TargetArea.GeneratePositionOffset(newPows);
+            gameObject.transform.position = m_TargetArea.GeneratePositionOffset(newPows); 
 
         }
-
-        m_TargetArea.score = 0;
-        EndEpisode();
     }
-
 }
