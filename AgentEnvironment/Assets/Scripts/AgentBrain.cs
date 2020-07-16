@@ -18,6 +18,7 @@ public class AgentBrain : Agent
     public float range;
     [HideInInspector]
     int numTargets;
+    int oldScore = 0;
 
     public float turnSpeed = 300;
     public float moveSpeed = 2;
@@ -36,14 +37,20 @@ public class AgentBrain : Agent
     }
 
     void Update() {
-         
-//        Debug.Log("Current Score is " + count);
 
+        //        Debug.Log("Current Score is " + count);
+        
+        if (m_TargetArea.score >= m_TargetArea.numTargets || oldScore > m_TargetArea.score)
+        {
+            EndEpisode();
+        }
+        oldScore = m_TargetArea.score;
     }
     public override void OnEpisodeBegin()
     {
         m_TargetArea.ResetArea();
         m_AgentRb.velocity = Vector3.zero;
+        respawn();
     }
 
     public override void OnActionReceived(float[] vectorAction)
@@ -88,7 +95,11 @@ public class AgentBrain : Agent
             m_TargetArea.score += 1;
             AddReward(1f);
             if (m_TargetArea.score >= m_TargetArea.numTargets)
-                respawn();
+            {
+                m_TargetArea.score = 0;
+                EndEpisode();
+            }
+
         } 
     }
 
@@ -98,9 +109,6 @@ public class AgentBrain : Agent
         m_AgentRb.angularVelocity = Vector3.zero;
         gameObject.transform.position = m_TargetArea.GenerateNewPosition();
         gameObject.transform.rotation = Quaternion.Euler(0f, UnityEngine.Random.Range(0f, 180f), 0f);
-
-        m_TargetArea.score = 0;
-        EndEpisode();
     }
 
 }
