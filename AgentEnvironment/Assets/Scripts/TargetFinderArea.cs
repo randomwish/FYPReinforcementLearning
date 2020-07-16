@@ -321,6 +321,8 @@ public class TargetFinderArea : MonoBehaviour
 
     public void ResetArea()
     {
+        score = 0;
+
         Total = (int)range / Step * 2 - 1;
         generateLocations();
         RemoveAllTargets();
