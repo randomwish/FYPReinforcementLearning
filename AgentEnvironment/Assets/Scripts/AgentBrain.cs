@@ -15,17 +15,18 @@ public class AgentBrain : Agent
     public int startZone;
 
     private bool randomSpawn = false;
-      
+
     //Variables for values
     [HideInInspector]
     public float range;
     [HideInInspector]
     int numTargets;
+    int oldScore = 0;
 
     public float turnSpeed = 300;
     public float moveSpeed = 2;
 
- 
+
 
     public override void Initialize()
     {
@@ -33,7 +34,7 @@ public class AgentBrain : Agent
         m_TargetArea = TargetArea.GetComponent<TargetFinderArea>();
         range = m_TargetArea.range;
         numTargets = m_TargetArea.numTargets;
-        //Add Environment Settings 
+        //Add Environment Settings
 
         respawn();
     }
@@ -41,14 +42,18 @@ public class AgentBrain : Agent
     void Update() {
 
         //        Debug.Log("Current Score is " + count);
-        if (m_TargetArea.score <= m_TargetArea.numTargets)
-            respawn();
 
+        if (m_TargetArea.score >= m_TargetArea.numTargets || oldScore > m_TargetArea.score)
+        {
+            EndEpisode();
+        }
+        oldScore = m_TargetArea.score;
     }
     public override void OnEpisodeBegin()
     {
         m_TargetArea.ResetArea();
         m_AgentRb.velocity = Vector3.zero;
+        respawn();
     }
 
     public override void OnActionReceived(float[] vectorAction)
@@ -66,10 +71,10 @@ public class AgentBrain : Agent
 
         float hAxis = act[0];
         float vAxis = act[1];
-        
+
         Vector3 movement = new Vector3(hAxis, 0, vAxis) * moveSpeed * Time.deltaTime;
 
-        m_AgentRb.MovePosition(transform.position + movement); 
+        m_AgentRb.MovePosition(transform.position + movement);
 
     }
 
@@ -87,23 +92,29 @@ public class AgentBrain : Agent
 
     public override void Heuristic(float[] actionsOut)
     {
-        
+
         actionsOut[0] = Input.GetAxis("Horizontal");
         actionsOut[1] = Input.GetAxis("Vertical");
     }
 
-    void OnCollisionEnter(Collision other) 
+    void OnCollisionEnter(Collision other)
     {
         if(other.transform.CompareTag("target"))
         {
             //Destroy(other.gameObject);
             m_TargetArea.score += 1;
             AddReward(1f);
-        } 
+            if (m_TargetArea.score >= m_TargetArea.numTargets)
+            {
+                m_TargetArea.score = 0;
+                EndEpisode();
+            }
+
+        }
     }
 
-    void respawn() 
-    {       
+    void respawn()
+    {
         m_AgentRb.velocity = Vector3.zero;
         m_AgentRb.angularVelocity = Vector3.zero;
 
@@ -113,7 +124,7 @@ public class AgentBrain : Agent
             gameObject.transform.rotation = Quaternion.Euler(0f, UnityEngine.Random.Range(0f, 180f), 0f);
         }
         else
-        { 
+        {
             Vector3 newPows = new Vector3();
 
             if (startZone < 2)
