@@ -1,5 +1,9 @@
 fileFormatVersion: 2
+<<<<<<< HEAD
 guid: c2c958daaad632f4db13aef8eb75153c
+=======
+guid: 1d2ecca68175ae4419665f588d291d89
+>>>>>>> Observation-Space-for-Objects
 folderAsset: yes
 DefaultImporter:
   externalObjects: {}

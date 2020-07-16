@@ -12,7 +12,7 @@ public class TargetFinderArea : MonoBehaviour
     public int rotationStep;
     public int numObstacles;
     private int Step = 10;
-    private int Total; //this is hard coded :( 
+    private int Total; //this is hard coded :(
 
     public GameObject agent;
 
@@ -25,8 +25,8 @@ public class TargetFinderArea : MonoBehaviour
     public List<GameObject> TargetsList { get { return targetsList;  } }
     public List<GameObject> AgentsList { get { return agentsList; } set { agentsList = AgentsList; } }
 
-    
-           
+
+
 
     public void Update()
     {
@@ -63,8 +63,8 @@ public class TargetFinderArea : MonoBehaviour
     {
         targetsList.Remove(targetObject);
         Destroy(targetObject);
-    }    
-    
+    }
+
     public void RemoveAllTargets()
     {
         if(targetsList != null)
@@ -111,7 +111,7 @@ public class TargetFinderArea : MonoBehaviour
         Vector3 newPosition = center;
         newPosition.x += UnityEngine.Random.Range(-range,range);
         newPosition.y = 1f;
-        newPosition.z += UnityEngine.Random.Range(-range,range);    
+        newPosition.z += UnityEngine.Random.Range(-range,range);
         return newPosition;
     }
 
@@ -162,7 +162,7 @@ public class TargetFinderArea : MonoBehaviour
 
     public int[] checkPosition()
     {
-        int total = Total; 
+        int total = Total;
         int randX = UnityEngine.Random.Range(0, total);
         int randZ = UnityEngine.Random.Range(0, total);
         return checkPosition(total, randX, randZ);
@@ -184,7 +184,7 @@ public class TargetFinderArea : MonoBehaviour
         result[1] = randZ - total/2;
         return result;
     }
-    
+
     public void SpawnTarget(int num, GameObject target)
     {
         for (int i = 0; i < num; i++)
@@ -195,11 +195,11 @@ public class TargetFinderArea : MonoBehaviour
             float rotate = generateRotation(rotationStep);
             t.transform.rotation = Quaternion.Euler(0f, rotate, 0f);
             t.transform.position += generateRotationOffset(rotate, 5); //assuming longest side of object is 5
-            
+
             t.transform.SetParent(transform);
 
             targetsList.Add(t);
-        } 
+        }
     }
 
     public void SpawnObstacle(int num, GameObject target)
@@ -229,10 +229,10 @@ public class TargetFinderArea : MonoBehaviour
             t.transform.position = GenerateNewPosition(transform.position);
 
             t.transform.SetParent(transform);
-            
+
             t.transform.position = GenerateNewPosition(transform.position, range);
             t.transform.rotation = Quaternion.Euler(0f, UnityEngine.Random.Range(0f, 180f), 0f);
-            
+
             agentsList.Add(t);
         }
 
@@ -254,11 +254,34 @@ public class TargetFinderArea : MonoBehaviour
                     locations[idx] = Vector3.zero;
                 }
             }
-     
+
 
         }
         return locations;
     }
+
+    public GameObject[] RetrieveTargetObjects()
+    {
+        GameObject[] objects = new GameObject[numTargets];
+        foreach (GameObject Target in objects)
+        {
+            for (int idx = 0; idx < targetsList.Count; idx++)
+            {
+                if (Target.gameObject.tag == "target")
+                {
+                    objects[idx] = Target;
+                }
+                else
+                {
+                    objects[idx] = null;
+                }
+            }
+
+
+        }
+        return objects;
+    }
+
     public Vector3[] RetrieveAgentLocations()
     {
         Vector3[] locations = new Vector3[numAgents];
@@ -314,7 +337,9 @@ public class TargetFinderArea : MonoBehaviour
     }
     private void Start()
     {
-
+        //Destroy(target);
+        //not sure why the thing causes bugs when deleted, likely due to the same frame bug i think. anyways, putting it below the playfeild
+        //for now. hacky solution but works
         ResetArea();
     }
 }

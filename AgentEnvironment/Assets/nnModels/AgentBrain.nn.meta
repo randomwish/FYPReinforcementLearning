@@ -1,5 +1,9 @@
 fileFormatVersion: 2
+<<<<<<< HEAD
 guid: 0afc2f8ffbec9ae498c15259338e5228
+=======
+guid: 21ce0a29c19fa7d40bf5530da49267b1
+>>>>>>> Observation-Space-for-Objects
 ScriptedImporter:
   internalIDToNameTable: []
   externalObjects: {}
