@@ -24,6 +24,7 @@ public class AgentBrain : Agent
     [HideInInspector]
     int numTargets;
     int oldScore = 0;
+    float hypotenuse;
 
     int internalScore; //To keep track of agent's own score
 
@@ -40,7 +41,8 @@ public class AgentBrain : Agent
         numTargets = m_TargetArea.numTargets;
         //Add Environment Settings
 
-        internalScore = 0;
+        hypotenuse = Mathf.Sqrt(2f * (2 * Mathf.Pow(m_TargetArea.range, 2f)));
+
         //Add Environment Settings
 
         respawn();
@@ -149,8 +151,6 @@ public class AgentBrain : Agent
         var distancesAgent = retrieveTargetDistances(targetLocations);
         var nearestTargetLocations = retrieveNearestTargets(targetLocations, distancesAgent);
 
-        float hypotenuse = Mathf.Sqrt(2f * (2 * Mathf.Pow(m_TargetArea.range, 2f)));
-
         foreach (float distance in distancesAgent)
         {
             //sensor.AddObservation(distance);
@@ -164,13 +164,6 @@ public class AgentBrain : Agent
             Debug.Log(Vector3.Angle(currentAgentLocation, loc));
         }
 
-        var agentLocations = m_TargetArea.RetrieveAgentLocations();
-        /*
-        foreach(Vector3 AgentLocation in agentLocations)
-        {
-            sensor.AddObservation(Vector3.Distance(currentAgentLocation, AgentLocation));
-        }*/
-        //not sure if this will work, possible to do a bool for if correct zone instead
         sensor.AddOneHotObservation(startZone, 4);
         sensor.AddOneHotObservation(m_TargetArea.getZone(transform.localPosition), 4);
 
@@ -190,12 +183,6 @@ public class AgentBrain : Agent
             //Destroy(other.gameObject);
             m_TargetArea.score += 1;
             AddReward(1f);
-            internalScore++;
-
-            if(internalScore >= 3)
-            {
-                AddReward(-5f);
-            }
         }
             if (m_TargetArea.score >= m_TargetArea.numTargets)
             {
@@ -203,7 +190,6 @@ public class AgentBrain : Agent
                 EndEpisode();
             }
 
-        }
     }
 
     void respawn()
@@ -221,16 +207,17 @@ public class AgentBrain : Agent
             Vector3 newPows = new Vector3();
 
             if (startZone < 2)
-                newPows.z = 25;
+                newPows.z = 0;
             else
-                newPows.z = -25;
+                newPows.z = -0;
             if (startZone % 2 == 1)
-                newPows.x = 25;
+                newPows.x = 0;
             else
-                newPows.x = -25;
+                newPows.x = -0;
 
             gameObject.transform.position = m_TargetArea.GeneratePositionOffset(newPows);
 
         }
     }
 }
+
