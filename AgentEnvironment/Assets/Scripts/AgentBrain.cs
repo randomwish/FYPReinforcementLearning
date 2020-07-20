@@ -193,7 +193,6 @@ public class AgentBrain : Agent
                 EndEpisode();
             }
 
-        }
     }
 
     void respawn()
