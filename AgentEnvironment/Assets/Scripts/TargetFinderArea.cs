@@ -233,35 +233,6 @@ public class TargetFinderArea : MonoBehaviour
 
     }
 
-
-    /*public void RespawnAgent()
-    {/*
-        for (int i = 0; i < num; i++)
-        {
-            GameObject newAgent = Instantiate<GameObject>(agents.gameObject);
-
-            agentsList.Add(newAgent);
-        }
-        agentsList = new List<GameObject>();
-        List <GameObject> spawnList = new List<GameObject>();
-        agentsList = new List<GameObject>();
-        spawnList.Add(agent);
-        spawnList.Add(agent2);
-        spawnList.Add(agent3);
-
-
-        foreach (GameObject element in spawnList) {
-            Rigidbody rigidbody = element.GetComponent<Rigidbody>();
-            agentsList.Add(element);
-
-            rigidbody.velocity = Vector3.zero;
-            rigidbody.angularVelocity = Vector3.zero;
-            element.transform.position = GenerateNewPosition(transform.position, range);
-            element.transform.rotation = Quaternion.Euler(0f, UnityEngine.Random.Range(0f, 180f), 0f);
-
-        }
-    }*/
-
     public Vector3[] RetrieveTargetLocations()
     {
         Vector3[] locations = new Vector3[numTargets];
@@ -334,9 +305,6 @@ public class TargetFinderArea : MonoBehaviour
     }
     private void Start()
     {
-        //Destroy(target);
-        //not sure why the thing causes bugs when deleted, likely due to the same frame bug i think. anyways, putting it below the playfeild
-        //for now. hacky solution but works
         ResetArea();
     }
 }
