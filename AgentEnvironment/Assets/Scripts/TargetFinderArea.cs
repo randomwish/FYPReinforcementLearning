@@ -306,7 +306,7 @@ public class TargetFinderArea : MonoBehaviour
         return objects;
     }
 
-    public Vector3[] RetrieveAgentLocations()
+    /*public Vector3[] RetrieveAgentLocations()
     {
         Vector3[] locations = new Vector3[numAgents];
         foreach (GameObject Agent in AgentsList)
@@ -317,7 +317,7 @@ public class TargetFinderArea : MonoBehaviour
             }
         }
         return locations;
-    }
+    } */
 
     public void ResetArea()
     {

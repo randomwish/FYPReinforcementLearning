@@ -157,7 +157,7 @@ public class AgentBrain : Agent
             Debug.Log(Vector3.Angle(currentAgentLocation, loc));
         }
 
-        var agentLocations = m_TargetArea.RetrieveAgentLocations();
+        //var agentLocations = m_TargetArea.RetrieveAgentLocations();
         /*
         foreach(Vector3 AgentLocation in agentLocations)
         {
