@@ -181,18 +181,12 @@ public class AgentBrain : Agent
             m_TargetArea.score += 1;
             AddReward(1f);
             internalScore++;
-
-            if(internalScore >= 3)
-            {
-                AddReward(-5f);
-            }
         }
-            if (m_TargetArea.score >= m_TargetArea.numTargets)
-            {
-                m_TargetArea.score = 0;
-                EndEpisode();
-            }
 
+        if (m_TargetArea.score >= m_TargetArea.numTargets)
+        {
+            m_TargetArea.score = 0;
+            EndEpisode();
         }
     }
 
