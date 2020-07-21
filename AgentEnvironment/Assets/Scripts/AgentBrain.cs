@@ -81,7 +81,7 @@ public class AgentBrain : Agent
 
     public float[] retrieveTargetDistances(Vector3[] locations)
     {
-        float[] nearestDistances = new float[1];
+        //float[] nearestDistances = new float[1];
         float[] distances = new float[locations.Length];
         int index = 0; //bad for loop
         foreach(Vector3 location in locations)
@@ -97,10 +97,10 @@ public class AgentBrain : Agent
             index++;
         }
 
-        Array.Sort(distances);
-        nearestDistances = distances.Take(1).ToArray();
+        //Array.Sort(distances);
+        //nearestDistances = distances.Take(1).ToArray();
 
-        return nearestDistances;
+        return distances;
     }
 
     public Vector3[] retrieveNearestTargets(Vector3[] locations, float[] distances)
@@ -126,10 +126,12 @@ public class AgentBrain : Agent
 
         return nearestLocations;
     }
+
     float normalizer(float value, float minimum, float maximum)
     {
         return (float)((value - minimum) / (maximum - minimum));
     }
+
     public override void CollectObservations(VectorSensor sensor)
     {
          var localVelocity = transform.InverseTransformDirection(m_AgentRb.velocity);
@@ -139,30 +141,22 @@ public class AgentBrain : Agent
         var currentAgentLocation = m_AgentRb.transform.localPosition;
 
         var targetLocations = m_TargetArea.RetrieveTargetLocations();
-        var distancesAgent = retrieveTargetDistances(targetLocations);
-        var nearestTargetLocations = retrieveNearestTargets(targetLocations, distancesAgent);
+        var targetDistance = retrieveTargetDistances(targetLocations);
+        //var nearestTargetLocations = retrieveNearestTargets(targetLocations, distancesAgent);
+        //var targetStatus =
 
         float hypotenuse = Mathf.Sqrt(2f * (2 * Mathf.Pow(m_TargetArea.range, 2f)));
 
-        foreach (float distance in distancesAgent)
+        foreach (float distance in targetDistance)
         {
-            //sensor.AddObservation(distance);
             sensor.AddObservation(normalizer(distance, 0f, hypotenuse));
         }
 
-        foreach (Vector3 loc in nearestTargetLocations)
+        foreach (Vector3 loc in targetLocations)
         {
-            //sensor.AddObservation(Vector3.Angle(currentAgentLocation, loc));
             sensor.AddObservation(normalizer(Vector3.Angle(currentAgentLocation, loc), 0f, 180f));
-            Debug.Log(Vector3.Angle(currentAgentLocation, loc));
+            //Debug.Log(Vector3.Angle(currentAgentLocation, loc));
         }
-
-        //var agentLocations = m_TargetArea.RetrieveAgentLocations();
-        /*
-        foreach(Vector3 AgentLocation in agentLocations)
-        {
-            sensor.AddObservation(Vector3.Distance(currentAgentLocation, AgentLocation));
-        }*/
 
     }
 
