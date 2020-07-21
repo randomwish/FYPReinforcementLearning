@@ -111,7 +111,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_BrainParameters:
-    VectorObservationSize: 33
+    VectorObservationSize: 4
     NumStackedVectorObservations: 10
     VectorActionSize: 02000000
     VectorActionDescriptions: []
@@ -168,10 +168,7 @@ MonoBehaviour:
     maxStep: 0
   hasUpgradedFromAgentParameters: 1
   MaxStep: 10000
-  targets:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  targets: {fileID: 2953165924475200885, guid: 9ed49d09d14c1d14da93916791aa2a88, type: 3}
   TargetArea: {fileID: 2485875214476012904}
   range: 0
   turnSpeed: 300
@@ -412,7 +409,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_BrainParameters:
-    VectorObservationSize: 33
+    VectorObservationSize: 4
     NumStackedVectorObservations: 10
     VectorActionSize: 02000000
     VectorActionDescriptions: []
@@ -469,10 +466,7 @@ MonoBehaviour:
     maxStep: 0
   hasUpgradedFromAgentParameters: 1
   MaxStep: 10000
-  targets:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  targets: {fileID: 2953165924475200885, guid: 9ed49d09d14c1d14da93916791aa2a88, type: 3}
   TargetArea: {fileID: 2485875214476012904}
   range: 0
   turnSpeed: 300
@@ -1144,7 +1138,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_BrainParameters:
-    VectorObservationSize: 33
+    VectorObservationSize: 4
     NumStackedVectorObservations: 10
     VectorActionSize: 02000000
     VectorActionDescriptions: []
@@ -1201,10 +1195,7 @@ MonoBehaviour:
     maxStep: 0
   hasUpgradedFromAgentParameters: 1
   MaxStep: 10000
-  targets:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  targets: {fileID: 2953165924475200885, guid: 9ed49d09d14c1d14da93916791aa2a88, type: 3}
   TargetArea: {fileID: 2485875214476012904}
   range: 0
   turnSpeed: 300
@@ -1350,7 +1341,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_BrainParameters:
-    VectorObservationSize: 33
+    VectorObservationSize: 4
     NumStackedVectorObservations: 10
     VectorActionSize: 02000000
     VectorActionDescriptions: []
@@ -1407,10 +1398,7 @@ MonoBehaviour:
     maxStep: 0
   hasUpgradedFromAgentParameters: 1
   MaxStep: 10000
-  targets:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  targets: {fileID: 2953165924475200885, guid: 9ed49d09d14c1d14da93916791aa2a88, type: 3}
   TargetArea: {fileID: 2485875214476012904}
   range: 0
   turnSpeed: 300
