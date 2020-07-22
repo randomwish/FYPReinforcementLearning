@@ -252,12 +252,10 @@ public class TargetFinderArea : MonoBehaviour
     {
         Vector3[] locations = new Vector3[AgentsList.Count];
         int idx = 0;
-        Debug.Log("Calling RetreieveAgentLocations");
         foreach (GameObject Agent in AgentsList)
         {
             locations[idx] = Agent.gameObject.transform.localPosition;
             idx++;
-            Debug.Log("Added agent location");
         }
         return locations;
     } 
@@ -286,7 +284,6 @@ public class TargetFinderArea : MonoBehaviour
             if (col.gameObject.tag == "agent")
             {
                 AgentsList.Add(col.gameObject);
-                Debug.Log("agent found");
             }
         }
     }
