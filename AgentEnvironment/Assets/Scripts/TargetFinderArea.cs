@@ -94,18 +94,6 @@ public class TargetFinderArea : MonoBehaviour
         obstacleList = new List<GameObject>();
     }
 
-    public void RemoveAllAgents()
-    {
-        if (agentsList != null)
-        {
-            foreach (GameObject element in agentsList)
-            {
-            AgentBrain agent = element.GetComponent<AgentBrain>();
-            agent.EndEpisode();
-            }
-        }
-        agentsList = new List<GameObject>();
-    }
 
     public static Vector3 GenerateNewPosition(Vector3 center, float range)
     {
@@ -215,23 +203,6 @@ public class TargetFinderArea : MonoBehaviour
         }
     }
 
-    public void SpawnAgent(int num, GameObject agent)
-    {
-
-        for (int i = 0; i < num; i++)
-        {
-            GameObject t = Instantiate<GameObject>(agent.gameObject);
-            t.transform.position = GenerateNewPosition(transform.position);
-
-            t.transform.SetParent(transform);
-
-            t.transform.position = GenerateNewPosition(transform.position, range);
-            t.transform.rotation = Quaternion.Euler(0f, UnityEngine.Random.Range(0f, 180f), 0f);
-
-            agentsList.Add(t);
-        }
-
-    }
 
     public Vector3[] RetrieveTargetLocations()
     {
@@ -277,9 +248,9 @@ public class TargetFinderArea : MonoBehaviour
         return objects;
     }
 
-    /*public Vector3[] RetrieveAgentLocations()
+    public Vector3[] RetrieveAgentLocations()
     {
-        Vector3[] locations = new Vector3[numAgents];
+        Vector3[] locations = new Vector3[AgentsList.Count]; 
         foreach (GameObject Agent in AgentsList)
         {
             for (int idx = 0; idx < AgentsList.Count; idx++)
@@ -288,23 +259,36 @@ public class TargetFinderArea : MonoBehaviour
             }
         }
         return locations;
-    } */
+    } 
 
     public void ResetArea()
     {
         score = 0;
 
         Total = (int)range / Step * 2 - 1;
+        agentsList.Clear();
         generateLocations();
         RemoveAllTargets();
         RemoveAllObstacles();
-        //RemoveAllAgents();
         SpawnTarget(numTargets,target);
         SpawnObstacle(numObstacles, obstacle);
-        //SpawnAgent(numAgents, agent);
+
     }
-    private void Start()
+    void Start()
     {
+        agentsList = new List<GameObject>();
         ResetArea();
+        GameObject[] allAgentsList = GameObject.FindGameObjectsWithTag("agent");
+        foreach (GameObject agent in allAgentsList)
+        {
+            if (agent.transform.localPosition.x > range + 5f ||
+                agent.transform.localPosition.x < -range - 5f || 
+                agent.transform.localPosition.z > range + 5f || 
+                agent.transform.localPosition.z < -range - 5f)
+            {
+                continue;
+            }
+            agentsList.Add(agent);
+        }
     }
 }
