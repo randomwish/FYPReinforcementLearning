@@ -170,7 +170,7 @@ public class AgentBrain : Agent
         foreach (float distance in agentDistance)
         {
             sensor.AddObservation(normalizer(distance, 0f, hypotenuse));
-            Debug.Log("sensor added");
+            //Debug.Log("sensor added");
         }
 
         //add angle between agent and agent
@@ -178,7 +178,7 @@ public class AgentBrain : Agent
         {
             sensor.AddObservation(normalizer(Vector3.Angle(currentAgentLocation, loc), 0f, 180f));
             //Debug.Log(Vector3.Angle(currentAgentLocation, loc));
-            Debug.Log("sensor added");
+            //Debug.Log("sensor added");
         }
 
 

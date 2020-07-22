@@ -274,22 +274,26 @@ public class TargetFinderArea : MonoBehaviour
         SpawnObstacle(numObstacles, obstacle);
 
     }
-    void Start()
+
+    public void getAgentList()
     {
         agentsList = new List<GameObject>();
-        ResetArea();
-        GameObject[] allAgentsList = GameObject.FindGameObjectsWithTag("agent");
-        foreach (GameObject agent in allAgentsList)
+
+        Collider[] allObjects = Physics.OverlapBox(gameObject.transform.position, transform.localScale / 2);
+
+        foreach (Collider col in allObjects)
         {
-            if (agent.transform.localPosition.x > range + 5f ||
-                agent.transform.localPosition.x < -range - 5f || 
-                agent.transform.localPosition.z > range + 5f || 
-                agent.transform.localPosition.z < -range - 5f)
+            if (col.gameObject.tag == "agent")
             {
-                continue;
+                AgentsList.Add(col.gameObject);
+                Debug.Log("agent found");
             }
-            agentsList.Add(agent);
-            Debug.Log("Agent found");
         }
+    }
+
+    void Start()
+    {
+        ResetArea();
+        getAgentList();
     }
 }
