@@ -1,0 +1,36 @@
+{
+    "name": "root",
+    "metadata": {
+        "timer_format_version": "0.1.0",
+        "start_time_seconds": "1595411927",
+        "python_version": "3.6.9 (default, Apr 18 2020, 01:56:04) \n[GCC 8.4.0]",
+        "command_line_arguments": "/home/fyp/.local/bin/mlagents-learn config/trainer_config.yaml --run-id=normalisedDistances --resume",
+        "mlagents_version": "0.16.0",
+        "mlagents_envs_version": "0.16.0",
+        "communication_protocol_version": "1.0.0",
+        "tensorflow_version": "1.14.0",
+        "end_time_seconds": "1595411933"
+    },
+    "total": 5.613604546000033,
+    "count": 1,
+    "self": 0.004288669000061418,
+    "children": {
+        "run_training.setup": {
+            "total": 0.01245777500002987,
+            "count": 1,
+            "self": 0.01245777500002987
+        },
+        "TrainerController.start_learning": {
+            "total": 5.596858101999942,
+            "count": 1,
+            "self": 1.15325592399995,
+            "children": {
+                "TrainerController._reset_env": {
+                    "total": 4.443602177999992,
+                    "count": 1,
+                    "self": 4.443602177999992
+                }
+            }
+        }
+    }
+}
