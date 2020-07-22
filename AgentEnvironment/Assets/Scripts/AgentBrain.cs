@@ -102,7 +102,7 @@ public class AgentBrain : Agent
         Array.Sort(distances);
         nearestDistances = distances.Take(3).ToArray();
 
-        return nearestDistances;
+        return distances;
     }
 
 
@@ -149,7 +149,7 @@ public class AgentBrain : Agent
         //var targetStatus =
 
         var agentLocations = m_TargetArea.RetrieveAgentLocations();
-        var agentDistance = retrieveDistances(targetLocations, 0);
+        var agentDistance = retrieveDistances(agentLocations, 0);
 
         float hypotenuse = Mathf.Sqrt(2f * (2 * Mathf.Pow(m_TargetArea.range, 2f)));
 
@@ -170,8 +170,17 @@ public class AgentBrain : Agent
         foreach (float distance in agentDistance)
         {
             sensor.AddObservation(normalizer(distance, 0f, hypotenuse));
+            Debug.Log("sensor added");
         }
-        
+
+        //add angle between agent and agent
+        foreach (Vector3 loc in agentLocations)
+        {
+            sensor.AddObservation(normalizer(Vector3.Angle(currentAgentLocation, loc), 0f, 180f));
+            //Debug.Log(Vector3.Angle(currentAgentLocation, loc));
+            Debug.Log("sensor added");
+        }
+
 
     }
 
@@ -203,8 +212,8 @@ public class AgentBrain : Agent
     {
         m_AgentRb.velocity = Vector3.zero;
         m_AgentRb.angularVelocity = Vector3.zero;
-        //gameObject.transform.position = m_TargetArea.GenerateNewPosition();
-        gameObject.transform.localPosition = new Vector3(0,0.5f,0);
+        gameObject.transform.position = m_TargetArea.GenerateNewPosition();
+        //gameObject.transform.localPosition = new Vector3(0,0.5f,0);
         gameObject.transform.rotation = Quaternion.Euler(0f, UnityEngine.Random.Range(0f, 180f), 0f);
     }
 

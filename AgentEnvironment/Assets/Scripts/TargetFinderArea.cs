@@ -250,13 +250,14 @@ public class TargetFinderArea : MonoBehaviour
 
     public Vector3[] RetrieveAgentLocations()
     {
-        Vector3[] locations = new Vector3[AgentsList.Count]; 
+        Vector3[] locations = new Vector3[AgentsList.Count];
+        int idx = 0;
+        Debug.Log("Calling RetreieveAgentLocations");
         foreach (GameObject Agent in AgentsList)
         {
-            for (int idx = 0; idx < AgentsList.Count; idx++)
-            {
-                locations[idx] = Agent.gameObject.transform.localPosition;
-            }
+            locations[idx] = Agent.gameObject.transform.localPosition;
+            idx++;
+            Debug.Log("Added agent location");
         }
         return locations;
     } 
@@ -266,7 +267,6 @@ public class TargetFinderArea : MonoBehaviour
         score = 0;
 
         Total = (int)range / Step * 2 - 1;
-        agentsList.Clear();
         generateLocations();
         RemoveAllTargets();
         RemoveAllObstacles();
@@ -289,6 +289,7 @@ public class TargetFinderArea : MonoBehaviour
                 continue;
             }
             agentsList.Add(agent);
+            Debug.Log("Agent found");
         }
     }
 }
