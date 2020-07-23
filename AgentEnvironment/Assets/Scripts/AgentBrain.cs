@@ -179,7 +179,13 @@ public class AgentBrain : Agent
         {
             sensor.AddObservation(normalizer(Vector3.Angle(currentAgentLocation, loc), 0f, 180f));
         }
-        
+
+        obsZones(sensor);
+
+    }
+
+    public void obsZones(VectorSensor sensor)
+    {
         //agent's own zone
         sensor.AddOneHotObservation(m_TargetArea.getZone(transform.localPosition), 4);
 
@@ -188,7 +194,6 @@ public class AgentBrain : Agent
         {
             sensor.AddOneHotObservation(zone, 4);
         }
-
     }
 
     public override void Heuristic(float[] actionsOut)
