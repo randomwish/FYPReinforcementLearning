@@ -168,26 +168,17 @@ public class AgentBrain : Agent
             sensor.AddObservation(normalizer(Vector3.Angle(currentAgentLocation, loc), 0f, 180f));
         }
 
-        //add distance between agent and agent
-        foreach (float distance in agentDistance)
+        //add x and z coordinates of agent locations, with itself being first
+        foreach (Vector3 loc in prepAgentLocations())
         {
-            sensor.AddObservation(normalizer(distance, 0f, hypotenuse));
+            sensor.AddObservation(normalizer(loc.x, -50, 50));
+            sensor.AddObservation(normalizer(loc.z, -50, 50));
         }
-
-        //add angle between agent and agent
-        foreach (Vector3 loc in agentLocations)
-        {
-            sensor.AddObservation(normalizer(Vector3.Angle(currentAgentLocation, loc), 0f, 180f));
-        }
-
     }
 
     public void obsZones(VectorSensor sensor)
     {
-        //agent's own zone
-        sensor.AddOneHotObservation(m_TargetArea.getZone(transform.localPosition), 4);
-
-        //other agent zones
+        //observe all agent's zones
         foreach (int zone in getAgentZones())
         {
             sensor.AddOneHotObservation(zone, 4);
@@ -222,17 +213,31 @@ public class AgentBrain : Agent
         int[] zone = new int[m_TargetArea.numAgents];
 
         int idx = 0;
-        foreach(GameObject agent in m_TargetArea.AgentsList)
+        foreach(Vector3 loc in prepAgentLocations())
+        {
+            zone[idx] = m_TargetArea.getZone(loc);
+            idx++;
+        }
+        return zone;
+    }
+
+    public Vector3[] prepAgentLocations()
+    {
+        Vector3[] locations = new Vector3[m_TargetArea.numAgents];
+
+        //ensure that own agent's postition is always first in array
+        locations[0] = m_AgentRb.transform.localPosition;
+
+        int idx = 1;
+        foreach (GameObject agent in m_TargetArea.AgentsList)
         {
             if (agent.GetComponent<AgentBrain>().agentTag != agentTag)
             {
-                zone[idx] = m_TargetArea.getZone(agent.transform.localPosition);
+                locations[idx] = agent.transform.localPosition;
                 idx++;
-                Debug.Log(idx);
             }
         }
-
-        return zone;
+        return locations;
     }
 
     void respawn()
