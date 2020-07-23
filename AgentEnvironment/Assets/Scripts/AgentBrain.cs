@@ -180,8 +180,6 @@ public class AgentBrain : Agent
             sensor.AddObservation(normalizer(Vector3.Angle(currentAgentLocation, loc), 0f, 180f));
         }
 
-        obsZones(sensor);
-
     }
 
     public void obsZones(VectorSensor sensor)
