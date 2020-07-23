@@ -14,7 +14,7 @@ public class AgentBrain : Agent
     TargetFinderArea m_TargetArea;
     public GameObject targets;
     public GameObject TargetArea;
-    public int startZone;
+    private int agentTag;
 
     private bool randomSpawn = false;
 
@@ -170,8 +170,9 @@ public class AgentBrain : Agent
             sensor.AddObservation(normalizer(Vector3.Angle(currentAgentLocation, loc), 0f, 180f));
         }
 
-        sensor.AddOneHotObservation(startZone, 4);
-        sensor.AddOneHotObservation(m_TargetArea.getZone(transform.localPosition), 4);
+        //sensor.AddOneHotObservation(startZone, 4);
+        //sensor.AddOneHotObservation(m_TargetArea.getZone(transform.localPosition), 4);
+
         //add distance between agent and agent
         foreach (float distance in agentDistance)
         {
@@ -204,6 +205,12 @@ public class AgentBrain : Agent
 
     }
 
+    void tagAgent(int tag)
+    {
+        agentTag = tag;
+        Debug.Log("Agent tag is " + tag);
+    }
+
     void respawn()
     {
         m_AgentRb.velocity = Vector3.zero;
@@ -211,28 +218,5 @@ public class AgentBrain : Agent
         gameObject.transform.position = m_TargetArea.GenerateNewPosition();
         //gameObject.transform.localPosition = new Vector3(0,0.5f,0);
         gameObject.transform.rotation = Quaternion.Euler(0f, UnityEngine.Random.Range(0f, 180f), 0f);
-    }
-
-        if (randomSpawn)
-        {
-            gameObject.transform.position = m_TargetArea.GenerateNewPosition();
-            gameObject.transform.rotation = Quaternion.Euler(0f, UnityEngine.Random.Range(0f, 180f), 0f);
-        }
-        else
-        {
-            Vector3 newPows = new Vector3();
-
-            if (startZone < 2)
-                newPows.z = 0;
-            else
-                newPows.z = -0;
-            if (startZone % 2 == 1)
-                newPows.x = 0;
-            else
-                newPows.x = -0;
-
-            gameObject.transform.position = m_TargetArea.GeneratePositionOffset(newPows);
-
-        }
     }
 }

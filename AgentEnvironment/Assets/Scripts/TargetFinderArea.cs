@@ -292,6 +292,15 @@ public class TargetFinderArea : MonoBehaviour
         return zone;
     }
 
+    /*public int getAgentZones()
+    {
+        int zone = 0;
+        foreach(GameObject agent in AgentsList)
+        {
+            getZone
+        }
+    }*/
+
     public void ResetArea()
     {
         score = 0;
@@ -310,12 +319,14 @@ public class TargetFinderArea : MonoBehaviour
         agentsList = new List<GameObject>();
 
         Collider[] allObjects = Physics.OverlapBox(gameObject.transform.position, transform.localScale / 2);
-
+        int idx = 0;
         foreach (Collider col in allObjects)
         {
             if (col.gameObject.tag == "agent")
             {
+                col.gameObject.SendMessage("tagAgent", idx);
                 AgentsList.Add(col.gameObject);
+                idx++;
             }
         }
     }
