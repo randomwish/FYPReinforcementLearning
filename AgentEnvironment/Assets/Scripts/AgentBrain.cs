@@ -64,7 +64,7 @@ public class AgentBrain : Agent
     public override void OnActionReceived(float[] vectorAction)
     {
         MoveAgent(vectorAction);
-        AddReward(-0.001f);
+        AddReward(-0.0005f);
     }
 
     public void MoveAgent(float[] act)
@@ -176,7 +176,6 @@ public class AgentBrain : Agent
         {
             sensor.AddObservation(normalizer(Vector3.Angle(currentAgentLocation, loc), 0f, 180f));
         }
-
 
     }
 
