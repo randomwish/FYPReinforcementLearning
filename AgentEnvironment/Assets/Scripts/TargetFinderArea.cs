@@ -292,15 +292,6 @@ public class TargetFinderArea : MonoBehaviour
         return zone;
     }
 
-    /*public int getAgentZones()
-    {
-        int zone = 0;
-        foreach(GameObject agent in AgentsList)
-        {
-            getZone
-        }
-    }*/
-
     public void ResetArea()
     {
         score = 0;

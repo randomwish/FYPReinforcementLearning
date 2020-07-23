@@ -150,8 +150,6 @@ public class AgentBrain : Agent
 
         var targetLocations = m_TargetArea.RetrieveTargetLocations();
         var targetDistance = retrieveDistances(targetLocations, 1);
-        //var nearestTargetLocations = retrieveNearestTargets(targetLocations, distancesAgent);
-        //var targetStatus =
 
         var agentLocations = m_TargetArea.RetrieveAgentLocations();
         var agentDistance = retrieveDistances(agentLocations, 0);
@@ -170,9 +168,6 @@ public class AgentBrain : Agent
             sensor.AddObservation(normalizer(Vector3.Angle(currentAgentLocation, loc), 0f, 180f));
         }
 
-        //sensor.AddOneHotObservation(startZone, 4);
-        //sensor.AddOneHotObservation(m_TargetArea.getZone(transform.localPosition), 4);
-
         //add distance between agent and agent
         foreach (float distance in agentDistance)
         {
@@ -183,6 +178,15 @@ public class AgentBrain : Agent
         foreach (Vector3 loc in agentLocations)
         {
             sensor.AddObservation(normalizer(Vector3.Angle(currentAgentLocation, loc), 0f, 180f));
+        }
+        
+        //agent's own zone
+        sensor.AddOneHotObservation(m_TargetArea.getZone(transform.localPosition), 4);
+
+        //other agent zones
+        foreach (int zone in getAgentZones())
+        {
+            sensor.AddOneHotObservation(zone, 4);
         }
 
     }
@@ -208,7 +212,24 @@ public class AgentBrain : Agent
     void tagAgent(int tag)
     {
         agentTag = tag;
-        Debug.Log("Agent tag is " + tag);
+    }
+
+    public int[] getAgentZones()
+    {
+        int[] zone = new int[m_TargetArea.numAgents];
+
+        int idx = 0;
+        foreach(GameObject agent in m_TargetArea.AgentsList)
+        {
+            if (agent.GetComponent<AgentBrain>().agentTag != agentTag)
+            {
+                zone[idx] = m_TargetArea.getZone(agent.transform.localPosition);
+                idx++;
+                Debug.Log(idx);
+            }
+        }
+
+        return zone;
     }
 
     void respawn()
