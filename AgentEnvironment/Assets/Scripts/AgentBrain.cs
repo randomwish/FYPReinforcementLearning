@@ -69,11 +69,7 @@ public class AgentBrain : Agent
     public override void OnActionReceived(float[] vectorAction)
     {
         MoveAgent(vectorAction);
-        AddReward(-0.001f);
-        if (m_TargetArea.getZone(gameObject.transform.localPosition) != startZone)
-            AddReward(-0.002f);
-        if (m_TargetArea.score >= m_TargetArea.numTargets)
-            respawn();
+        AddReward(-0.0005f);
     }
 
     public void MoveAgent(float[] act)
@@ -88,14 +84,16 @@ public class AgentBrain : Agent
 
     }
 
-    public float[] retrieveTargetDistances(Vector3[] locations)
+    public float[] retrieveDistances(Vector3[] locations, int option)
     {
-        float[] nearestDistances = new float[1];
+        //Option represents which object to retrieve distance: 0 means agent, 1 means target
+
+        float[] nearestDistances = new float[3];
         float[] distances = new float[locations.Length];
         int index = 0; //bad for loop
         foreach(Vector3 location in locations)
         {
-            if (location.x == 0 && location.z == 0) //means not a target
+            if (location.x == 0 && location.z == 0 && option == 1) //means not a target
             {
                 distances[index] = 0f;
             }
@@ -107,10 +105,11 @@ public class AgentBrain : Agent
         }
 
         Array.Sort(distances);
-        nearestDistances = distances.Take(1).ToArray();
+        nearestDistances = distances.Take(3).ToArray();
 
-        return nearestDistances;
+        return distances;
     }
+
 
     public Vector3[] retrieveNearestTargets(Vector3[] locations, float[] distances)
     {
@@ -135,10 +134,12 @@ public class AgentBrain : Agent
 
         return nearestLocations;
     }
+
     float normalizer(float value, float minimum, float maximum)
     {
         return (float)((value - minimum) / (maximum - minimum));
     }
+
     public override void CollectObservations(VectorSensor sensor)
     {
          var localVelocity = transform.InverseTransformDirection(m_AgentRb.velocity);
@@ -148,24 +149,40 @@ public class AgentBrain : Agent
         var currentAgentLocation = m_AgentRb.transform.localPosition;
 
         var targetLocations = m_TargetArea.RetrieveTargetLocations();
-        var distancesAgent = retrieveTargetDistances(targetLocations);
-        var nearestTargetLocations = retrieveNearestTargets(targetLocations, distancesAgent);
+        var targetDistance = retrieveDistances(targetLocations, 1);
+        //var nearestTargetLocations = retrieveNearestTargets(targetLocations, distancesAgent);
+        //var targetStatus =
 
-        foreach (float distance in distancesAgent)
+        var agentLocations = m_TargetArea.RetrieveAgentLocations();
+        var agentDistance = retrieveDistances(agentLocations, 0);
+
+        float hypotenuse = Mathf.Sqrt(2f * (2 * Mathf.Pow(m_TargetArea.range, 2f)));
+
+        //add distance between targets amd agent
+        foreach (float distance in targetDistance)
         {
-            //sensor.AddObservation(distance);
             sensor.AddObservation(normalizer(distance, 0f, hypotenuse));
         }
 
-        foreach (Vector3 loc in nearestTargetLocations)
+        //add angle between targets and agent
+        foreach (Vector3 loc in targetLocations)
         {
-            //sensor.AddObservation(Vector3.Angle(currentAgentLocation, loc));
             sensor.AddObservation(normalizer(Vector3.Angle(currentAgentLocation, loc), 0f, 180f));
-            Debug.Log(Vector3.Angle(currentAgentLocation, loc));
         }
 
         sensor.AddOneHotObservation(startZone, 4);
         sensor.AddOneHotObservation(m_TargetArea.getZone(transform.localPosition), 4);
+        //add distance between agent and agent
+        foreach (float distance in agentDistance)
+        {
+            sensor.AddObservation(normalizer(distance, 0f, hypotenuse));
+        }
+
+        //add angle between agent and agent
+        foreach (Vector3 loc in agentLocations)
+        {
+            sensor.AddObservation(normalizer(Vector3.Angle(currentAgentLocation, loc), 0f, 180f));
+        }
 
     }
 
@@ -184,11 +201,6 @@ public class AgentBrain : Agent
             m_TargetArea.score += 1;
             AddReward(1f);
         }
-            if (m_TargetArea.score >= m_TargetArea.numTargets)
-            {
-                m_TargetArea.score = 0;
-                EndEpisode();
-            }
 
     }
 
@@ -196,6 +208,10 @@ public class AgentBrain : Agent
     {
         m_AgentRb.velocity = Vector3.zero;
         m_AgentRb.angularVelocity = Vector3.zero;
+        gameObject.transform.position = m_TargetArea.GenerateNewPosition();
+        //gameObject.transform.localPosition = new Vector3(0,0.5f,0);
+        gameObject.transform.rotation = Quaternion.Euler(0f, UnityEngine.Random.Range(0f, 180f), 0f);
+    }
 
         if (randomSpawn)
         {
@@ -220,4 +236,3 @@ public class AgentBrain : Agent
         }
     }
 }
-

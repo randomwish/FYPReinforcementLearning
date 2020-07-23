@@ -93,18 +93,6 @@ public class TargetFinderArea : MonoBehaviour
         obstacleList = new List<GameObject>();
     }
 
-    public void RemoveAllAgents()
-    {
-        if (agentsList != null)
-        {
-            foreach (GameObject element in agentsList)
-            {
-            AgentBrain agent = element.GetComponent<AgentBrain>();
-            agent.EndEpisode();
-            }
-        }
-        agentsList = new List<GameObject>();
-    }
 
     public static Vector3 GenerateNewPosition(Vector3 center, float range)
     {
@@ -220,23 +208,6 @@ public class TargetFinderArea : MonoBehaviour
         }
     }
 
-    public void SpawnAgent(int num, GameObject agent)
-    {
-
-        for (int i = 0; i < num; i++)
-        {
-            GameObject t = Instantiate<GameObject>(agent.gameObject);
-            t.transform.position = GenerateNewPosition(transform.position);
-
-            t.transform.SetParent(transform);
-
-            t.transform.position = GenerateNewPosition(transform.position, range);
-            t.transform.rotation = Quaternion.Euler(0f, UnityEngine.Random.Range(0f, 180f), 0f);
-
-            agentsList.Add(t);
-        }
-
-    }
 
     public Vector3[] RetrieveTargetLocations()
     {
@@ -284,13 +255,12 @@ public class TargetFinderArea : MonoBehaviour
 
     public Vector3[] RetrieveAgentLocations()
     {
-        Vector3[] locations = new Vector3[numAgents];
+        Vector3[] locations = new Vector3[AgentsList.Count];
+        int idx = 0;
         foreach (GameObject Agent in AgentsList)
         {
-            for (int idx = 0; idx < AgentsList.Count; idx++)
-            {
-                locations[idx] = Agent.gameObject.transform.localPosition;
-            }
+            locations[idx] = Agent.gameObject.transform.localPosition;
+            idx++;
         }
         return locations;
     }
@@ -330,16 +300,29 @@ public class TargetFinderArea : MonoBehaviour
         generateLocations();
         RemoveAllTargets();
         RemoveAllObstacles();
-        //RemoveAllAgents();
         SpawnTarget(numTargets,target);
         SpawnObstacle(numObstacles, obstacle);
-        //SpawnAgent(numAgents, agent);
+
     }
-    private void Start()
+
+    public void getAgentList()
     {
-        //Destroy(target);
-        //not sure why the thing causes bugs when deleted, likely due to the same frame bug i think. anyways, putting it below the playfeild
-        //for now. hacky solution but works
+        agentsList = new List<GameObject>();
+
+        Collider[] allObjects = Physics.OverlapBox(gameObject.transform.position, transform.localScale / 2);
+
+        foreach (Collider col in allObjects)
+        {
+            if (col.gameObject.tag == "agent")
+            {
+                AgentsList.Add(col.gameObject);
+            }
+        }
+    }
+
+    void Start()
+    {
         ResetArea();
+        getAgentList();
     }
 }
