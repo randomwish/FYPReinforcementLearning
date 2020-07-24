@@ -245,7 +245,7 @@ public class AgentBrain : Agent
         m_AgentRb.velocity = Vector3.zero;
         m_AgentRb.angularVelocity = Vector3.zero;
         gameObject.transform.position = m_TargetArea.GenerateNewPosition();
-        //gameObject.transform.localPosition = new Vector3(0,0.5f,0);
+        gameObject.transform.localPosition = new Vector3(0,0.5f,0);
         gameObject.transform.rotation = Quaternion.Euler(0f, UnityEngine.Random.Range(0f, 180f), 0f);
     }
 }
