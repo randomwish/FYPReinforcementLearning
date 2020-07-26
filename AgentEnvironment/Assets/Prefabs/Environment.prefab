@@ -209,9 +209,9 @@ MonoBehaviour:
   m_BrainParameters:
     VectorObservationSize: 30
     NumStackedVectorObservations: 10
-    VectorActionSize: 03000000030000000a000000
+    VectorActionSize: 03000000
     VectorActionDescriptions: []
-    VectorActionSpaceType: 0
+    VectorActionSpaceType: 1
   m_Model: {fileID: 5022602860645237092, guid: 75373ac5b2eeaaa43a414e9d8e15acc8, type: 3}
   m_InferenceDevice: 0
   m_BehaviorType: 0
@@ -736,9 +736,9 @@ MonoBehaviour:
   m_BrainParameters:
     VectorObservationSize: 30
     NumStackedVectorObservations: 10
-    VectorActionSize: 03000000030000000a000000
+    VectorActionSize: 03000000
     VectorActionDescriptions: []
-    VectorActionSpaceType: 0
+    VectorActionSpaceType: 1
   m_Model: {fileID: 5022602860645237092, guid: 75373ac5b2eeaaa43a414e9d8e15acc8, type: 3}
   m_InferenceDevice: 0
   m_BehaviorType: 0
@@ -1050,9 +1050,9 @@ MonoBehaviour:
   m_BrainParameters:
     VectorObservationSize: 30
     NumStackedVectorObservations: 10
-    VectorActionSize: 03000000030000000a000000
+    VectorActionSize: 03000000
     VectorActionDescriptions: []
-    VectorActionSpaceType: 0
+    VectorActionSpaceType: 1
   m_Model: {fileID: 5022602860645237092, guid: 75373ac5b2eeaaa43a414e9d8e15acc8, type: 3}
   m_InferenceDevice: 0
   m_BehaviorType: 0
@@ -1364,9 +1364,9 @@ MonoBehaviour:
   m_BrainParameters:
     VectorObservationSize: 30
     NumStackedVectorObservations: 10
-    VectorActionSize: 03000000030000000a000000
+    VectorActionSize: 03000000
     VectorActionDescriptions: []
-    VectorActionSpaceType: 0
+    VectorActionSpaceType: 1
   m_Model: {fileID: 5022602860645237092, guid: 75373ac5b2eeaaa43a414e9d8e15acc8, type: 3}
   m_InferenceDevice: 0
   m_BehaviorType: 0

@@ -75,8 +75,8 @@ public class AgentBrain : Agent
     public void MoveAgent(float[] act)
     {
         //-2 for discrete action space (-1, 0, 1) from (1, 2, 3)
-        float hAxis = act[0] - 2;
-        float vAxis = act[1] - 2;
+        float hAxis = act[0];
+        float vAxis = act[1];
 
         Vector3 movement = new Vector3(hAxis, 0, vAxis) * moveSpeed * Time.deltaTime;
 
