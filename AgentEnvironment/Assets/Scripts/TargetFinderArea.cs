@@ -178,6 +178,7 @@ public class TargetFinderArea : MonoBehaviour
         for (int i = 0; i < num; i++)
         {
             GameObject t = Instantiate<GameObject>(target.gameObject);
+            t.GetComponent<ObjectLogic>().targetID = i;
             t.transform.position = GenerateNewPosition(transform.position);
 
             float rotate = generateRotation(rotationStep);
