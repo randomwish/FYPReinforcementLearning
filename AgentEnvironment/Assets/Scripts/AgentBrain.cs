@@ -168,7 +168,13 @@ public class AgentBrain : Agent
         //add distance between agent and agent
         foreach (float distance in agentDistance)
         {
-            sensor.AddObservation(normalizer(distance, 0f, hypotenuse));
+            float normalisedDistance = normalizer(distance,0f,hypotenuse);
+            if(normalisedDistance <= 0.15f)
+            {
+                //IMPROVEMENT1: Added distance penalty to discourage agents from crowding 
+                AddReward(-0.0005f);   
+            }
+            sensor.AddObservation(normalisedDistance);
         }
 
         //add angle between agent and agent
@@ -192,7 +198,9 @@ public class AgentBrain : Agent
         {
             //Destroy(other.gameObject);
             m_TargetArea.score += 1;
-            AddReward(1f);
+            //AddReward(1f);
+            //IMPROVEMENT2: INCREASING REWARD
+            AddReward(1.5f);
             internalScore++;
         }
 
