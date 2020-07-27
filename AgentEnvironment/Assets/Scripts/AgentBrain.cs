@@ -73,7 +73,10 @@ public class AgentBrain : Agent
     {
         MoveAgent(vectorAction);
         AddReward(-0.0005f);
-
+        if (targetSelector == (int)vectorAction[2])
+            AddReward(0.00001f);
+        else
+            AddReward(-0.00002f);
         targetSelector = (int) vectorAction[2];
     }
 
