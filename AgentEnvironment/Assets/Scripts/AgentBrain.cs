@@ -15,6 +15,8 @@ public class AgentBrain : Agent
     public GameObject targets;
     public GameObject TargetArea;
     private int agentTag;
+    private int targetSelector;
+    private GameObject[] targetList;
 
     private bool randomSpawn = false;
 
@@ -63,6 +65,7 @@ public class AgentBrain : Agent
     {
         m_TargetArea.ResetArea();
         m_AgentRb.velocity = Vector3.zero;
+        targetList = generateTargetList();
         respawn();
     }
 
@@ -70,13 +73,15 @@ public class AgentBrain : Agent
     {
         MoveAgent(vectorAction);
         AddReward(-0.0005f);
+
+        targetSelector = (int) vectorAction[2];
     }
 
     public void MoveAgent(float[] act)
     {
         //-2 for discrete action space (-1, 0, 1) from (1, 2, 3)
-        float hAxis = act[0] - 2;
-        float vAxis = act[1] - 2;
+        float hAxis = act[0];
+        float vAxis = act[1];
 
         Vector3 movement = new Vector3(hAxis, 0, vAxis) * moveSpeed * Time.deltaTime;
 
@@ -144,35 +149,10 @@ public class AgentBrain : Agent
          var localVelocity = transform.InverseTransformDirection(m_AgentRb.velocity);
         sensor.AddObservation(localVelocity.x);
         sensor.AddObservation(localVelocity.z);
+        sensor.AddObservation(m_AgentRb.transform.localPosition);
 
-        var currentAgentLocation = m_AgentRb.transform.localPosition;
-
-        var targetLocations = m_TargetArea.RetrieveTargetLocations();
-        var targetDistance = retrieveDistances(targetLocations, 1);
-
-        var agentLocations = m_TargetArea.RetrieveAgentLocations();
-        var agentDistance = retrieveDistances(agentLocations, 0);
-
-        float hypotenuse = Mathf.Sqrt(2f * (2 * Mathf.Pow(m_TargetArea.range, 2f)));
-
-        //add distance between targets amd agent
-        foreach (float distance in targetDistance)
-        {
-            sensor.AddObservation(normalizer(distance, 0f, hypotenuse));
-        }
-
-        //add angle between targets and agent
-        foreach (Vector3 loc in targetLocations)
-        {
-            sensor.AddObservation(normalizer(Vector3.Angle(currentAgentLocation, loc), 0f, 180f));
-        }
-
-        //add x and z coordinates of agent locations, with itself being first
-        foreach (Vector3 loc in prepAgentLocations())
-        {
-            sensor.AddObservation(normalizer(loc.x, -50, 50));
-            sensor.AddObservation(normalizer(loc.z, -50, 50));
-        }
+        obsTargets(sensor);
+        
     }
 
     public void obsZones(VectorSensor sensor)
@@ -181,6 +161,28 @@ public class AgentBrain : Agent
         foreach (int zone in getAgentZones())
         {
             sensor.AddOneHotObservation(zone, 4);
+        }
+    }
+
+    public void obsTargets(VectorSensor sensor)
+    {
+
+        sensor.AddOneHotObservation(targetSelector, numTargets);
+
+        foreach(GameObject tar in m_TargetArea.TargetsList)
+        {
+            //obs targetID
+            sensor.AddOneHotObservation(tar.GetComponent<ObjectLogic>().targetID, numTargets);
+
+            //obs location
+            float locX = tar.transform.position.x;
+            float locZ = tar.transform.position.z;
+            sensor.AddObservation(normalizer(locX, -m_TargetArea.range, m_TargetArea.range));
+            sensor.AddObservation(normalizer(locZ, -m_TargetArea.range, m_TargetArea.range));
+
+            //obs status
+            bool status = tar.GetComponent<ObjectLogic>().targetSearched;
+            sensor.AddObservation(status);
         }
     }
 
@@ -197,7 +199,10 @@ public class AgentBrain : Agent
         {
             //Destroy(other.gameObject);
             m_TargetArea.score += 1;
-            AddReward(1f);
+            if (targetSelector == other.gameObject.GetComponent<ObjectLogic>().targetID)
+                AddReward(1f);
+            else
+                AddReward(-0.5f);
         }
 
     }
@@ -244,7 +249,20 @@ public class AgentBrain : Agent
         m_AgentRb.velocity = Vector3.zero;
         m_AgentRb.angularVelocity = Vector3.zero;
         gameObject.transform.position = m_TargetArea.GenerateNewPosition();
-        gameObject.transform.localPosition = new Vector3(0,0.5f,0);
+        //gameObject.transform.localPosition = new Vector3(0,0.5f,0);
         gameObject.transform.rotation = Quaternion.Euler(0f, UnityEngine.Random.Range(0f, 180f), 0f);
+    }
+
+    GameObject[] generateTargetList()
+    {
+        GameObject[] targetList = new GameObject[numTargets];
+        int idx = 0;
+        foreach (GameObject tar in m_TargetArea.TargetsList)
+        {
+            targetList[idx] = tar;
+            idx++;
+        }
+
+        return targetList;
     }
 }

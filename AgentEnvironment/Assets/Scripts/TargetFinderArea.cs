@@ -213,21 +213,11 @@ public class TargetFinderArea : MonoBehaviour
     public Vector3[] RetrieveTargetLocations()
     {
         Vector3[] locations = new Vector3[numTargets];
+        int idx = 0;
         foreach (GameObject Target in targetsList)
         {
-            for(int idx = 0; idx < targetsList.Count; idx++)
-            {
-                if (Target.gameObject.tag == "target")
-                {
-                    locations[idx] = Target.gameObject.transform.localPosition;
-                }
-                else
-                {
-                    locations[idx] = Vector3.zero;
-                }
-            }
-
-
+            locations[idx] = Target.gameObject.transform.localPosition;
+            idx++;
         }
         return locations;
     }
@@ -235,7 +225,7 @@ public class TargetFinderArea : MonoBehaviour
     public GameObject[] RetrieveTargetObjects()
     {
         GameObject[] objects = new GameObject[numTargets];
-        foreach (GameObject Target in objects)
+        foreach (GameObject Target in TargetsList)
         {
             for (int idx = 0; idx < targetsList.Count; idx++)
             {
