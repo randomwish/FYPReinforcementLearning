@@ -220,10 +220,25 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 922954566828888202, guid: d1c41453918c6b34ea60f4c63ea56954,
+        type: 3}
+      propertyPath: m_BrainParameters.VectorObservationSize
+      value: 145
+      objectReference: {fileID: 0}
     - target: {fileID: 2485875214476012904, guid: d1c41453918c6b34ea60f4c63ea56954,
         type: 3}
       propertyPath: m_Name
       value: Environment
+      objectReference: {fileID: 0}
+    - target: {fileID: 2611782901213453416, guid: d1c41453918c6b34ea60f4c63ea56954,
+        type: 3}
+      propertyPath: m_BrainParameters.VectorObservationSize
+      value: 145
+      objectReference: {fileID: 0}
+    - target: {fileID: 5137086529034190187, guid: d1c41453918c6b34ea60f4c63ea56954,
+        type: 3}
+      propertyPath: m_BrainParameters.VectorObservationSize
+      value: 145
       objectReference: {fileID: 0}
     - target: {fileID: 5284643118703130307, guid: d1c41453918c6b34ea60f4c63ea56954,
         type: 3}
@@ -279,6 +294,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7338510202975429310, guid: d1c41453918c6b34ea60f4c63ea56954,
+        type: 3}
+      propertyPath: m_BrainParameters.VectorObservationSize
+      value: 145
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d1c41453918c6b34ea60f4c63ea56954, type: 3}

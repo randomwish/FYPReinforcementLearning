@@ -17,7 +17,6 @@ public class TargetFinderArea : MonoBehaviour
     public GameObject agent;
 
     public int score = 0;
-    // can change for mutliple agents later; testing first
     private List<GameObject> agentsList;
     private List<GameObject> targetsList;
     private List<GameObject> obstacleList;
@@ -34,14 +33,14 @@ public class TargetFinderArea : MonoBehaviour
         //Debug.Log("Score is " + score);
         if(score >= numTargets)
         {
-            EndAllEpisodes();
+            //EndAllEpisodes();
             ResetArea();
         }
     }
 
     public void EndAllEpisodes()
     {
-        score = 0;
+        //score = 0;
         //RemoveAllAgents();
     }
 
@@ -120,7 +119,13 @@ public class TargetFinderArea : MonoBehaviour
     public Vector3 GenerateNewPosition()
     {
         return GenerateNewPosition(transform.position, range);
+    }
 
+    public Vector3 GeneratePositionOffset(Vector3 offset)
+    {
+        Vector3 newPosition = gameObject.transform.position;
+        newPosition += offset;
+        return newPosition;
     }
 
     public int generateRotation(int step)
@@ -173,6 +178,7 @@ public class TargetFinderArea : MonoBehaviour
         for (int i = 0; i < num; i++)
         {
             GameObject t = Instantiate<GameObject>(target.gameObject);
+            t.GetComponent<ObjectLogic>().targetID = i;
             t.transform.position = GenerateNewPosition(transform.position);
 
             float rotate = generateRotation(rotationStep);
@@ -207,21 +213,11 @@ public class TargetFinderArea : MonoBehaviour
     public Vector3[] RetrieveTargetLocations()
     {
         Vector3[] locations = new Vector3[numTargets];
+        int idx = 0;
         foreach (GameObject Target in targetsList)
         {
-            for(int idx = 0; idx < targetsList.Count; idx++)
-            {
-                if (Target.gameObject.tag == "target")
-                {
-                    locations[idx] = Target.gameObject.transform.localPosition;
-                }
-                else
-                {
-                    locations[idx] = Vector3.zero;
-                }
-            }
-
-
+            locations[idx] = Target.gameObject.transform.localPosition;
+            idx++;
         }
         return locations;
     }
@@ -229,7 +225,7 @@ public class TargetFinderArea : MonoBehaviour
     public GameObject[] RetrieveTargetObjects()
     {
         GameObject[] objects = new GameObject[numTargets];
-        foreach (GameObject Target in objects)
+        foreach (GameObject Target in TargetsList)
         {
             for (int idx = 0; idx < targetsList.Count; idx++)
             {
@@ -258,7 +254,34 @@ public class TargetFinderArea : MonoBehaviour
             idx++;
         }
         return locations;
-    } 
+    }
+
+    public int getZone(Vector3 currentLoc)
+    {
+        int zone = 0;
+
+        /*
+         * -------------------
+         * |        |        |
+         * |   0    |    1   |
+         * |        |        |
+         * |--------|--------|
+         * |        |        |
+         * |   2    |   3    |
+         * |        |        |
+         * -------------------
+         */
+        if (currentLoc.x < 0 && currentLoc.z > 0)
+            zone = 0;
+        else if (currentLoc.x > 0 && currentLoc.z > 0)
+            zone = 1;
+        else if (currentLoc.x < 0 && currentLoc.z < 0)
+            zone = 2;
+        else if (currentLoc.x > 0 && currentLoc.z < 0)
+            zone = 3;
+
+        return zone;
+    }
 
     public void ResetArea()
     {
@@ -278,12 +301,14 @@ public class TargetFinderArea : MonoBehaviour
         agentsList = new List<GameObject>();
 
         Collider[] allObjects = Physics.OverlapBox(gameObject.transform.position, transform.localScale / 2);
-
+        int idx = 0;
         foreach (Collider col in allObjects)
         {
             if (col.gameObject.tag == "agent")
             {
+                col.gameObject.SendMessage("tagAgent", idx);
                 AgentsList.Add(col.gameObject);
+                idx++;
             }
         }
     }

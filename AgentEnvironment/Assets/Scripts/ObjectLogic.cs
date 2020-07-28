@@ -3,11 +3,12 @@ using UnityEngine;
 public class ObjectLogic:MonoBehaviour
 {
     private bool searched;
+    public int targetID;
 
     public bool targetSearched
     {
         get { return searched; }
-        set { searched = value; }
+        //set { searched = value; }
     }
 
     Material m_Material;
