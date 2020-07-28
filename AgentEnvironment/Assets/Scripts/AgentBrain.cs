@@ -41,19 +41,14 @@ public class AgentBrain : Agent
         m_TargetArea = TargetArea.GetComponent<TargetFinderArea>();
         range = m_TargetArea.range;
         numTargets = m_TargetArea.numTargets;
-        //Add Environment Settings
 
         hypotenuse = Mathf.Sqrt(2f * (2 * Mathf.Pow(m_TargetArea.range, 2f)));
-
-        //Add Environment Settings
 
         respawn();
     }
 
     void Update() {
-
         //        Debug.Log("Current Score is " + count);
-
         if (m_TargetArea.score >= m_TargetArea.numTargets || oldScore > m_TargetArea.score)
         {
             EndEpisode();
@@ -65,28 +60,59 @@ public class AgentBrain : Agent
     {
         m_TargetArea.ResetArea();
         m_AgentRb.velocity = Vector3.zero;
-        targetList = generateTargetList();
+        
         respawn();
+        targetList = generateTargetList();
     }
 
     public override void OnActionReceived(float[] vectorAction)
     {
         MoveAgent(vectorAction);
         AddReward(-0.0005f);
-        if (targetSelector == (int)vectorAction[2])
-            AddReward(0.00001f);
-        else
+        
+        if (targetSelector != (int)vectorAction[2])
             AddReward(-0.00002f);
+        
         targetSelector = (int) vectorAction[2];
+        
+        if (m_TargetArea.TargetsList[targetSelector].gameObject.GetComponent<ObjectLogic>().targetSearched)
+        {
+            AddReward(-0.005f);
+        }
+
+        AddReward(Vector3.Distance(transform.localPosition, m_TargetArea.TargetsList[targetSelector].transform.localPosition) * -0.0001f);
+
     }
 
     public void MoveAgent(float[] act)
     {
-        //-2 for discrete action space (-1, 0, 1) from (1, 2, 3)
-        float hAxis = act[0];
-        float vAxis = act[1];
+        Vector3 movement = Vector3.zero;
 
-        Vector3 movement = new Vector3(hAxis, 0, vAxis) * moveSpeed * Time.deltaTime;
+        float hAxis = 0;
+        float vAxis = 0;
+
+        switch ((int)act[0])
+        {
+            case 1:
+                hAxis = 1;
+                break;
+            case 2:
+                hAxis = -1;
+                break;
+        }
+
+        switch ((int)act[1])
+        {
+            case 1:
+                vAxis = 1;
+                break;
+            case 2:
+                vAxis = -1;
+                break;
+        }
+
+
+        movement = new Vector3(hAxis, 0, vAxis) * moveSpeed * Time.deltaTime;
 
         m_AgentRb.MovePosition(transform.position + movement);
     }
@@ -152,10 +178,10 @@ public class AgentBrain : Agent
          var localVelocity = transform.InverseTransformDirection(m_AgentRb.velocity);
         sensor.AddObservation(localVelocity.x);
         sensor.AddObservation(localVelocity.z);
-        sensor.AddObservation(m_AgentRb.transform.localPosition);
+        sensor.AddObservation(normalizer(m_AgentRb.transform.localPosition.x, -m_TargetArea.range, m_TargetArea.range));
+        sensor.AddObservation(normalizer(m_AgentRb.transform.localPosition.y, -m_TargetArea.range, m_TargetArea.range));
 
         obsTargets(sensor);
-        
     }
 
     public void obsZones(VectorSensor sensor)
@@ -183,6 +209,9 @@ public class AgentBrain : Agent
             sensor.AddObservation(normalizer(locX, -m_TargetArea.range, m_TargetArea.range));
             sensor.AddObservation(normalizer(locZ, -m_TargetArea.range, m_TargetArea.range));
 
+            //obs distance
+            //sensor.AddObservation(normalizer(Vector3.Distance(transform.localPosition, tar.transform.localPosition), 0, hypotenuse));
+
             //obs status
             bool status = tar.GetComponent<ObjectLogic>().targetSearched;
             sensor.AddObservation(status);
@@ -203,9 +232,9 @@ public class AgentBrain : Agent
             //Destroy(other.gameObject);
             m_TargetArea.score += 1;
             if (targetSelector == other.gameObject.GetComponent<ObjectLogic>().targetID)
-                AddReward(1f);
+                AddReward(2.5f);
             else
-                AddReward(-0.5f);
+                AddReward(1f);
         }
 
     }
