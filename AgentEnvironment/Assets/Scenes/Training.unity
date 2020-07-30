@@ -143,6 +143,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Environment (12)
       objectReference: {fileID: 0}
+    - target: {fileID: 4346089963072774963, guid: d1c41453918c6b34ea60f4c63ea56954,
+        type: 3}
+      propertyPath: moveSpeed
+      value: 15
+      objectReference: {fileID: 0}
     - target: {fileID: 5284643118703130307, guid: d1c41453918c6b34ea60f4c63ea56954,
         type: 3}
       propertyPath: m_RootOrder
