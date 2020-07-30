@@ -1,0 +1,18 @@
+nonCollabTImePenalty -- penalised agents for time (baseline)
+increasedREwardAndDIstace -- increrased reward (1.5 instead of 1) and crowding penalty 
+RayLengthIncReewardCrowdPenalth -- decreased raylength, increased reward and penalty for crowding
+1 - 0.0005
+2 - 0.0010
+3 - 0.00075 penalty
+
+decreasedRayLength -- decreased raylength
+RayLengthIncReewardCrowdReward -- decreased raylength, increased reward and reward for crowding
+1 - 0.0005 --good outcomes, experimented with an increase in results 
+2 - 0.0010 threshold 0.15f -- observed that it could be further improved with increase in raycast length
+3 - same as 2, but with raylength of 40 -- could not capture obscure spots; perhaps further increase in crowding reward is needed as 0.0010 is quite high
+4 - comparable performance with 2, threshold at 0.20f
+5 - threshold 0.10f no attempt at getting the green blocks
+
+RayLengthCrowdReward  -- decreased raylength, reward for spreading out
+1 - reward is 1.0f, approaches targets but can be more direct.. perhaps a greater time penalty?
+2 - time penalty doubled to -0.001f
