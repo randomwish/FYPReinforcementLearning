@@ -1,0 +1,46 @@
+{
+    "name": "root",
+    "metadata": {
+        "timer_format_version": "0.1.0",
+        "start_time_seconds": "1596010230",
+        "python_version": "3.6.9 (default, Jul 17 2020, 12:50:27) \n[GCC 8.4.0]",
+        "command_line_arguments": "/home/fyp/.local/bin/mlagents-learn config/trainer_config.yaml --run-id=ModifiedMovement7 --force",
+        "mlagents_version": "0.16.0",
+        "mlagents_envs_version": "0.16.0",
+        "communication_protocol_version": "1.0.0",
+        "tensorflow_version": "1.14.0",
+        "end_time_seconds": "1596010230"
+    },
+    "total": 0.01360982899859664,
+    "count": 1,
+    "self": 0.0002665860010893084,
+    "children": {
+        "run_training.setup": {
+            "total": 0.012856137000198942,
+            "count": 1,
+            "self": 0.012856137000198942
+        },
+        "TrainerController.start_learning": {
+            "total": 0.0004871059973083902,
+            "count": 1,
+            "self": 0.00029872699815314263,
+            "children": {
+                "TrainerController._reset_env": {
+                    "total": 0.00015167300080065615,
+                    "count": 1,
+                    "self": 0.00015167300080065615
+                },
+                "trainer_threads": {
+                    "total": 9.95998561847955e-07,
+                    "count": 1,
+                    "self": 9.95998561847955e-07
+                },
+                "TrainerController._save_model": {
+                    "total": 3.5709999792743474e-05,
+                    "count": 1,
+                    "self": 3.5709999792743474e-05
+                }
+            }
+        }
+    }
+}
