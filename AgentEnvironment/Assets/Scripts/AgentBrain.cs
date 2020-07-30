@@ -200,10 +200,16 @@ public class AgentBrain : Agent
 
     public void obsTargets(VectorSensor sensor)
     {
-
+        //obs stats about selected ones
         sensor.AddOneHotObservation(targetSelector, numTargets);
 
-        foreach(GameObject tar in m_TargetArea.TargetsList)
+        Vector3 tarPos = m_TargetArea.TargetsList[targetSelector].transform.localPosition;
+
+        sensor.AddObservation(normalizer(Vector3.Distance(transform.localPosition, tarPos), 0, hypotenuse));
+        sensor.AddObservation(normalizer(Vector3.Angle(transform.localPosition, tarPos), 0, 360));
+
+
+        foreach (GameObject tar in m_TargetArea.TargetsList)
         {
             //obs targetID
             sensor.AddOneHotObservation(tar.GetComponent<ObjectLogic>().targetID, numTargets);
@@ -220,7 +226,7 @@ public class AgentBrain : Agent
             //obs angle
             sensor.AddObservation(normalizer(Vector3.Angle(transform.localPosition, tar.transform.localPosition), 0, 360));
 
-            //obs status
+            //obs stat
             bool status = tar.GetComponent<ObjectLogic>().targetSearched;
             sensor.AddObservation(status);
         }
