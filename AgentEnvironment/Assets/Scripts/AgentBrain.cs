@@ -28,6 +28,8 @@ public class AgentBrain : Agent
     int oldScore = 0;
     float hypotenuse;
 
+    int stepTimer = 0;
+
     int internalScore; //To keep track of agent's own score
 
     public float turnSpeed = 300;
@@ -63,6 +65,8 @@ public class AgentBrain : Agent
         
         respawn();
         targetList = generateTargetList();
+
+        stepTimer = 0;
     }
 
     public override void OnActionReceived(float[] vectorAction)
@@ -79,14 +83,17 @@ public class AgentBrain : Agent
 
         if (m_TargetArea.TargetsList[targetSelector].gameObject.GetComponent<ObjectLogic>().targetSearched)
         {
-            AddReward(-0.0005f);
+            //AddReward(-0.0005f);
         }
         else
         {
             AddReward(0.0005f);
         }
 
-        AddReward(Vector3.Distance(transform.localPosition, m_TargetArea.TargetsList[targetSelector].transform.localPosition) * -0.002f);
+        stepTimer++;
+
+        //AddReward(Vector3.Distance(transform.localPosition, m_TargetArea.TargetsList[targetSelector].transform.localPosition) * -0.002f);
+
 
     }
 
@@ -207,6 +214,7 @@ public class AgentBrain : Agent
 
         sensor.AddObservation(normalizer(Vector3.Distance(transform.localPosition, tarPos), 0, hypotenuse));
         sensor.AddObservation(normalizer(Vector3.Angle(transform.localPosition, tarPos), 0, 360));
+        sensor.AddObservation(TargetArea.TargetsList[targetSelector].GetComponent<ObjectLogic>().targetSearched);
 
 
         foreach (GameObject tar in m_TargetArea.TargetsList)
@@ -249,6 +257,11 @@ public class AgentBrain : Agent
                 AddReward(10f);
             else
                 AddReward(2f);
+            if (2000 - stepTimer > 0)
+                AddReward(0.01f * (2000 - stepTimer) + 3f);
+            else
+                AddReward(3f);
+            stepTimer = 0;
         }
 
     }
