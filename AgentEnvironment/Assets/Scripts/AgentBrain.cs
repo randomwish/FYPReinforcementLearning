@@ -71,18 +71,22 @@ public class AgentBrain : Agent
         AddReward(-0.0005f);
         
         if (targetSelector != (int)vectorAction[2])
-            AddReward(-0.00002f);
+            AddReward(-0.00001f);
         
         targetSelector = (int) vectorAction[2];
 
-        Debug.Log("Agent " + agentTag + " is looking at " + targetSelector);
+        //Debug.Log("Agent " + agentTag + " is looking at " + targetSelector);
 
         if (m_TargetArea.TargetsList[targetSelector].gameObject.GetComponent<ObjectLogic>().targetSearched)
         {
             AddReward(-0.0005f);
         }
+        else
+        {
+            AddReward(0.0005f);
+        }
 
-        AddReward(Vector3.Distance(transform.localPosition, m_TargetArea.TargetsList[targetSelector].transform.localPosition) * -0.001f);
+        AddReward(Vector3.Distance(transform.localPosition, m_TargetArea.TargetsList[targetSelector].transform.localPosition) * -0.002f);
 
     }
 
@@ -236,9 +240,9 @@ public class AgentBrain : Agent
             //Destroy(other.gameObject);
             m_TargetArea.score += 1;
             if (targetSelector == other.gameObject.GetComponent<ObjectLogic>().targetID)
-                AddReward(7.5f);
+                AddReward(10f);
             else
-                AddReward(1f);
+                AddReward(2f);
         }
 
     }

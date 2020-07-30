@@ -146,11 +146,11 @@ MonoBehaviour:
   target: {fileID: 2953165924475200885, guid: 9ed49d09d14c1d14da93916791aa2a88, type: 3}
   obstacle: {fileID: 2953165924475200885, guid: 593b6c286a790304180b7aefb502b7db,
     type: 3}
-  numTargets: 10
+  numTargets: 25
   numAgents: 4
   range: 50
   rotationStep: 90
-  numObstacles: 3
+  numObstacles: 5
   agent: {fileID: 90187072452442828, guid: ff5a59c4f1d8543429867727fc3082d1, type: 3}
   score: 0
 --- !u!1 &2924444821279653711
@@ -265,12 +265,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_BrainParameters:
-    VectorObservationSize: 144
+    VectorObservationSize: 729
     NumStackedVectorObservations: 10
     VectorActionSize: 03000000030000000a000000
     VectorActionDescriptions: []
     VectorActionSpaceType: 0
-  m_Model: {fileID: 5022602860645237092, guid: eca60ae987eef9f43a7ed9c9597d2e99, type: 3}
+  m_Model: {fileID: 5022602860645237092, guid: 6fae94e67b2508a45a7d06777e247837, type: 3}
   m_InferenceDevice: 0
   m_BehaviorType: 0
   m_BehaviorName: AgentBrain
@@ -920,12 +920,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_BrainParameters:
-    VectorObservationSize: 144
+    VectorObservationSize: 729
     NumStackedVectorObservations: 10
     VectorActionSize: 03000000030000000a000000
     VectorActionDescriptions: []
     VectorActionSpaceType: 0
-  m_Model: {fileID: 5022602860645237092, guid: eca60ae987eef9f43a7ed9c9597d2e99, type: 3}
+  m_Model: {fileID: 5022602860645237092, guid: 6fae94e67b2508a45a7d06777e247837, type: 3}
   m_InferenceDevice: 0
   m_BehaviorType: 0
   m_BehaviorName: AgentBrain
@@ -1175,12 +1175,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_BrainParameters:
-    VectorObservationSize: 144
+    VectorObservationSize: 729
     NumStackedVectorObservations: 10
     VectorActionSize: 03000000030000000a000000
     VectorActionDescriptions: []
     VectorActionSpaceType: 0
-  m_Model: {fileID: 5022602860645237092, guid: eca60ae987eef9f43a7ed9c9597d2e99, type: 3}
+  m_Model: {fileID: 5022602860645237092, guid: 6fae94e67b2508a45a7d06777e247837, type: 3}
   m_InferenceDevice: 0
   m_BehaviorType: 0
   m_BehaviorName: AgentBrain
@@ -1396,12 +1396,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_BrainParameters:
-    VectorObservationSize: 144
+    VectorObservationSize: 729
     NumStackedVectorObservations: 10
     VectorActionSize: 03000000030000000a000000
     VectorActionDescriptions: []
     VectorActionSpaceType: 0
-  m_Model: {fileID: 5022602860645237092, guid: eca60ae987eef9f43a7ed9c9597d2e99, type: 3}
+  m_Model: {fileID: 5022602860645237092, guid: 6fae94e67b2508a45a7d06777e247837, type: 3}
   m_InferenceDevice: 0
   m_BehaviorType: 0
   m_BehaviorName: AgentBrain
