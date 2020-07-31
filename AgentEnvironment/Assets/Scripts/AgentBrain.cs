@@ -62,7 +62,7 @@ public class AgentBrain : Agent
     {
         m_TargetArea.ResetArea();
         m_AgentRb.velocity = Vector3.zero;
-        
+
         respawn();
         targetList = generateTargetList();
 
@@ -73,10 +73,10 @@ public class AgentBrain : Agent
     {
         MoveAgent(vectorAction);
         AddReward(-0.0005f);
-        
+
         if (targetSelector != (int)vectorAction[2])
             AddReward(-0.00001f);
-        
+
         targetSelector = (int) vectorAction[2];
 
         //Debug.Log("Agent " + agentTag + " is looking at " + targetSelector);
@@ -190,8 +190,8 @@ public class AgentBrain : Agent
          var localVelocity = transform.InverseTransformDirection(m_AgentRb.velocity);
         sensor.AddObservation(localVelocity.x);
         sensor.AddObservation(localVelocity.z);
-        sensor.AddObservation(normalizer(m_AgentRb.transform.localPosition.x, -m_TargetArea.range, m_TargetArea.range));
-        sensor.AddObservation(normalizer(m_AgentRb.transform.localPosition.y, -m_TargetArea.range, m_TargetArea.range));
+        //sensor.AddObservation(normalizer(m_AgentRb.transform.localPosition.x, -m_TargetArea.range, m_TargetArea.range));
+        //sensor.AddObservation(normalizer(m_AgentRb.transform.localPosition.y, -m_TargetArea.range, m_TargetArea.range));
 
         obsTargets(sensor);
     }
@@ -199,7 +199,7 @@ public class AgentBrain : Agent
     public void obsZones(VectorSensor sensor)
     {
         //observe all agent's zones
-        foreach (int zone in getAgentZones())
+        foreach (int zone in getAgentZones(sensor))
         {
             sensor.AddOneHotObservation(zone, 4);
         }
@@ -225,8 +225,8 @@ public class AgentBrain : Agent
             //obs location
             /*float locX = tar.transform.position.x;
             float locZ = tar.transform.position.z;
-            sensor.AddObservation(normalizer(locX, -m_TargetArea.range, m_TargetArea.range));
-            sensor.AddObservation(normalizer(locZ, -m_TargetArea.range, m_TargetArea.range));*/
+            //sensor.AddObservation(normalizer(locX, -m_TargetArea.range, m_TargetArea.range));
+            //sensor.AddObservation(normalizer(locZ, -m_TargetArea.range, m_TargetArea.range));*/
 
             //obs distance
             sensor.AddObservation(normalizer(Vector3.Distance(transform.localPosition, tar.transform.localPosition), 0, hypotenuse));
@@ -271,12 +271,12 @@ public class AgentBrain : Agent
         agentTag = tag;
     }
 
-    public int[] getAgentZones()
+    public int[] getAgentZones(VectorSensor sensor)
     {
         int[] zone = new int[m_TargetArea.numAgents];
 
         int idx = 0;
-        foreach(Vector3 loc in prepAgentLocations())
+        foreach(Vector3 loc in prepAgentLocations(sensor))
         {
             zone[idx] = m_TargetArea.getZone(loc);
             idx++;
@@ -284,7 +284,7 @@ public class AgentBrain : Agent
         return zone;
     }
 
-    public Vector3[] prepAgentLocations()
+    public Vector3[] prepAgentLocations(VectorSensor sensor)
     {
         Vector3[] locations = new Vector3[m_TargetArea.numAgents];
 
@@ -298,6 +298,14 @@ public class AgentBrain : Agent
             {
                 locations[idx] = agent.transform.localPosition;
                 idx++;
+
+                int otherAgentTargetSelector = agent.GetComponent<AgentBrain>().targetSelector;
+                sensor.AddObservation(otherAgentTargetSelector);
+
+                if(otherAgentTargetSelector != this.targetSelector)
+                {
+                    AddReward(0.00005f);
+                }
             }
         }
         return locations;
@@ -324,4 +332,5 @@ public class AgentBrain : Agent
 
         return targetList;
     }
+
 }

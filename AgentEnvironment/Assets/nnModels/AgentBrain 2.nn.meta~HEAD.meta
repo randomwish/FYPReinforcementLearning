@@ -1,5 +1,9 @@
 fileFormatVersion: 2
+<<<<<<< HEAD
 guid: 48417381db92d4348bfa0f540ff8dba9
+=======
+guid: 757bd6806d2e371ce98f9e8b903bd9ec
+>>>>>>> origin/trained-collab
 DefaultImporter:
   externalObjects: {}
   userData: 
