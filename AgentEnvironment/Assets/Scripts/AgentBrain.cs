@@ -28,6 +28,8 @@ public class AgentBrain : Agent
     int oldScore = 0;
     float hypotenuse;
 
+    int stepTimer = 0;
+
     int internalScore; //To keep track of agent's own score
 
     public float turnSpeed = 300;
@@ -60,27 +62,38 @@ public class AgentBrain : Agent
     {
         m_TargetArea.ResetArea();
         m_AgentRb.velocity = Vector3.zero;
-        
+
         respawn();
         targetList = generateTargetList();
+
+        stepTimer = 0;
     }
 
     public override void OnActionReceived(float[] vectorAction)
     {
         MoveAgent(vectorAction);
         AddReward(-0.0005f);
-        
+
         if (targetSelector != (int)vectorAction[2])
-            AddReward(-0.00002f);
-        
+            AddReward(-0.00001f);
+
         targetSelector = (int) vectorAction[2];
-        
+
+        //Debug.Log("Agent " + agentTag + " is looking at " + targetSelector);
+
         if (m_TargetArea.TargetsList[targetSelector].gameObject.GetComponent<ObjectLogic>().targetSearched)
         {
-            AddReward(-0.005f);
+            //AddReward(-0.0005f);
+        }
+        else
+        {
+            AddReward(0.0005f);
         }
 
-        AddReward(Vector3.Distance(transform.localPosition, m_TargetArea.TargetsList[targetSelector].transform.localPosition) * -0.0001f);
+        stepTimer++;
+
+        //AddReward(Vector3.Distance(transform.localPosition, m_TargetArea.TargetsList[targetSelector].transform.localPosition) * -0.002f);
+
 
     }
 
@@ -110,7 +123,6 @@ public class AgentBrain : Agent
                 vAxis = -1;
                 break;
         }
-
 
         movement = new Vector3(hAxis, 0, vAxis) * moveSpeed * Time.deltaTime;
 
@@ -195,24 +207,34 @@ public class AgentBrain : Agent
 
     public void obsTargets(VectorSensor sensor)
     {
-
+        //obs stats about selected ones
         sensor.AddOneHotObservation(targetSelector, numTargets);
 
-        foreach(GameObject tar in m_TargetArea.TargetsList)
+        Vector3 tarPos = m_TargetArea.TargetsList[targetSelector].transform.localPosition;
+
+        sensor.AddObservation(normalizer(Vector3.Distance(transform.localPosition, tarPos), 0, hypotenuse));
+        sensor.AddObservation(normalizer(Vector3.Angle(transform.localPosition, tarPos), 0, 360));
+        sensor.AddObservation(m_TargetArea.TargetsList[targetSelector].GetComponent<ObjectLogic>().targetSearched);
+
+
+        foreach (GameObject tar in m_TargetArea.TargetsList)
         {
             //obs targetID
             sensor.AddOneHotObservation(tar.GetComponent<ObjectLogic>().targetID, numTargets);
 
             //obs location
-            float locX = tar.transform.position.x;
+            /*float locX = tar.transform.position.x;
             float locZ = tar.transform.position.z;
             //sensor.AddObservation(normalizer(locX, -m_TargetArea.range, m_TargetArea.range));
-            //sensor.AddObservation(normalizer(locZ, -m_TargetArea.range, m_TargetArea.range));
+            //sensor.AddObservation(normalizer(locZ, -m_TargetArea.range, m_TargetArea.range));*/
 
             //obs distance
             sensor.AddObservation(normalizer(Vector3.Distance(transform.localPosition, tar.transform.localPosition), 0, hypotenuse));
 
-            //obs status
+            //obs angle
+            sensor.AddObservation(normalizer(Vector3.Angle(transform.localPosition, tar.transform.localPosition), 0, 360));
+
+            //obs stat
             bool status = tar.GetComponent<ObjectLogic>().targetSearched;
             sensor.AddObservation(status);
         }
@@ -232,9 +254,14 @@ public class AgentBrain : Agent
             //Destroy(other.gameObject);
             m_TargetArea.score += 1;
             if (targetSelector == other.gameObject.GetComponent<ObjectLogic>().targetID)
-                AddReward(2.5f);
+                AddReward(10f);
             else
-                AddReward(1f);
+                AddReward(2f);
+            if (2000 - stepTimer > 0)
+                AddReward(0.01f * (2000 - stepTimer) + 3f);
+            else
+                AddReward(3f);
+            stepTimer = 0;
         }
 
     }
