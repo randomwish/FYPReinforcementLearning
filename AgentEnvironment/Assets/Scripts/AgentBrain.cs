@@ -214,7 +214,7 @@ public class AgentBrain : Agent
 
         sensor.AddObservation(normalizer(Vector3.Distance(transform.localPosition, tarPos), 0, hypotenuse));
         sensor.AddObservation(normalizer(Vector3.Angle(transform.localPosition, tarPos), 0, 360));
-        sensor.AddObservation(TargetArea.TargetsList[targetSelector].GetComponent<ObjectLogic>().targetSearched);
+        sensor.AddObservation(m_TargetArea.TargetsList[targetSelector].GetComponent<ObjectLogic>().targetSearched);
 
 
         foreach (GameObject tar in m_TargetArea.TargetsList)
