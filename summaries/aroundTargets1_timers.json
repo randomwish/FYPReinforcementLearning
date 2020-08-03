@@ -1,0 +1,46 @@
+{
+    "name": "root",
+    "metadata": {
+        "timer_format_version": "0.1.0",
+        "start_time_seconds": "1596452868",
+        "python_version": "3.6.10 |Anaconda, Inc.| (default, Mar 23 2020, 17:58:33) [MSC v.1916 64 bit (AMD64)]",
+        "command_line_arguments": "C:\\Users\\joshu\\Anaconda3\\envs\\ml-agents\\Scripts\\mlagents-learn C:\\Users\\joshu\\Documents\\FYPReinforcementLearning\\models\\trainer_config.yaml --run-id=aroundTargets1 --force",
+        "mlagents_version": "0.16.0",
+        "mlagents_envs_version": "0.16.0",
+        "communication_protocol_version": "1.0.0",
+        "tensorflow_version": "2.3.0",
+        "end_time_seconds": "1596452895"
+    },
+    "total": 26.3063197,
+    "count": 1,
+    "self": 0.1570810999999992,
+    "children": {
+        "run_training.setup": {
+            "total": 0.0051934,
+            "count": 1,
+            "self": 0.0051934
+        },
+        "TrainerController.start_learning": {
+            "total": 26.1440452,
+            "count": 1,
+            "self": 0.0005923999999950524,
+            "children": {
+                "TrainerController._reset_env": {
+                    "total": 26.1430936,
+                    "count": 1,
+                    "self": 26.1430936
+                },
+                "trainer_threads": {
+                    "total": 1.1000000021965661e-06,
+                    "count": 1,
+                    "self": 1.1000000021965661e-06
+                },
+                "TrainerController._save_model": {
+                    "total": 0.0003581000000032475,
+                    "count": 1,
+                    "self": 0.0003581000000032475
+                }
+            }
+        }
+    }
+}

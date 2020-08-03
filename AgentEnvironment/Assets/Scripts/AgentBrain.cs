@@ -51,6 +51,7 @@ public class AgentBrain : Agent
 
     void Update() {
         //        Debug.Log("Current Score is " + count);
+
         if (m_TargetArea.score >= m_TargetArea.numTargets || oldScore > m_TargetArea.score)
         {
             EndEpisode();
@@ -242,28 +243,57 @@ public class AgentBrain : Agent
 
     public override void Heuristic(float[] actionsOut)
     {
+        if (Input.GetKey(KeyCode.S))
+        {
+            actionsOut[1] = 2f;
+        }
+        else if (Input.GetKey(KeyCode.W))
+        {
+            actionsOut[1] = 1f;
+        }
+        else
+        {
+            actionsOut[1] = 0f;
+        }
+ 
+        if (Input.GetKey(KeyCode.A))
+        {
+            actionsOut[0] = 2f;
+        }
+        else if (Input.GetKey(KeyCode.D))
+        {
+            actionsOut[0] = 1f;
+        }
+        else
+        {
+            actionsOut[0] = 0f;
+        }
 
-        actionsOut[0] = Input.GetAxis("Horizontal");
-        actionsOut[1] = Input.GetAxis("Vertical");
     }
 
     void OnCollisionEnter(Collision other)
     {
         if(other.transform.CompareTag("target"))
         {
-            //Destroy(other.gameObject);
-            m_TargetArea.score += 1;
-            if (targetSelector == other.gameObject.GetComponent<ObjectLogic>().targetID)
-                AddReward(10f);
-            else
-                AddReward(2f);
-            if (2000 - stepTimer > 0)
-                AddReward(0.01f * (2000 - stepTimer) + 3f);
-            else
-                AddReward(3f);
-            stepTimer = 0;
+            AddReward(-2f);
         }
 
+    }
+
+    void checkTarget(int ID)
+    {
+        //Destroy(other.gameObject);
+        m_TargetArea.score += 1;
+        Debug.Log("Add score" + m_TargetArea.score);
+        if (targetSelector == ID)
+            AddReward(10f);
+        else
+            AddReward(2f);
+        if (2000 - stepTimer > 0)
+            AddReward(0.01f * (2000 - stepTimer) + 3f);
+        else
+            AddReward(3f);
+        stepTimer = 0;
     }
 
     void tagAgent(int tag)
