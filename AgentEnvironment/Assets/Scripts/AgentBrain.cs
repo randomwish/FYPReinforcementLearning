@@ -68,6 +68,9 @@ public class AgentBrain : Agent
         targetList = generateTargetList();
 
         stepTimer = 0;
+
+        m_TargetArea.otherPrevTarget = new int[m_TargetArea.numAgents];
+        m_TargetArea.otherCurrTarget = new int[m_TargetArea.numAgents];
     }
 
     public override void OnActionReceived(float[] vectorAction)
@@ -82,20 +85,12 @@ public class AgentBrain : Agent
 
         //Debug.Log("Agent " + agentTag + " is looking at " + targetSelector);
 
-        if (m_TargetArea.TargetsList[targetSelector].gameObject.GetComponent<ObjectLogic>().targetSearched)
-        {
-            //AddReward(-0.0005f);
-        }
-        else
+        if (!m_TargetArea.TargetsList[targetSelector].gameObject.GetComponent<ObjectLogic>().targetSearched)
         {
             AddReward(0.0005f);
         }
 
         stepTimer++;
-
-        //AddReward(Vector3.Distance(transform.localPosition, m_TargetArea.TargetsList[targetSelector].transform.localPosition) * -0.002f);
-
-
     }
 
     public void MoveAgent(float[] act)
@@ -237,6 +232,26 @@ public class AgentBrain : Agent
         }
     }
 
+    public void obsAgents(VectorSensor sensor)
+    {
+        foreach (GameObject agent in m_TargetArea.AgentsList)
+        {
+            if (agent.GetComponent<AgentBrain>().agentTag != agentTag)
+            {
+                int otherAgentTargetSelector = agent.GetComponent<AgentBrain>().targetSelector;
+
+                m_TargetArea.otherPrevTarget[GetComponent<AgentBrain>().agentTag] = agent.GetComponent<AgentBrain>().targetSelector;
+                m_TargetArea.otherCurrTarget[GetComponent<AgentBrain>().agentTag] = agent.GetComponent<AgentBrain>().targetSelector;
+
+
+                if (otherAgentTargetSelector != this.targetSelector)
+                {
+                    AddReward(0.00005f);
+                }
+            }
+        }
+    }
+
     public override void Heuristic(float[] actionsOut)
     {
         if (Input.GetKey(KeyCode.S))
@@ -317,11 +332,12 @@ public class AgentBrain : Agent
                 idx++;
 
                 int otherAgentTargetSelector = agent.GetComponent<AgentBrain>().targetSelector;
-                sensor.AddObservation(otherAgentTargetSelector);
+                sensor.AddObservation(otherAgentTargetSelector, numTargets);
+                
 
                 if(otherAgentTargetSelector != this.targetSelector)
                 {
-                    AddReward(0.00001f);
+                    AddReward(0.00005f);
                 }
             }
         }
