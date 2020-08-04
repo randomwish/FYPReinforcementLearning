@@ -81,7 +81,10 @@ public class AgentBrain : Agent
         if (targetSelector != (int)vectorAction[2])
             AddReward(-0.00001f);
 
+        //logs targetID agent is intending to search the previous step and the current step to env array
+        m_TargetArea.otherPrevTarget[agentTag] = targetSelector;
         targetSelector = (int) vectorAction[2];
+        m_TargetArea.otherPrevTarget[agentTag] = targetSelector;
 
         //Debug.Log("Agent " + agentTag + " is looking at " + targetSelector);
 
@@ -234,20 +237,20 @@ public class AgentBrain : Agent
 
     public void obsAgents(VectorSensor sensor)
     {
-        foreach (GameObject agent in m_TargetArea.AgentsList)
+        for (int i = 0; i < m_TargetArea.numAgents; i++)
         {
-            if (agent.GetComponent<AgentBrain>().agentTag != agentTag)
+            if (i != agentTag) 
             {
-                int otherAgentTargetSelector = agent.GetComponent<AgentBrain>().targetSelector;
+                int prevTarget = m_TargetArea.otherPrevTarget[i];
+                int currTarget = m_TargetArea.otherCurrTarget[i];
 
-                m_TargetArea.otherPrevTarget[GetComponent<AgentBrain>().agentTag] = agent.GetComponent<AgentBrain>().targetSelector;
-                m_TargetArea.otherCurrTarget[GetComponent<AgentBrain>().agentTag] = agent.GetComponent<AgentBrain>().targetSelector;
-
-
-                if (otherAgentTargetSelector != this.targetSelector)
-                {
+                if (targetSelector != prevTarget && targetSelector != currTarget)
+                    //add reward for choosing target not already choosen by other targets
                     AddReward(0.00005f);
-                }
+
+                //obs other agents' previous and current target selection
+                sensor.AddOneHotObservation(m_TargetArea.otherPrevTarget[i], m_TargetArea.numAgents);
+                sensor.AddOneHotObservation(m_TargetArea.otherCurrTarget[i], m_TargetArea.numAgents);
             }
         }
     }
@@ -332,7 +335,7 @@ public class AgentBrain : Agent
                 idx++;
 
                 int otherAgentTargetSelector = agent.GetComponent<AgentBrain>().targetSelector;
-                sensor.AddObservation(otherAgentTargetSelector, numTargets);
+                sensor.AddObservation(otherAgentTargetSelector);
                 
 
                 if(otherAgentTargetSelector != this.targetSelector)

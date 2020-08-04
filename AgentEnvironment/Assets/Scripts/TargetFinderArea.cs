@@ -14,6 +14,9 @@ public class TargetFinderArea : MonoBehaviour
     private int Step = 10;
     private int Total; //this is hard coded :(
 
+    public int[] otherPrevTarget;
+    public int[] otherCurrTarget;
+
     public GameObject agent;
 
     public int score = 0;
