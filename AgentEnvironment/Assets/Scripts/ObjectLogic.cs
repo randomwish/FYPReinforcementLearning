@@ -21,31 +21,17 @@ public class ObjectLogic:MonoBehaviour
         searched = false;
     }
 
-    private void Update()
+    private void OnCollisionExit(Collision other)
     {
         if (!targetSearched)
         {
-            Collider[] hitColliders = Physics.OverlapSphere(transform.position, 5);
-            
-            foreach(Collider other in hitColliders)
+            if (other.gameObject.CompareTag("agent"))
             {
-                if (other.CompareTag("agent"))
-                {
-                    afterSearched();
-                    other.SendMessage("checkTarget", targetID);
-                }
+                afterSearched();
+                other.gameObject.SendMessage("checkTarget", targetID);
             }
         }
-    } 
-
-    /*private void OnCollisionExit(Collision other)
-    {
-        if (other.gameObject.CompareTag("agent"))
-        {
-            afterSearched();
-            other.gameObject.SendMessage("checkTarget", targetID);
-        }
-    }*/
+    }
 
     private void afterSearched()
     {

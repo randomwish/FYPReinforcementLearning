@@ -267,15 +267,6 @@ public class AgentBrain : Agent
 
     }
 
-    void OnCollisionEnter(Collision other)
-    {
-        if(other.transform.CompareTag("target"))
-        {
-            AddReward(-2f);
-        }
-
-    }
-
     void checkTarget(int ID)
     {
         //Destroy(other.gameObject);
@@ -330,7 +321,7 @@ public class AgentBrain : Agent
 
                 if(otherAgentTargetSelector != this.targetSelector)
                 {
-                    AddReward(0.00005f);
+                    AddReward(0.00001f);
                 }
             }
         }
