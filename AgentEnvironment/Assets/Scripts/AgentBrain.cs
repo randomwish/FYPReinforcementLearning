@@ -79,12 +79,21 @@ public class AgentBrain : Agent
         AddReward(-0.0005f);
 
         if (targetSelector != (int)vectorAction[2])
+        {
             AddReward(-0.00001f);
+            m_TargetArea.TargetsList[targetSelector].gameObject.GetComponent<ObjectLogic>().selectedBy = -1;
+        }
+            
 
         //logs targetID agent is intending to search the previous step and the current step to env array
         m_TargetArea.otherPrevTarget[agentTag] = targetSelector;
         targetSelector = (int) vectorAction[2];
         m_TargetArea.otherPrevTarget[agentTag] = targetSelector;
+
+        if(m_TargetArea.TargetsList[targetSelector].gameObject.GetComponent<ObjectLogic>().selectedBy == -1)
+        {
+            m_TargetArea.TargetsList[targetSelector].gameObject.GetComponent<ObjectLogic>().selectedBy = agentTag;
+        }
 
         //Debug.Log("Agent " + agentTag + " is looking at " + targetSelector);
 
@@ -237,20 +246,19 @@ public class AgentBrain : Agent
 
     public void obsAgents(VectorSensor sensor)
     {
-        for (int i = 0; i < m_TargetArea.numAgents; i++)
+        foreach (GameObject agent in m_TargetArea.AgentsList)
         {
-            if (i != agentTag) 
+            if (agent.GetComponent<AgentBrain>().agentTag != agentTag)
             {
-                int prevTarget = m_TargetArea.otherPrevTarget[i];
-                int currTarget = m_TargetArea.otherCurrTarget[i];
+                int otherAgentTargetSelector = agent.GetComponent<AgentBrain>().targetSelector;
+                sensor.AddOneHotObservation(otherAgentTargetSelector, numTargets);
 
-                if (targetSelector != prevTarget && targetSelector != currTarget)
-                    //add reward for choosing target not already choosen by other targets
+                int targetChopeBy = targetList[otherAgentTargetSelector].GetComponent<ObjectLogic>().selectedBy;
+
+                if (otherAgentTargetSelector != this.targetSelector && targetChopeBy == agentTag)
+                {
                     AddReward(0.00005f);
-
-                //obs other agents' previous and current target selection
-                sensor.AddOneHotObservation(m_TargetArea.otherPrevTarget[i], m_TargetArea.numAgents);
-                sensor.AddOneHotObservation(m_TargetArea.otherCurrTarget[i], m_TargetArea.numAgents);
+                }
             }
         }
     }

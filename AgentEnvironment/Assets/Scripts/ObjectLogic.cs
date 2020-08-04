@@ -4,6 +4,7 @@ public class ObjectLogic:MonoBehaviour
 {
     private bool searched;
     public int targetID;
+    public int selectedBy;
 
     public bool targetSearched
     {
@@ -19,6 +20,7 @@ public class ObjectLogic:MonoBehaviour
         m_Material.color = Color.green;
         transform.gameObject.tag = "target";
         searched = false;
+        selectedBy = 0;
     }
 
     private void OnCollisionExit(Collision other)
