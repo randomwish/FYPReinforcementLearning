@@ -194,6 +194,8 @@ public class AgentBrain : Agent
         //sensor.AddObservation(normalizer(m_AgentRb.transform.localPosition.x, -m_TargetArea.range, m_TargetArea.range));
         //sensor.AddObservation(normalizer(m_AgentRb.transform.localPosition.y, -m_TargetArea.range, m_TargetArea.range));
 
+        prepAgentLocations(sensor);
+
         obsTargets(sensor);
     }
 
@@ -222,12 +224,6 @@ public class AgentBrain : Agent
         {
             //obs targetID
             sensor.AddOneHotObservation(tar.GetComponent<ObjectLogic>().targetID, numTargets);
-
-            //obs location
-            /*float locX = tar.transform.position.x;
-            float locZ = tar.transform.position.z;
-            //sensor.AddObservation(normalizer(locX, -m_TargetArea.range, m_TargetArea.range));
-            //sensor.AddObservation(normalizer(locZ, -m_TargetArea.range, m_TargetArea.range));*/
 
             //obs distance
             sensor.AddObservation(normalizer(Vector3.Distance(transform.localPosition, tar.transform.localPosition), 0, hypotenuse));
