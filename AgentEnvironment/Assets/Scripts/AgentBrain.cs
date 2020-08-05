@@ -97,6 +97,24 @@ public class AgentBrain : Agent
             AddReward(0.0005f);
         }
 
+        //bounty for agent which is closest to a given target
+        float shortestDistance = 9999f;
+        int agentIndex = -1; //index of agent which has the shorttest Distance
+        foreach(GameObject agent in m_TargetArea.AgentsList)
+        {
+            float distance = Vector3.Distance(m_TargetArea.TargetsList[targetSelector].transform.localPosition, agent.transform.localPosition);
+            if(distance < shortestDistance)
+            {
+                shortestDistance = distance;
+                agentIndex = agent.GetComponent<AgentBrain>().agentTag;
+            }
+        }
+
+        if(agentIndex == this.agentTag)
+        {
+            AddReward(0.00005f);
+        }
+
         stepTimer++;
     }
 
