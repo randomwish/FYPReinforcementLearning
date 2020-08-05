@@ -265,12 +265,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_BrainParameters:
-    VectorObservationSize: 148
+    VectorObservationSize: 175
     NumStackedVectorObservations: 10
     VectorActionSize: 03000000030000000a000000
     VectorActionDescriptions: []
     VectorActionSpaceType: 0
-  m_Model: {fileID: 5022602860645237092, guid: ef4d0b40dd7eca84eab2143b927da4b4, type: 3}
+  m_Model: {fileID: 5022602860645237092, guid: 3ce8cde7be6620549a034a119eda40d3, type: 3}
   m_InferenceDevice: 0
   m_BehaviorType: 0
   m_BehaviorName: AgentBrain
@@ -920,12 +920,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_BrainParameters:
-    VectorObservationSize: 148
+    VectorObservationSize: 175
     NumStackedVectorObservations: 10
     VectorActionSize: 03000000030000000a000000
     VectorActionDescriptions: []
     VectorActionSpaceType: 0
-  m_Model: {fileID: 5022602860645237092, guid: ef4d0b40dd7eca84eab2143b927da4b4, type: 3}
+  m_Model: {fileID: 5022602860645237092, guid: 3ce8cde7be6620549a034a119eda40d3, type: 3}
   m_InferenceDevice: 0
   m_BehaviorType: 0
   m_BehaviorName: AgentBrain
@@ -1175,12 +1175,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_BrainParameters:
-    VectorObservationSize: 148
+    VectorObservationSize: 175
     NumStackedVectorObservations: 10
     VectorActionSize: 03000000030000000a000000
     VectorActionDescriptions: []
     VectorActionSpaceType: 0
-  m_Model: {fileID: 5022602860645237092, guid: ef4d0b40dd7eca84eab2143b927da4b4, type: 3}
+  m_Model: {fileID: 5022602860645237092, guid: 3ce8cde7be6620549a034a119eda40d3, type: 3}
   m_InferenceDevice: 0
   m_BehaviorType: 0
   m_BehaviorName: AgentBrain
@@ -1396,12 +1396,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_BrainParameters:
-    VectorObservationSize: 148
+    VectorObservationSize: 175
     NumStackedVectorObservations: 10
     VectorActionSize: 03000000030000000a000000
     VectorActionDescriptions: []
     VectorActionSpaceType: 0
-  m_Model: {fileID: 5022602860645237092, guid: ef4d0b40dd7eca84eab2143b927da4b4, type: 3}
+  m_Model: {fileID: 5022602860645237092, guid: 3ce8cde7be6620549a034a119eda40d3, type: 3}
   m_InferenceDevice: 0
   m_BehaviorType: 0
   m_BehaviorName: AgentBrain

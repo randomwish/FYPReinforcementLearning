@@ -68,9 +68,6 @@ public class AgentBrain : Agent
         targetList = generateTargetList();
 
         stepTimer = 0;
-
-        m_TargetArea.otherPrevTarget = new int[m_TargetArea.numAgents];
-        m_TargetArea.otherCurrTarget = new int[m_TargetArea.numAgents];
     }
 
     public override void OnActionReceived(float[] vectorAction)
@@ -86,9 +83,7 @@ public class AgentBrain : Agent
             
 
         //logs targetID agent is intending to search the previous step and the current step to env array
-        m_TargetArea.otherPrevTarget[agentTag] = targetSelector;
         targetSelector = (int) vectorAction[2];
-        m_TargetArea.otherPrevTarget[agentTag] = targetSelector;
 
         if(m_TargetArea.TargetsList[targetSelector].gameObject.GetComponent<ObjectLogic>().selectedBy == -1)
         {
@@ -201,7 +196,7 @@ public class AgentBrain : Agent
         //sensor.AddObservation(normalizer(m_AgentRb.transform.localPosition.x, -m_TargetArea.range, m_TargetArea.range));
         //sensor.AddObservation(normalizer(m_AgentRb.transform.localPosition.y, -m_TargetArea.range, m_TargetArea.range));
 
-        prepAgentLocations(sensor);
+        obsAgents(sensor);
 
         obsTargets(sensor);
     }
@@ -253,7 +248,7 @@ public class AgentBrain : Agent
                 int otherAgentTargetSelector = agent.GetComponent<AgentBrain>().targetSelector;
                 sensor.AddOneHotObservation(otherAgentTargetSelector, numTargets);
 
-                int targetChopeBy = targetList[otherAgentTargetSelector].GetComponent<ObjectLogic>().selectedBy;
+                int targetChopeBy = m_TargetArea.TargetsList[otherAgentTargetSelector].GetComponent<ObjectLogic>().selectedBy;
 
                 if (otherAgentTargetSelector != this.targetSelector && targetChopeBy == agentTag)
                 {
