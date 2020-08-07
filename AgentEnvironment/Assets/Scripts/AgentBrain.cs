@@ -76,26 +76,46 @@ public class AgentBrain : Agent
         AddReward(-0.0005f);
 
         if (targetSelector != (int)vectorAction[2])
+        {
             AddReward(-0.00001f);
+            m_TargetArea.TargetsList[targetSelector].gameObject.GetComponent<ObjectLogic>().selectedBy = -1;
+        }
+            
 
+        //logs targetID agent is intending to search the previous step and the current step to env array
         targetSelector = (int) vectorAction[2];
+
+        if(m_TargetArea.TargetsList[targetSelector].gameObject.GetComponent<ObjectLogic>().selectedBy == -1)
+        {
+            m_TargetArea.TargetsList[targetSelector].gameObject.GetComponent<ObjectLogic>().selectedBy = agentTag;
+        }
 
         //Debug.Log("Agent " + agentTag + " is looking at " + targetSelector);
 
-        if (m_TargetArea.TargetsList[targetSelector].gameObject.GetComponent<ObjectLogic>().targetSearched)
-        {
-            //AddReward(-0.0005f);
-        }
-        else
+        if (!m_TargetArea.TargetsList[targetSelector].gameObject.GetComponent<ObjectLogic>().targetSearched)
         {
             AddReward(0.0005f);
         }
 
+        //bounty for agent which is closest to a given target
+        float shortestDistance = 9999f;
+        int agentIndex = -1; //index of agent which has the shorttest Distance
+        foreach(GameObject agent in m_TargetArea.AgentsList)
+        {
+            float distance = Vector3.Distance(m_TargetArea.TargetsList[targetSelector].transform.localPosition, agent.transform.localPosition);
+            if(distance < shortestDistance)
+            {
+                shortestDistance = distance;
+                agentIndex = agent.GetComponent<AgentBrain>().agentTag;
+            }
+        }
+
+        if(agentIndex == this.agentTag)
+        {
+            AddReward(0.00005f);
+        }
+
         stepTimer++;
-
-        //AddReward(Vector3.Distance(transform.localPosition, m_TargetArea.TargetsList[targetSelector].transform.localPosition) * -0.002f);
-
-
     }
 
     public void MoveAgent(float[] act)
@@ -194,7 +214,7 @@ public class AgentBrain : Agent
         //sensor.AddObservation(normalizer(m_AgentRb.transform.localPosition.x, -m_TargetArea.range, m_TargetArea.range));
         //sensor.AddObservation(normalizer(m_AgentRb.transform.localPosition.y, -m_TargetArea.range, m_TargetArea.range));
 
-        prepAgentLocations(sensor);
+        obsAgents(sensor);
 
         obsTargets(sensor);
     }
@@ -237,6 +257,25 @@ public class AgentBrain : Agent
         }
     }
 
+    public void obsAgents(VectorSensor sensor)
+    {
+        foreach (GameObject agent in m_TargetArea.AgentsList)
+        {
+            if (agent.GetComponent<AgentBrain>().agentTag != agentTag)
+            {
+                int otherAgentTargetSelector = agent.GetComponent<AgentBrain>().targetSelector;
+                sensor.AddOneHotObservation(otherAgentTargetSelector, numTargets);
+
+                int targetChopeBy = m_TargetArea.TargetsList[otherAgentTargetSelector].GetComponent<ObjectLogic>().selectedBy;
+
+                if (otherAgentTargetSelector != this.targetSelector && targetChopeBy == agentTag)
+                {
+                    AddReward(0.00005f);
+                }
+            }
+        }
+    }
+
     public override void Heuristic(float[] actionsOut)
     {
         if (Input.GetKey(KeyCode.S))
@@ -263,15 +302,6 @@ public class AgentBrain : Agent
         else
         {
             actionsOut[0] = 0f;
-        }
-
-    }
-
-    void OnCollisionEnter(Collision other)
-    {
-        if(other.transform.CompareTag("target"))
-        {
-            AddReward(-2f);
         }
 
     }
@@ -327,6 +357,7 @@ public class AgentBrain : Agent
 
                 int otherAgentTargetSelector = agent.GetComponent<AgentBrain>().targetSelector;
                 sensor.AddObservation(otherAgentTargetSelector);
+                
 
                 if(otherAgentTargetSelector != this.targetSelector)
                 {
