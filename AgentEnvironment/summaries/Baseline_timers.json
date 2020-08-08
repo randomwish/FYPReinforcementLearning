@@ -1,0 +1,36 @@
+{
+    "name": "root",
+    "metadata": {
+        "timer_format_version": "0.1.0",
+        "start_time_seconds": "1596895935",
+        "python_version": "3.7.4 (default, Aug  9 2019, 18:34:13) [MSC v.1915 64 bit (AMD64)]",
+        "command_line_arguments": "C:\\Users\\Yen Zhe\\Anaconda3\\Scripts\\mlagents-learn config/trainer_config1.yaml --run-id=Baseline --resume --inference",
+        "mlagents_version": "0.16.0",
+        "mlagents_envs_version": "0.16.0",
+        "communication_protocol_version": "1.0.0",
+        "tensorflow_version": "2.0.1",
+        "end_time_seconds": "1596895953"
+    },
+    "total": 17.807764799999998,
+    "count": 1,
+    "self": 0.5552175999999953,
+    "children": {
+        "run_training.setup": {
+            "total": 0.04134750000000054,
+            "count": 1,
+            "self": 0.04134750000000054
+        },
+        "TrainerController.start_learning": {
+            "total": 17.2111997,
+            "count": 1,
+            "self": 4.753671000000004,
+            "children": {
+                "TrainerController._reset_env": {
+                    "total": 12.457528699999997,
+                    "count": 1,
+                    "self": 12.457528699999997
+                }
+            }
+        }
+    }
+}
