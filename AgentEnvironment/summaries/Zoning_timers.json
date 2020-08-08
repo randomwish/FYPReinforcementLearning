@@ -2,33 +2,33 @@
     "name": "root",
     "metadata": {
         "timer_format_version": "0.1.0",
-        "start_time_seconds": "1596902239",
+        "start_time_seconds": "1596901709",
         "python_version": "3.6.9 (default, Jul 17 2020, 12:50:27) \n[GCC 8.4.0]",
-        "command_line_arguments": "/home/fyp/.local/bin/mlagents-learn config/trainer_config.yaml --run-id=searchAround1 --resume --inference",
+        "command_line_arguments": "/home/fyp/.local/bin/mlagents-learn config/trainer_config.yaml --run-id=Zoning --resume --inference",
         "mlagents_version": "0.16.0",
         "mlagents_envs_version": "0.16.0",
         "communication_protocol_version": "1.0.0",
         "tensorflow_version": "2.0.1",
-        "end_time_seconds": "1596902244"
+        "end_time_seconds": "1596901709"
     },
-    "total": 5.167439116999958,
+    "total": 0.007564087999980984,
     "count": 1,
-    "self": 0.003995963999841479,
+    "self": 0.00033255600010306807,
     "children": {
         "run_training.setup": {
-            "total": 0.003720542999872123,
+            "total": 0.0038941339998928015,
             "count": 1,
-            "self": 0.003720542999872123
+            "self": 0.0038941339998928015
         },
         "TrainerController.start_learning": {
-            "total": 5.1597226100002445,
+            "total": 0.0033373979999851144,
             "count": 1,
-            "self": 1.3011098860001766,
+            "self": 9.105900016947999e-05,
             "children": {
                 "TrainerController._reset_env": {
-                    "total": 3.858612724000068,
+                    "total": 0.0032463389998156345,
                     "count": 1,
-                    "self": 3.858612724000068
+                    "self": 0.0032463389998156345
                 }
             }
         }

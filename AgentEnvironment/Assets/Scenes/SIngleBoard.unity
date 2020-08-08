@@ -220,15 +220,50 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 542237676873834838, guid: d1c41453918c6b34ea60f4c63ea56954,
+        type: 3}
+      propertyPath: m_LocalScale.x
+      value: 25
+      objectReference: {fileID: 0}
+    - target: {fileID: 542237676873834838, guid: d1c41453918c6b34ea60f4c63ea56954,
+        type: 3}
+      propertyPath: m_LocalScale.z
+      value: 25
+      objectReference: {fileID: 0}
     - target: {fileID: 922954566828888202, guid: d1c41453918c6b34ea60f4c63ea56954,
         type: 3}
       propertyPath: m_BrainParameters.VectorActionSpaceType
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 1010268687410042150, guid: d1c41453918c6b34ea60f4c63ea56954,
+        type: 3}
+      propertyPath: m_LocalScale.x
+      value: 250
+      objectReference: {fileID: 0}
     - target: {fileID: 2485875214476012904, guid: d1c41453918c6b34ea60f4c63ea56954,
         type: 3}
       propertyPath: m_Name
       value: Environment
+      objectReference: {fileID: 0}
+    - target: {fileID: 3704807319591901188, guid: d1c41453918c6b34ea60f4c63ea56954,
+        type: 3}
+      propertyPath: m_LocalScale.x
+      value: 250
+      objectReference: {fileID: 0}
+    - target: {fileID: 4346089963072774963, guid: d1c41453918c6b34ea60f4c63ea56954,
+        type: 3}
+      propertyPath: moveSpeed
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 4541183089872099444, guid: d1c41453918c6b34ea60f4c63ea56954,
+        type: 3}
+      propertyPath: moveSpeed
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 4660377070300162663, guid: d1c41453918c6b34ea60f4c63ea56954,
+        type: 3}
+      propertyPath: moveSpeed
+      value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 4903437985004002016, guid: d1c41453918c6b34ea60f4c63ea56954,
         type: 3}
@@ -299,6 +334,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7136976862025981670, guid: d1c41453918c6b34ea60f4c63ea56954,
+        type: 3}
+      propertyPath: moveSpeed
+      value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 7758118323433546181, guid: d1c41453918c6b34ea60f4c63ea56954,
         type: 3}
