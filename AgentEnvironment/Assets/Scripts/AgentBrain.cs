@@ -29,6 +29,7 @@ public class AgentBrain : Agent
     float hypotenuse;
 
     int stepTimer = 0;
+    int stepCount;
 
     int internalScore; //To keep track of agent's own score
 
@@ -54,7 +55,9 @@ public class AgentBrain : Agent
 
         if (m_TargetArea.score >= m_TargetArea.numTargets || oldScore > m_TargetArea.score)
         {
+            Debug.Log("EPISODE COMPLETED. EPISODE LENGTH: " + stepCount);
             EndEpisode();
+            stepCount = 0;
         }
         oldScore = m_TargetArea.score;
     }
@@ -67,11 +70,11 @@ public class AgentBrain : Agent
         respawn();
         targetList = generateTargetList();
 
-        stepTimer = 0;
     }
 
     public override void OnActionReceived(float[] vectorAction)
     {
+        stepCount++;
         MoveAgent(vectorAction);
         AddReward(-0.0005f);
 
@@ -116,6 +119,7 @@ public class AgentBrain : Agent
         }
 
         stepTimer++;
+
     }
 
     public void MoveAgent(float[] act)
@@ -310,7 +314,7 @@ public class AgentBrain : Agent
     {
         //Destroy(other.gameObject);
         m_TargetArea.score += 1;
-        Debug.Log("Add score" + m_TargetArea.score);
+        //Debug.Log("Add score" + m_TargetArea.score);
         if (targetSelector == ID)
             AddReward(10f);
         else
