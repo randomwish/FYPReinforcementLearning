@@ -26,6 +26,7 @@ public class AgentBrain : Agent
     int oldScore = 0;
     float hypotenuse;
 
+    int stepTimer = 0;
     int internalScore; //To keep track of agent's own score
 
     public float turnSpeed = 300;
@@ -51,9 +52,11 @@ public class AgentBrain : Agent
     void Update() {
 
         //        Debug.Log("Current Score is " + count);
+	stepTimer++;
 
         if (m_TargetArea.score >= m_TargetArea.numTargets || oldScore > m_TargetArea.score)
         {
+	    Debug.Log("EPISODE COMPLETED. Episode Length: " + stepTimer);
             EndEpisode();
         }
         oldScore = m_TargetArea.score;
@@ -242,6 +245,7 @@ public class AgentBrain : Agent
 
     void respawn()
     {
+	stepTimer = 0;
         m_AgentRb.velocity = Vector3.zero;
         m_AgentRb.angularVelocity = Vector3.zero;
         gameObject.transform.position = m_TargetArea.GenerateNewPosition();
