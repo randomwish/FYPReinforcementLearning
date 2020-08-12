@@ -23,6 +23,7 @@ public class AgentBrain : Agent
     int oldScore = 0;
 
     int internalScore; //To keep track of agent's own score
+    int stepCount;
 
     public float turnSpeed = 300;
     public float moveSpeed = 2;
@@ -38,6 +39,7 @@ public class AgentBrain : Agent
         //Add Environment Settings
 
         internalScore = 0;
+        stepCount = 0;
         //Add Environment Settings
 
         respawn();
@@ -49,7 +51,13 @@ public class AgentBrain : Agent
 
         if (m_TargetArea.score >= m_TargetArea.numTargets || oldScore > m_TargetArea.score)
         {
+            Debug.Log("EPISODE COMPLETED. EPISODE LENGTH: " + stepCount);
+            stepCount = 0;
             EndEpisode();
+        }
+        if(stepCount > 10000)
+        {
+            Debug.Log("EPISODE FAILED.");
         }
         oldScore = m_TargetArea.score;
     }
@@ -63,6 +71,7 @@ public class AgentBrain : Agent
 
     public override void OnActionReceived(float[] vectorAction)
     {
+        stepCount++;
         MoveAgent(vectorAction);
         AddReward(-0.0005f);
     }
