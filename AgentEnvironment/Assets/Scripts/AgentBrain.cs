@@ -51,7 +51,7 @@ public class AgentBrain : Agent
 
         if (m_TargetArea.score >= m_TargetArea.numTargets || oldScore > m_TargetArea.score)
         {
-            Debug.Log("EPISODE COMPLETED. EPISODE LENGTH: " + stepCount);
+            Debug.Log("EPISODE COMPLETED. EPISODE LENGTH: " + stepCount + ". SCORE: " + oldScore);
             stepCount = 0;
             EndEpisode();
         }
@@ -224,8 +224,8 @@ public class AgentBrain : Agent
     {
         m_AgentRb.velocity = Vector3.zero;
         m_AgentRb.angularVelocity = Vector3.zero;
-        gameObject.transform.position = m_TargetArea.GenerateNewPosition();
-        //gameObject.transform.localPosition = new Vector3(0,0.5f,0);
+        //gameObject.transform.position = m_TargetArea.GenerateNewPosition();
+        gameObject.transform.localPosition = new Vector3(120f,0.5f,120f);
         gameObject.transform.rotation = Quaternion.Euler(0f, UnityEngine.Random.Range(0f, 180f), 0f);
     }
 
