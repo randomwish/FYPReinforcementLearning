@@ -117,7 +117,7 @@ MonoBehaviour:
     VectorActionSize: 03000000030000000a000000
     VectorActionDescriptions: []
     VectorActionSpaceType: 0
-  m_Model: {fileID: 0}
+  m_Model: {fileID: 5022602860645237092, guid: 47d261d18940e65e6aa775cf4ed59ea9, type: 3}
   m_InferenceDevice: 0
   m_BehaviorType: 0
   m_BehaviorName: AgentBrain
@@ -369,7 +369,7 @@ MonoBehaviour:
     type: 3}
   numTargets: 10
   numAgents: 4
-  range: 50
+  range: 125
   rotationStep: 90
   numObstacles: 3
   agent: {fileID: 90187072452442828, guid: ff5a59c4f1d8543429867727fc3082d1, type: 3}
@@ -832,7 +832,7 @@ MonoBehaviour:
     VectorActionSize: 03000000030000000a000000
     VectorActionDescriptions: []
     VectorActionSpaceType: 0
-  m_Model: {fileID: 0}
+  m_Model: {fileID: 5022602860645237092, guid: 47d261d18940e65e6aa775cf4ed59ea9, type: 3}
   m_InferenceDevice: 0
   m_BehaviorType: 0
   m_BehaviorName: AgentBrain
@@ -1180,7 +1180,7 @@ MonoBehaviour:
     VectorActionSize: 03000000030000000a000000
     VectorActionDescriptions: []
     VectorActionSpaceType: 0
-  m_Model: {fileID: 0}
+  m_Model: {fileID: 5022602860645237092, guid: 47d261d18940e65e6aa775cf4ed59ea9, type: 3}
   m_InferenceDevice: 0
   m_BehaviorType: 0
   m_BehaviorName: AgentBrain
@@ -1401,7 +1401,7 @@ MonoBehaviour:
     VectorActionSize: 03000000030000000a000000
     VectorActionDescriptions: []
     VectorActionSpaceType: 0
-  m_Model: {fileID: 0}
+  m_Model: {fileID: 5022602860645237092, guid: 47d261d18940e65e6aa775cf4ed59ea9, type: 3}
   m_InferenceDevice: 0
   m_BehaviorType: 0
   m_BehaviorName: AgentBrain
