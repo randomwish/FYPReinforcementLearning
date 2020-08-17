@@ -414,7 +414,7 @@ MonoBehaviour:
     VectorActionSize: 02000000
     VectorActionDescriptions: []
     VectorActionSpaceType: 1
-  m_Model: {fileID: 5022602860645237092, guid: 75373ac5b2eeaaa43a414e9d8e15acc8, type: 3}
+  m_Model: {fileID: 5022602860645237092, guid: 3995981b94636ceefab8d9bbd9643d52, type: 3}
   m_InferenceDevice: 0
   m_BehaviorType: 0
   m_BehaviorName: AgentBrain
@@ -554,7 +554,7 @@ MonoBehaviour:
     type: 3}
   numTargets: 10
   numAgents: 4
-  range: 50
+  range: 125
   rotationStep: 90
   numObstacles: 3
   agent: {fileID: 90187072452442828, guid: ff5a59c4f1d8543429867727fc3082d1, type: 3}
