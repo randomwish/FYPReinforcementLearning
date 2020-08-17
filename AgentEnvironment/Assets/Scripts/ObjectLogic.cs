@@ -3,11 +3,16 @@ using UnityEngine;
 public class ObjectLogic:MonoBehaviour
 {
     private bool searched;
+    public int targetID;
+    public int selectedBy;
+
+    public GameObject sphereIndicator;
+    Color sphereColor;
 
     public bool targetSearched
     {
         get { return searched; }
-        set { searched = value; }
+        //set { searched = value; }
     }
 
     Material m_Material;
@@ -15,14 +20,28 @@ public class ObjectLogic:MonoBehaviour
     private void Start()
     {
         m_Material = GetComponent<Renderer>().material;
-        m_Material.color = Color.green;
+        sphereIndicator.GetComponent<Renderer>().material.color = Color.green;
+        
         transform.gameObject.tag = "target";
         searched = false;
+        selectedBy = 0;
     }
 
-    private void OnCollisionExit(Collision collision)
+    private void OnCollisionExit(Collision other)
     {
-        m_Material.color = Color.yellow;
+        if (!targetSearched)
+        {
+            if (other.gameObject.CompareTag("agent"))
+            {
+                afterSearched();
+                other.gameObject.SendMessage("checkTarget", targetID);
+            }
+        }
+    }
+
+    private void afterSearched()
+    {
+        sphereIndicator.GetComponent<Renderer>().material.color = Color.yellow;
         transform.gameObject.tag = "searchedTarget";
         searched = true;
     }
