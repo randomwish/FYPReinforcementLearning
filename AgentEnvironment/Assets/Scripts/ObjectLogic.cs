@@ -7,7 +7,7 @@ public class ObjectLogic:MonoBehaviour
     public int selectedBy;
 
     public GameObject sphereIndicator;
-    Color sphereColor;
+   
 
     public bool targetSearched
     {
@@ -20,8 +20,7 @@ public class ObjectLogic:MonoBehaviour
     private void Start()
     {
         m_Material = GetComponent<Renderer>().material;
-        sphereColor = sphereIndicator.GetComponent<Renderer>().material.color;
-        sphereColor = Color.green;
+        sphereIndicator.GetComponent<Renderer>().material.color = Color.green;
         transform.gameObject.tag = "target";
         searched = false;
         selectedBy = 0;
@@ -41,7 +40,7 @@ public class ObjectLogic:MonoBehaviour
 
     private void afterSearched()
     {
-        sphereColor = Color.yellow;
+        sphereIndicator.GetComponent<Renderer>().material.color = Color.yellow;
         transform.gameObject.tag = "searchedTarget";
         searched = true;
     }
