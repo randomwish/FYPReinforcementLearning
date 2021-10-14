@@ -4,6 +4,8 @@ Singapore is heavily reliant on our maritime activities; it is critical that we 
 
 This project uses Unity's ML-Agents package. A realistic environment is created in Unity and agents are trained using Proximal Policy Optimization (PPO). The GIF below demonstrates the training results over time.
 
-https://user-images.githubusercontent.com/40616911/137264071-28a04370-314d-4f6e-8e04-33adf2a6c997.mov
+
+https://user-images.githubusercontent.com/40616911/137264218-a78f859c-2d2d-4b00-b061-4ba6e19add9e.mov
+
 
 For more details, do read our report.
